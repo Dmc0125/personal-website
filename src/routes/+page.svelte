@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { currentTranslations } from '$lib/i18n/translator';
 </script>
 
-<h1>Hello, my name is Dominik Michal</h1>
+<h1>{$currentTranslations.title}, {$currentTranslations.welcome}</h1>
