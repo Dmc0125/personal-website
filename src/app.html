@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="w-full min-h-screen">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover">
+	<script>
+		const colorMode = localStorage.getItem('color-mode');
+		const html = document.querySelector('html')
+
+		if (colorMode == 'dark') {
+			html.classList.add('dark');
+		}
+	</script>
+	<body data-sveltekit-preload-data="hover" class="w-full min-h-screen bg-slate-200 dark:bg-slate-500">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>

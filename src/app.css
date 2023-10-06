@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    src: url("/RedHatDisplay-VariableFont_wght.ttf");
+    font-weight: 100 1000;
+    font-family: 'RedHatDisplay';
+}
+
+html, body {
+    scroll-behavior: smooth;
+}
+
+* {
+    font-family: 'RedHatDisplay';
+}
+
