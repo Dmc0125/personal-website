@@ -67,3 +67,7 @@
 </section>
 
 <ContactMe />
+
+<footer class="w-full mt-8 py-4 text-center font-medium text-sm text-slate-600">
+	&#169; 2023 Dominik Michal
+</footer>
