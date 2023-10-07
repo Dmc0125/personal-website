@@ -4,6 +4,8 @@ export type LocaleTranslations = {
 	landingBody: string;
 	landingExplore: string;
 
+	projectsTitle: string;
+
 	fundingArbitrageTitle: string;
 	fundingArbitrageBody: string;
 
@@ -14,6 +16,10 @@ export type LocaleTranslations = {
 	meteoraBody: string;
 
 	sveegyBody: string;
+
+	contactMeTitle: string;
+	contactMeName: string;
+	contactMeMessage: string;
 };
 export type Translations = Map<Locale, LocaleTranslations>;
 
@@ -23,6 +29,8 @@ translations.set('en', {
 	landingBody:
 		"I'm a hobbyist software engineer living in Slovakia with over four years of experience.",
 	landingExplore: 'Explore my projects',
+
+	projectsTitle: 'My projects',
 
 	fundingArbitrageTitle: 'Funding Arbitrage Bot',
 	fundingArbitrageBody: `
@@ -52,6 +60,10 @@ translations.set('en', {
 		without the need of installing anything. Just
 		copy the svg code and paste it into your project.
 	`,
+
+	contactMeTitle: 'Contact me',
+	contactMeName: 'Name',
+	contactMeMessage: 'Message',
 });
 
 translations.set('sk', {
@@ -59,6 +71,8 @@ translations.set('sk', {
 	landingBody:
 		'Som softfvérový programátor žijúci na Slovensku, programovanie je moje hobby posledné štyry roky.',
 	landingExplore: 'Moje projekty',
+
+	projectsTitle: 'Moje projekty',
 
 	fundingArbitrageTitle: 'Funding Arbitráž Bot',
 	fundingArbitrageBody: `
@@ -88,4 +102,8 @@ translations.set('sk', {
 		bez nutnosti čokoľvek inštalovať. Len
 		skopírujete svg kód a vložíte ho do svojho projektu.
 	`,
+
+	contactMeTitle: 'Kotaktujte ma',
+	contactMeName: 'Meno',
+	contactMeMessage: 'Správa',
 });
