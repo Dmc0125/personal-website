@@ -28,13 +28,13 @@ export const projects: Readable<ProjectContent[]> = derived(
 				repository: `https://github.com/${projectsRepos[0]}`,
 			},
 			{
-				title: $currentTranslations.anchorClientGenTitle,
+				title: 'Anchor-client-gen',
 				body: $currentTranslations.anchorClientGenBody,
 				tools: ['Rust', 'Anchor'],
 				repository: `https://github.com/${projectsRepos[1]}`,
 			},
 			{
-				title: $currentTranslations.meteoraTitle,
+				title: 'Meteora Autocompounder',
 				body: $currentTranslations.meteoraBody,
 				tools: ['Typescript', 'Nodejs'],
 				repository: `https://github.com/${projectsRepos[2]}`,

@@ -25,37 +25,94 @@
 
 <section
 	id="landing"
-	class="w-full px-4 md:px-0 md:w-1/3 mx-auto h-screen flex align-middle justify-center flex-col"
+	class="py-32 px-4 sm:px-0 sm:grid gap-x-8 xl:gap-x-32 grid-cols-2 w-full xl:max-w-[1200px] sm:w-[600px] xl:w-full mx-auto"
 >
-	<h1 class="text-3xl font-semibold text-center text-gray-950">
-		{$currentTranslations.landingTitle}
-	</h1>
-	<p class="text-xl font-normal mt-4 max-w-xl text-center text-gray-900">
-		{$currentTranslations.landingBody}
-	</p>
-	<a
-		href="#projects"
-		class="w-60 h-12 mt-6 mx-auto px-4 flex items-center justify-center gap-x-2 bg-blue-600 text-slate-300 rounded-md"
-	>
-		{$currentTranslations.landingExplore}
-		<span class="h-fit">
-			<svg class="w-7 h-7 stroke-current" viewBox="0 0 24 24" fill="none">
-				<path
-					stroke-width=".95"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke="currentColor"
-					d="M12 4.5L12 19.5M12 19.5L18.5 13M12 19.5L5.5 13"
-				/>
-			</svg>
-		</span>
-	</a>
+	<div class="relative">
+		<div class="sticky top-12 h-fit">
+			<h1 class="text-2xl font-semibold text-slate-950">
+				{$currentTranslations.landingTitle}
+			</h1>
+			<p class="text-lg mt-4 max-w-xl text-slate-800">
+				{$currentTranslations.landingBody}
+			</p>
+
+			<div class="mt-4 text-slate-800 flex items-center gap-x-4">
+				<a
+					href="https://github.com/dmc0125"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="w-8 h-8"
+				>
+					<svg
+						class="h-full aspect-square"
+						viewBox="0 0 40 40"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+						><path
+							d="M20 5C11.7163 5 5 11.5035 5 19.5248C5 25.9432 9.2975 31.3865 15.2585 33.3067C16.0083 33.4397 16.2821 32.9911 16.2821 32.6081C16.2821 32.2623 16.2683 31.117 16.261 29.9042C12.0898 30.7819 11.2082 28.1914 11.2082 28.1914C10.5252 26.5141 9.54283 26.0673 9.54283 26.0673C8.17962 25.1666 9.64625 25.1844 9.64625 25.1844C11.1523 25.2854 11.9452 26.6808 11.9452 26.6808C13.2837 28.9007 15.4571 28.2588 16.3104 27.8865C16.4468 26.9503 16.8349 26.3085 17.2626 25.9468C13.9328 25.5798 10.43 24.3333 10.43 18.7677C10.43 17.1808 11.015 15.8865 11.9727 14.8697C11.8198 14.5009 11.3034 13.023 12.121 11.0239C12.121 11.0239 13.3789 10.6339 16.2463 12.5133C17.442 12.1897 18.7246 12.0301 20 12.0248C21.2744 12.0301 22.5579 12.1915 23.7555 12.5151C26.6174 10.6339 27.8772 11.0257 27.8772 11.0257C28.6975 13.0266 28.1812 14.5026 28.0273 14.8697C28.9886 15.8865 29.5691 17.1808 29.5691 18.7677C29.5691 24.3475 26.0608 25.5762 22.7191 25.9361C23.2593 26.3865 23.7372 27.2695 23.7372 28.6241C23.7372 30.5656 23.717 32.1312 23.717 32.6099C23.717 32.9964 23.9899 33.4485 24.7498 33.3067C30.7062 31.3829 35 25.9397 35 19.5248C35 11.5035 28.2837 5 20 5Z"
+							fill="currentColor"
+						/></svg
+					>
+				</a>
+				<a href="mailto:dominikmichal0124@gmail.com">
+					<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke="currentColor"
+							d="M4.5 8.5V7.5C4.5 6.94772 4.94772 6.5 5.5 6.5H18.5C19.0523 6.5 19.5 6.94772 19.5 7.5V8.5M4.5 8.5V16.5C4.5 17.0523 4.94772 17.5 5.5 17.5H18.5C19.0523 17.5 19.5 17.0523 19.5 16.5V8.5M4.5 8.5L12 13L19.5 8.5"
+						/>
+					</svg>
+				</a>
+				<a
+					href="/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex items-center gap-x-2 github-url"
+				>
+					{$currentTranslations.landingViewCV}
+					<svg class="w-5 h-5 transition-all" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke="currentColor"
+							d="M4.5 12L19.5 12M19.5 12L13 5.5M19.5 12L13 18.5"
+						/>
+					</svg>
+				</a>
+			</div>
+			<a
+				href="#projects"
+				class="mt-4 w-fit px-4 py-2 bg-green-400 rounded-md flex items-center justify-center gap-x-2 font-medium"
+			>
+				{$currentTranslations.landingExplore}
+				<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke="currentColor"
+						d="M12 4.5L12 19.5M12 19.5L18.5 13M12 19.5L5.5 13"
+					/>
+				</svg>
+			</a>
+		</div>
+	</div>
+
+	<div class="mt-16 mb-8 sm:m-0">
+		<h1 class="text-xl xl:text-2xl font-semibold mb-4 text-gray-950">
+			{$currentTranslations.aboutMeTitle}
+		</h1>
+
+		<div class="flex flex-col gap-4 text-slate-700">
+			{@html $currentTranslations.aboutMeBody}
+		</div>
+	</div>
 </section>
 
 <section
 	id="projects"
 	class="
-		w-full xl:max-w-[1200px] sm:w-[600px] xl:w-full mx-auto px-4 sm:px-0 grid
+		w-full xl:max-w-[1200px] sm:w-[600px] xl:w-full mx-auto sm:mt-12 px-4 sm:px-0 grid
 		gap-10 xl:grid-cols-[repeat(2,1fr)] xl:grid-rows-[repeat(auto-fill,min-content)] xl:gap-y-24
 	"
 >

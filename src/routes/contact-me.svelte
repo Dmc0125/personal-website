@@ -90,7 +90,7 @@
 	</div>
 {/if}
 
-<section id="contact" class="mt-32 px-4 sm:px-0 sm:w-[600px] xl:w-1/2 sm:mx-auto">
+<section id="contact" class="mt-32 xl:mt-48 px-4 sm:px-0 sm:w-[600px] xl:w-1/2 sm:mx-auto">
 	<h1 class="text-2xl xl:text-3xl font-semibold text-gray-950">
 		{$currentTranslations.contactMeTitle}
 	</h1>

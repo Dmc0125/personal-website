@@ -3,18 +3,18 @@ export type LocaleTranslations = {
 	landingTitle: string;
 	landingBody: string;
 	landingExplore: string;
+	landingViewCV: string;
+
+	aboutMeTitle: string;
+	aboutMeBody: string;
 
 	projectsTitle: string;
 
 	fundingArbitrageTitle: string;
 	fundingArbitrageBody: string;
 
-	anchorClientGenTitle: string;
 	anchorClientGenBody: string;
-
-	meteoraTitle: string;
 	meteoraBody: string;
-
 	sveegyBody: string;
 
 	contactMeTitle: string;
@@ -33,6 +33,32 @@ translations.set('en', {
 	landingBody:
 		"I'm a hobbyist software engineer living in Slovakia with over four years of experience.",
 	landingExplore: 'Explore my projects',
+	landingViewCV: 'View CV',
+
+	aboutMeTitle: 'About me',
+	aboutMeBody: `
+		<p>
+			My journey into programming began in 2018 during high school.
+			Initially, I wasn't very interested as we were working on basic websites
+			with minimal HTML and CSS using Notepad as our code editor.
+		</p>
+		<p>
+			However, things changed when we had a project to create a website about something we liked.
+			I discovered my passion for coding when I used proper tools, learned HTML and CSS,
+			and created my first website for the assignment. That's when I realized my talent for it.
+		</p>
+		<p>
+			I started learning, starting with HTML and CSS, then delving into JavaScript, Typescript,
+			and exploring frameworks like VueJS and Svelte. I eventually built my first project, a snake game.
+			Later, I got intrigued by blockchain technology, especially Solana. To automate tasks,
+			I began creating bots using Node.js initially, but then I learned Rust for Solana development.
+			After a few weeks, I successfully deployed a simple program and now focus on building a bot using this technology.
+		</p>
+		<p>
+			I'm passionate about expanding my skills and exploring the possibilities of technology.
+			I'm always eager to take on new challenges.
+		</p>
+	`,
 
 	projectsTitle: 'My projects',
 
@@ -42,7 +68,6 @@ translations.set('en', {
 		on two derivatives futures markets - Mango Markets and Drift.
 	`,
 
-	anchorClientGenTitle: 'Anchor-client-gen',
 	anchorClientGenBody: `
 		Rust tool for generating
 		SDK packages from Anchor IDL. This project
@@ -50,7 +75,6 @@ translations.set('en', {
 		but supports more recent versions and features of Anchor.
 	`,
 
-	meteoraTitle: 'Meteora Autocompounder',
 	meteoraBody: `
 		A bot that automatically collects rewards earned from providing liquidity to
 		Meteora pools based on specified time interval. All the collected rewards are
@@ -90,6 +114,31 @@ translations.set('sk', {
 	landingBody:
 		'Som softfvérový programátor žijúci na Slovensku, programovanie je moje hobby posledné štyry roky.',
 	landingExplore: 'Moje projekty',
+	landingViewCV: 'Pozrieť CV',
+
+	aboutMeTitle: 'O mne',
+	aboutMeBody: `
+		<p>
+			Moja cesta k programovaniu sa začala v roku 2018 počas strednej školy.
+			Spočiatku ma to veľmi nezaujímalo, pretože sme pracovali na základných webových stránkach
+			s minimálnym používaním HTML a CSS a ako editor sme používali Notepad.
+		</p>
+		<p>
+			Veci sa však zmenili, keď sme dostali vytvoriť webovú stránku o niečom, čo máme radi.
+			Pri používaní správnych nástrojov som zistil, že programovanie ma baví, naučil som sa HTML a CSS,
+			a vytvoril som svoju prvú webovú stránku pre túto úlohu..
+		</p>
+		<p>
+			Začal som sa učiť, spočiatku HTML a CSS, potom som sa ponoril do JavaScriptu, Typescriptu a do frameworkov
+			ako VueJS a Svelte. Nakoniec som vytvoril svoj prvý projekt, hru hada. Neskôr ma zaujala technológia blockchain,
+			najmä Solana. Aby som automatizoval úlohy, začal som spočiatku vytvárať botov pomocou Node.js, ale kvôli tomu, že
+			Solana používa Rust na vytváranie programov, začal som sa učiť Rust. Po niekoľkých týždňoch som úspešne vytvoril
+			jednoduchý program a momentálne pracujem na vytvorení bota, ktorý využíva tento program.
+		</p>
+		<p>
+			Baví ma rozširovať svoje zručnosti a objavovať možnosti technológií. Vždy sa teším na nové výzvy.
+		</p>
+	`,
 
 	projectsTitle: 'Moje projekty',
 
@@ -99,14 +148,12 @@ translations.set('sk', {
 		burzách - Mango Markets a Drift.
 	`,
 
-	anchorClientGenTitle: 'Anchor-client-gen',
 	anchorClientGenBody: `
 		Nástroj na generovanie SDK balíkov pomocou Anchor IDL.
 		Tento projekt bol značne inšpirovaný existujúcim nástrojom anchor-gen,
 		ale podporuje novšie verzie Anchor.
 	`,
 
-	meteoraTitle: 'Meteora Autocompounder',
 	meteoraBody: `
 		Meteora Autocompounder je bot, ktorý
 		sa pripája k blockchainu Solana, konkrétne Meteora
