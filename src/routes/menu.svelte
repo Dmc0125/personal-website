@@ -43,7 +43,7 @@
 </button>
 
 <header
-	class="fixed right-4 top-4 flex align-middle justify-center h-12 p-1 pr-14 pl-2 gap-x-2 z-10 rounded-md bg-slate-300 transition-all delay-150 {showMenu
+	class="fixed right-4 top-4 flex align-middle justify-center h-12 p-1 pr-14 pl-2 gap-x-2 z-10 rounded-md bg-slate-300 transition-all {showMenu
 		? 'opacity-100'
 		: 'opacity-0 pointer-events-none'}"
 >

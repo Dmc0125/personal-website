@@ -21,6 +21,25 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Dominik Michal</title>
+	<meta
+		name="description"
+		content="Dominik Michal is a hobbyist software engineer living in Slovakia with over four years of experience."
+	/>
+	<meta name="image" content="" />
+	<meta name="og:title" content="Dominik Michal" />
+	<meta name="og:site_name" content="Dominik Michal" />
+	<meta name="og:type" content="website" />
+	<meta name="og:url" content="" />
+	<meta name="og:image" content="" />
+	<meta name="theme-color" content="" />
+	<meta
+		name="og:description"
+		content="Dominik Michal is a hobbyist software engineer living in Slovakia with over four years of experience."
+	/>
+</svelte:head>
+
 <Menu />
 
 <section
@@ -29,14 +48,14 @@
 >
 	<div class="relative">
 		<div class="sticky top-12 h-fit">
-			<h1 class="text-2xl font-semibold text-slate-950">
+			<h1 class="text-3xl font-semibold text-slate-950 dark:text-slate-100">
 				{$currentTranslations.landingTitle}
 			</h1>
-			<p class="text-lg mt-4 max-w-xl text-slate-800">
+			<p class="text-lg mt-4 max-w-xl text-slate-800 dark:text-slate-300">
 				{$currentTranslations.landingBody}
 			</p>
 
-			<div class="mt-4 text-slate-800 flex items-center gap-x-4">
+			<div class="mt-4 text-slate-800 dark:text-slate-300 flex items-center gap-x-4">
 				<a
 					href="https://github.com/dmc0125"
 					target="_blank"
@@ -68,7 +87,7 @@
 					href="/"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="flex items-center gap-x-2 github-url"
+					class="flex items-center gap-x-2 url-new-page"
 				>
 					{$currentTranslations.landingViewCV}
 					<svg class="w-5 h-5 transition-all" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
@@ -83,7 +102,7 @@
 			</div>
 			<a
 				href="#projects"
-				class="mt-4 w-fit px-4 py-2 bg-green-400 rounded-md flex items-center justify-center gap-x-2 font-medium"
+				class="mt-4 w-fit px-4 py-2 bg-sky-300 rounded-md flex items-center justify-center gap-x-2 font-medium text-slate-800"
 			>
 				{$currentTranslations.landingExplore}
 				<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
@@ -99,11 +118,11 @@
 	</div>
 
 	<div class="mt-16 mb-8 sm:m-0">
-		<h1 class="text-xl xl:text-2xl font-semibold mb-4 text-gray-950">
+		<h1 class="text-xl xl:text-2xl font-semibold mb-4 text-gray-950 dark:text-slate-200">
 			{$currentTranslations.aboutMeTitle}
 		</h1>
 
-		<div class="flex flex-col gap-4 text-slate-700">
+		<div class="flex flex-col gap-4 text-slate-700 dark:text-slate-300">
 			{@html $currentTranslations.aboutMeBody}
 		</div>
 	</div>
@@ -116,7 +135,9 @@
 		gap-10 xl:grid-cols-[repeat(2,1fr)] xl:grid-rows-[repeat(auto-fill,min-content)] xl:gap-y-24
 	"
 >
-	<h1 class="text-2xl xl:text-3xl font-semibold mb-8 xl:mb-0 text-gray-950 xl:col-[1/3]">
+	<h1
+		class="text-2xl xl:text-3xl font-semibold mb-8 xl:mb-0 text-gray-950 dark:text-slate-200 xl:col-[1/3]"
+	>
 		{$currentTranslations.projectsTitle}
 	</h1>
 
@@ -136,7 +157,7 @@
 <ContactMe />
 
 <footer class="w-full mt-32 py-4 text-center font-medium text-sm text-slate-600">
-	&#169; 2023 Dominik Michal
+	&#169; 2023 Dominik Michal &bull; Built with TailwindCSS and SvelteKit
 </footer>
 
 <style lang="postcss">
@@ -144,27 +165,55 @@
 		@apply bg-red-400/30 text-red-600;
 	}
 
+	:global(.dark .svelte) {
+		@apply bg-red-600/70 text-red-300;
+	}
+
 	:global(.sveltekit) {
 		@apply bg-red-400/30 text-red-600;
 	}
 
+	:global(.dark .sveltekit) {
+		@apply bg-red-600/70 text-red-300;
+	}
+
 	:global(.rust) {
-		@apply bg-amber-700/30 text-amber-900;
+		@apply bg-amber-800/30 text-amber-700;
+	}
+
+	:global(.dark .rust) {
+		@apply bg-amber-700/70 text-amber-300;
 	}
 
 	:global(.anchor) {
 		@apply bg-sky-600/30 text-sky-800;
 	}
 
+	:global(.dark .anchor) {
+		@apply bg-sky-600/70 text-sky-300;
+	}
+
 	:global(.typescript) {
-		@apply bg-blue-400/50 text-blue-700;
+		@apply bg-blue-400/50 text-blue-600;
+	}
+
+	:global(.dark .typescript) {
+		@apply bg-blue-600/60 text-blue-300;
 	}
 
 	:global(.nodejs) {
 		@apply bg-green-600/30 text-green-700;
 	}
 
+	:global(.dark .nodejs) {
+		@apply bg-green-400/30 text-green-300;
+	}
+
 	:global(.solana) {
 		@apply bg-gradient-to-r from-indigo-800/30 to-green-500/30 text-indigo-800;
+	}
+
+	:global(.dark .solana) {
+		@apply bg-gradient-to-r from-indigo-400/60 to-green-300/60 text-indigo-950;
 	}
 </style>

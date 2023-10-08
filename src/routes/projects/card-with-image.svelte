@@ -10,16 +10,22 @@
 	export let url: string;
 </script>
 
-<section
+<a
+	href={url}
+	target="_blank"
+	rel="noopener noreferrer"
 	class="
-        grid bg-slate-300 p-4 sm:px-12 sm:py-8 rounded-md
-        min-[500px]:grid-cols-2 gap-y-4 gap-x-6
-    	xl:grid-rows-[min-content_min-content_min-content]
+		grid min-[500px]:grid-cols-2 gap-y-4 gap-x-6 p-4 sm:px-12 sm:py-8 rounded-md
+    	xl:grid-rows-[min-content_min-content_min-content] hover:shadow-sm shadow-none transition-all
+		bg-slate-300 dark:bg-gray-900
+		ring-2 ring-slate-200 hover:ring-sky-400 ring-offset-4 ring-offset-slate-200
+		dark:ring-offset-gray-800 dark:ring-gray-800 dark:hover:ring-sky-400
+		focus:ring-sky-400 dark:focus:ring-sky-400
     "
 >
 	<header class="min-[500px]:col-[1/3] flex items-center justify-between top-0 w-full h-fit">
 		<div>
-			<h2 class="font-medium text-lg text-slate-800">
+			<h2 class="font-medium text-lg text-slate-800 dark:text-slate-200">
 				{title}
 			</h2>
 			{#if lastCommit}
@@ -32,9 +38,14 @@
 			{/if}
 		</div>
 
-		<a href={repository} class="github-url ml-auto" target="_blank" rel="noopener noreferrer">
+		<a
+			href={repository}
+			class="url-new-page ml-auto hover:text-sky-500 dark:hover:text-sky-300 text-gray-600 dark:text-slate-500"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
 			<img class="w-7 h-7 sm:hidden" src="/github-mark.png" alt="Funding arbitrage repository" />
-			<p class="ml-auto hidden sm:flex items-center gap-x-2">
+			<p class="ml-auto hidden sm:flex items-center gap-x-2 font-medium transition-all">
 				Github
 				<svg class="w-5 h-5 transition-all" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
 					<path
@@ -48,7 +59,12 @@
 		</a>
 	</header>
 
-	<a
+	<div
+		style="background-image: url({imageUrl});"
+		class="w-full aspect-video rounded-md shadow-md bg-cover bg-center"
+	/>
+
+	<!-- <a
 		href={url}
 		target="_blank"
 		rel="noopener noreferrer"
@@ -59,10 +75,9 @@
         "
 	>
 		<span class="hidden">Sveegy</span>
-		<!-- <img src={imageUrl} alt="Sveegy" class="h-full aspect-video" /> -->
-	</a>
+	</a> -->
 
-	<p class="text-gray-700">
+	<p class="text-gray-700 dark:text-slate-400">
 		{body}
 	</p>
 
@@ -71,4 +86,4 @@
 			<span class="{tool.toLowerCase()} px-3 py-1 rounded-full font-medium text-sm">{tool}</span>
 		{/each}
 	</div>
-</section>
+</a>

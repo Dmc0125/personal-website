@@ -51,7 +51,7 @@
 			notification.isErr = false;
 
 			setTimeout(() => {
-				notification.show;
+				notification.show = false;
 			}, 5000);
 		} catch (e) {
 			console.log(e);
@@ -91,18 +91,22 @@
 {/if}
 
 <section id="contact" class="mt-32 xl:mt-48 px-4 sm:px-0 sm:w-[600px] xl:w-1/2 sm:mx-auto">
-	<h1 class="text-2xl xl:text-3xl font-semibold text-gray-950">
+	<h1 class="text-2xl xl:text-3xl font-semibold text-gray-950 dark:text-slate-200">
 		{$currentTranslations.contactMeTitle}
 	</h1>
 
 	<form
-		class="mt-8 grid grid-rows-[repeat(4,min-content)] md:grid-rows-[repeat(3,min-content)] md:grid-cols-2 gap-4 md:gap-6"
+		class="
+			mt-8 grid grid-rows-[repeat(4,min-content)] md:grid-rows-[repeat(3,min-content)] md:grid-cols-2 gap-4 md:gap-6
+			text-slate-800 dark:text-slate-300
+			[&_span]:text-slate-500 [&_span]:font-medium
+		"
 		on:submit|preventDefault={() => sendEmail()}
 	>
-		<label for="name" class="w-full h-fit relative group-empty:bg-red-600">
+		<label for="name" class="w-full h-fit relative">
 			<span
 				class="
-					absolute left-4 top-1/2 -translate-y-1/2 text-slate-700 transition-all pointer-events-none
+					absolute left-4 top-1/2 -translate-y-1/2 transition-all pointer-events-none
 				"
 				class:active={inputsValues.name.length}>{$currentTranslations.contactMeName}</span
 			>
@@ -111,7 +115,7 @@
 				name="name"
 				id="name"
 				type="text"
-				class="w-full h-12 rounded-md px-4"
+				class="w-full h-12 rounded-md px-4 bg-white dark:bg-slate-900"
 				required
 				minlength="2"
 			/>
@@ -127,7 +131,7 @@
 				name="email"
 				id="email"
 				type="email"
-				class="w-full h-12 rounded-md px-4"
+				class="w-full h-12 rounded-md px-4 bg-white dark:bg-slate-900"
 				required
 			/>
 		</label>
@@ -142,7 +146,7 @@
 				name="message"
 				id="message"
 				rows="5"
-				class="w-full min-h-[10rem] p-4 rounded-md"
+				class="w-full min-h-[10rem] p-4 rounded-md bg-white dark:bg-slate-900"
 				required
 				minlength="2"
 				maxlength="5000"
@@ -151,15 +155,15 @@
 
 		<button
 			class="
-				w-full rounded-md h-10 flex items-center justify-center gap-x-2 bg-slate-600 text-slate-300
-				sm:w-fit sm:px-8
+				w-full rounded-md h-10 flex items-center justify-center gap-x-2 bg-sky-300
+				sm:w-fit sm:px-8 text-slate-800 font-medium
 			"
 			type="submit"
 			disabled={sending}
 		>
 			{$currentTranslations.contactMeSend}
 			{#if sending == false}
-				<svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke-width="0.9">
+				<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -169,7 +173,7 @@
 				</svg>
 			{:else if sending == true}
 				<div
-					class="w-6 h-6 p-1 rounded-full border-slate-200 border-b-transparent border-2 animate-spin"
+					class="w-4 h-4 p-1 rounded-full border-slate-800 border-b-transparent border-2 animate-spin"
 				/>
 			{/if}
 		</button>

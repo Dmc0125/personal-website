@@ -56,15 +56,15 @@ translations.set('en', {
 			with minimal HTML and CSS using Notepad as our code editor.
 		</p>
 		<p>
-			However, things changed when we had a project to create a website about something we liked.
+			However, things changed when we had a project assigned to create a website about something we liked.
 			I discovered my passion for coding when I used proper tools, learned HTML and CSS,
-			and created my first website for the assignment. That's when I realized my talent for it.
+			and created my first website for the assignment. That's when I realized I had a knack for it.
 		</p>
 		<p>
 			I started learning, starting with HTML and CSS, then delving into JavaScript, Typescript,
 			and exploring frameworks like VueJS and Svelte. I eventually built my first project, a snake game.
-			Later, I got intrigued by blockchain technology, especially Solana. To automate tasks,
-			I began creating bots using Node.js initially, but then I learned Rust for Solana development.
+			Later, I got intrigued by blockchain technology, especially Solana. To automate tasks I was doing with blockchains,
+			I began working on bots using Node.js initially, but later I started learning Rust for Solana development.
 			After a few weeks, I successfully deployed a simple program and now focus on building a bot using this technology.
 		</p>
 		<p>
@@ -95,7 +95,7 @@ translations.set('en', {
 	`,
 
 	sveegyBody: `
-		Sveegy is a set of open-source svg icons set
+		Sveegy is a set of open-source svg icons
 		with MIT license. Icons are usable immediately
 		without the need of installing anything.
 	`,
@@ -144,8 +144,8 @@ translations.set('sk', {
 		<p>
 			Začal som sa učiť, spočiatku HTML a CSS, potom som sa ponoril do JavaScriptu, Typescriptu a do frameworkov
 			ako VueJS a Svelte. Nakoniec som vytvoril svoj prvý projekt, hru hada. Neskôr ma zaujala technológia blockchain,
-			najmä Solana. Aby som automatizoval úlohy, začal som spočiatku vytvárať botov pomocou Node.js, ale kvôli tomu, že
-			Solana používa Rust na vytváranie programov, začal som sa učiť Rust. Po niekoľkých týždňoch som úspešne vytvoril
+			najmä Solana. Aby som automatizoval úlohy, začal som pracovať na botoch spočiatku pomocou Node.js, ale kvôli tomu, že
+			Solana používa Rust na vytváranie programov som sa začal učiť Rust. Po niekoľkých týždňoch som úspešne vytvoril
 			jednoduchý program a momentálne pracujem na vytvorení bota, ktorý využíva tento program.
 		</p>
 		<p>
