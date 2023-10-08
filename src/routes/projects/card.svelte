@@ -43,7 +43,7 @@
 	</header>
 
 	<p class="text-gray-700">
-		{body}
+		{@html body}
 	</p>
 
 	<div class="flex gap-x-2 items-center text-slate-600 border-separate">
@@ -56,5 +56,25 @@
 <style>
 	:global(.github-url:hover svg, .github-url:focus svg) {
 		transform: rotate(-45deg);
+	}
+
+	:global(.url) {
+		@apply underline decoration-dotted transition-all;
+	}
+
+	:global(.mango-markets:hover) {
+		@apply text-orange-400;
+	}
+
+	:global(.drift:hover) {
+		@apply text-purple-600;
+	}
+
+	:global(.anchor-url:hover) {
+		@apply text-blue-500;
+	}
+
+	:global(.meteora:hover) {
+		@apply text-amber-600;
 	}
 </style>

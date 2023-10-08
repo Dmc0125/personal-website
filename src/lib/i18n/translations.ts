@@ -27,6 +27,19 @@ export type LocaleTranslations = {
 };
 export type Translations = Map<Locale, LocaleTranslations>;
 
+const createAnchorTag = (body: string, className: string, url: string) => {
+	return `
+		<a href="${url}" class="${className} url" target="_blank" rel="noopener noreferrer">
+			${body}
+		</a>
+	`;
+};
+
+const mangoMarketsTag = createAnchorTag('Mango Markets', 'mango-markets', 'https://mango.markets/');
+const driftTag = createAnchorTag('Drift', 'drift', 'https://www.drift.trade/#');
+const anchorTag = createAnchorTag('Anchor', 'anchor-url', 'https://www.anchor-lang.com/');
+const meteoraTag = createAnchorTag('Meteora', 'meteora', 'https://www.meteora.ag/');
+
 export const translations: Translations = new Map();
 translations.set('en', {
 	landingTitle: 'Hello, my name is Dominik',
@@ -65,19 +78,19 @@ translations.set('en', {
 	fundingArbitrageTitle: 'Funding Arbitrage Bot',
 	fundingArbitrageBody: `
 		I'm currently working on this project, an arbitrage bot that captures differences between funding rates
-		on two derivatives futures markets - Mango Markets and Drift.
+		on two derivatives futures markets - ${mangoMarketsTag} and ${driftTag}.
 	`,
 
 	anchorClientGenBody: `
 		Rust tool for generating
-		SDK packages from Anchor IDL. This project
+		SDK packages from ${anchorTag} IDL. This project
 		was largely inspired by existing anchor-gen tool,
 		but supports more recent versions and features of Anchor.
 	`,
 
 	meteoraBody: `
 		A bot that automatically collects rewards earned from providing liquidity to
-		Meteora pools based on specified time interval. All the collected rewards are
+		${meteoraTag} pools based on specified time interval. All the collected rewards are
 		then reinvested again to the pool.
 	`,
 
@@ -145,18 +158,18 @@ translations.set('sk', {
 	fundingArbitrageTitle: 'Funding Arbitráž Bot',
 	fundingArbitrageBody: `
 		Na tomto projekte práve pracujem, arbitráž bot, ktorý zachytáva rozdiely medzi mierami na dvoch derivátových futures
-		burzách - Mango Markets a Drift.
+		burzách - ${mangoMarketsTag} a ${driftTag}.
 	`,
 
 	anchorClientGenBody: `
-		Nástroj na generovanie SDK balíkov pomocou Anchor IDL.
+		Nástroj na generovanie SDK balíkov pomocou ${anchorTag} IDL.
 		Tento projekt bol značne inšpirovaný existujúcim nástrojom anchor-gen,
 		ale podporuje novšie verzie Anchor.
 	`,
 
 	meteoraBody: `
 		Meteora Autocompounder je bot, ktorý
-		sa pripája k blockchainu Solana, konkrétne Meteora
+		sa pripája k blockchainu Solana, konkrétne ${meteoraTag}
 		aplikácii a na základe špecifikovaného časového intervalu
 		zbiera a reinvestuje odmeny získané z poskytovania
 		likvidity v uvedenej aplikácii.
