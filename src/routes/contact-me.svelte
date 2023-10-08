@@ -49,6 +49,11 @@
 			notification.show = true;
 			notification.message = 'Email sent successfully';
 			notification.isErr = false;
+			inputsValues = {
+				name: '',
+				email: '',
+				message: '',
+			};
 
 			setTimeout(() => {
 				notification.show = false;
@@ -69,10 +74,30 @@
 {#if notification.show}
 	<div
 		transition:fly={{ duration: 150, easing: cubicInOut, opacity: 0, x: 300 }}
-		class="w-11/12 min-h-12 px-4 py-3 rounded-md fixed bottom-10 left-1/2 -translate-x-1/2 border {notification.isErr
-			? 'border-red-400 bg-red-200'
-			: 'border-green-400 bg-green-200'} z-10 font-medium flex items-center"
+		class="
+			w-fit min-h-12 px-4 py-3 rounded-md fixed bottom-10 right-5 z-10 font-medium flex items-center gap-x-4
+		 	 {notification.isErr ? ' bg-red-200' : 'bg-green-200'} text-slate-800
+		"
 	>
+		{#if notification.isErr}
+			<svg class="w-10 h-10 rotate-45" viewBox="0 0 24 24" fill="none">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke="currentColor"
+					d="M12 8V16M8 12H16M19.5 12C19.5 16.1421 16.1421 19.5 12 19.5C7.85786 19.5 4.5 16.1421 4.5 12C4.5 7.85786 7.85786 4.5 12 4.5C16.1421 4.5 19.5 7.85786 19.5 12Z"
+				/>
+			</svg>
+		{:else}
+			<svg class="w-10 h-10" viewBox="0 0 24 24" fill="none">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke="currentColor"
+					d="M8 11.5L11 14.5L16 9.5M19.5 12C19.5 16.1421 16.1421 19.5 12 19.5C7.85786 19.5 4.5 16.1421 4.5 12C4.5 7.85786 7.85786 4.5 12 4.5C16.1421 4.5 19.5 7.85786 19.5 12Z"
+				/>
+			</svg>
+		{/if}
 		<span class="flex-grow">
 			{notification.message}
 		</span>
@@ -90,7 +115,7 @@
 	</div>
 {/if}
 
-<section id="contact" class="mt-32 xl:mt-48 px-4 sm:px-0 sm:w-[600px] xl:w-1/2 sm:mx-auto">
+<section id="contact" class="mt-32 xl:mt-48 px-4 sm:px-0 sm:w-[600px] sm:mx-auto">
 	<h1 class="text-2xl xl:text-3xl font-semibold text-gray-950 dark:text-slate-200">
 		{$currentTranslations.contactMeTitle}
 	</h1>
@@ -156,7 +181,7 @@
 		<button
 			class="
 				w-full rounded-md h-10 flex items-center justify-center gap-x-2 bg-sky-300
-				sm:w-fit sm:px-8 text-slate-800 font-medium
+				sm:w-fit sm:px-8 text-slate-800 font-medium disabled:bg-sky-200
 			"
 			type="submit"
 			disabled={sending}

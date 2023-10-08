@@ -58,7 +58,7 @@
 	</div>
 </section>
 
-<style>
+<style lang="postcss">
 	:global(.url-new-page:hover svg, .url-new-page:focus svg) {
 		transform: rotate(-45deg);
 	}
@@ -68,7 +68,7 @@
 	}
 
 	:global(.mango-markets:hover) {
-		@apply text-orange-400;
+		@apply text-orange-600;
 	}
 
 	:global(.drift:hover) {

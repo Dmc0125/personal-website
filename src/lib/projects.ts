@@ -44,7 +44,7 @@ export const projects: Readable<ProjectContent[]> = derived(
 				body: $currentTranslations.sveegyBody,
 				tools: ['Typescript', 'Svelte', 'SvelteKit'],
 				repository: `https://github.com/${projectsRepos[3]}`,
-				image: '/Capture.png',
+				image: '/sveegy.png',
 				url: 'https://sveegy.vercel.app',
 			},
 		];

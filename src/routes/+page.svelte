@@ -44,7 +44,7 @@
 
 <section
 	id="landing"
-	class="py-32 px-4 sm:px-0 sm:grid gap-x-8 xl:gap-x-32 grid-cols-2 w-full xl:max-w-[1200px] sm:w-[600px] xl:w-full mx-auto"
+	class="py-32 px-4 xl:px-0 sm:grid gap-x-8 xl:gap-x-32 grid-cols-2 w-full xl:max-w-[1200px] sm:w-full sm:max-w-[800px] mx-auto"
 >
 	<div class="relative">
 		<div class="sticky top-12 h-fit">
@@ -156,11 +156,42 @@
 
 <ContactMe />
 
-<footer class="w-full mt-32 py-4 text-center font-medium text-sm text-slate-600">
-	&#169; 2023 Dominik Michal &bull; Built with TailwindCSS and SvelteKit
+<footer class="w-full mt-16 sm:mt-32 py-4 text-center font-medium text-sm text-slate-600">
+	&#169; 2023 Dominik Michal &bull; Built with <a
+		href="https://tailwindcss.com"
+		target="_blank"
+		rel="noreferrer noopener"
+		class="hover:text-sky-600 url">TailwindCSS</a
+	>
+	and
+	<a
+		href="https://kit.svelte.dev"
+		target="_blank"
+		rel="noreferrer noopener"
+		class="hover:text-red-600 url">SvelteKit</a
+	>
 </footer>
 
 <style lang="postcss">
+	@font-face {
+		src: url('/RedHatDisplay-VariableFont_wght.ttf');
+		font-weight: 100 1000;
+		font-family: 'RedHatDisplay';
+	}
+
+	:global(html, body) {
+		scroll-behavior: smooth;
+	}
+
+	:global(*) {
+		font-family: 'RedHatDisplay';
+	}
+
+	:global(*:focus) {
+		outline: none;
+		@apply ring-2 ring-blue-600;
+	}
+
 	:global(.svelte) {
 		@apply bg-red-400/30 text-red-600;
 	}
