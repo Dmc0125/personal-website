@@ -31,6 +31,7 @@
 <button
 	on:click={() => (showMenu = !showMenu)}
 	class="fixed top-4 right-4 rounded-md w-12 h-12 p-2 z-20 bg-slate-400 dark:bg-gray-900 text-slate-800 dark:text-slate-400"
+	aria-label="Menu"
 >
 	<svg class="w-full aspect-square" viewBox="0 0 24 24" fill="none">
 		<path

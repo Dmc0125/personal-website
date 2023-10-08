@@ -14,6 +14,7 @@
 	href={url}
 	target="_blank"
 	rel="noopener noreferrer"
+	aria-label="{title} link"
 	class="
 		grid min-[500px]:grid-cols-2 gap-y-4 gap-x-6 p-4 sm:px-12 sm:py-8 rounded-md
     	xl:grid-rows-[min-content_min-content_min-content] hover:shadow-sm shadow-none transition-all
@@ -43,11 +44,23 @@
 			class="url-new-page ml-auto hover:text-sky-500 dark:hover:text-sky-300 text-gray-600 dark:text-slate-500"
 			target="_blank"
 			rel="noopener noreferrer"
+			aria-label="{title} github repository"
 		>
-			<img class="w-7 h-7 sm:hidden" src="/github-mark.png" alt="Funding arbitrage repository" />
+			<img
+				class="w-7 h-7 sm:hidden"
+				src="/github-mark.png"
+				alt="Funding arbitrage repository"
+				aria-hidden="true"
+			/>
 			<p class="ml-auto hidden sm:flex items-center gap-x-2 font-medium transition-all">
 				Github
-				<svg class="w-5 h-5 transition-all" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+				<svg
+					class="w-5 h-5 transition-all"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke-width="1.5"
+					aria-hidden="true"
+				>
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -63,19 +76,6 @@
 		style="background-image: url({imageUrl});"
 		class="w-full aspect-video rounded-md shadow-md bg-cover bg-center"
 	/>
-
-	<!-- <a
-		href={url}
-		target="_blank"
-		rel="noopener noreferrer"
-		style="background-image: url({imageUrl});"
-		class="
-            block w-full aspect-video rounded-md overflow-hidden shadow-md bg-slate-400
-            bg-cover bg-center
-        "
-	>
-		<span class="hidden">Sveegy</span>
-	</a> -->
 
 	<p class="text-gray-700 dark:text-slate-400">
 		{body}

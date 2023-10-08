@@ -184,6 +184,7 @@
 				sm:w-fit sm:px-8 text-slate-800 font-medium disabled:bg-sky-200
 			"
 			type="submit"
+			aria-label="Send email"
 			disabled={sending}
 		>
 			{$currentTranslations.contactMeSend}

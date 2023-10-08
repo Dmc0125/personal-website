@@ -31,11 +31,23 @@
 			class="url-new-page ml-auto text-gray-600 dark:text-slate-500 hover:text-sky-500 dark:hover:text-sky-300"
 			target="_blank"
 			rel="noopener noreferrer"
+			aria-label="{title} github repository"
 		>
-			<img class="w-7 h-7 sm:hidden" src="/github-mark.png" alt="Funding arbitrage repository" />
+			<img
+				class="w-7 h-7 sm:hidden"
+				src="/github-mark.png"
+				alt="Funding arbitrage repository"
+				aria-hidden="true"
+			/>
 			<p class="ml-auto hidden sm:flex items-center gap-x-2 transition-all font-medium">
 				Github
-				<svg class="w-5 h-5 transition-all" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+				<svg
+					class="w-5 h-5 transition-all"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke-width="1.5"
+					aria-hidden="true"
+				>
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"

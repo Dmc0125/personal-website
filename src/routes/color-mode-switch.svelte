@@ -33,7 +33,11 @@
 	}
 </script>
 
-<button on:click={() => changeColorMode()} class="h-full flex align-middle">
+<button
+	on:click={() => changeColorMode()}
+	class="h-full flex align-middle"
+	aria-label="Color mode switch"
+>
 	{#if colorMode == 'dark'}
 		<svg class="h-full aspect-square" viewBox="0 0 24 24" fill="none">
 			<path

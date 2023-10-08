@@ -61,8 +61,10 @@
 					target="_blank"
 					rel="noopener noreferrer"
 					class="w-8 h-8"
+					aria-label="Github"
 				>
 					<svg
+						aria-hidden="true"
 						class="h-full aspect-square"
 						viewBox="0 0 40 40"
 						fill="none"
@@ -73,8 +75,8 @@
 						/></svg
 					>
 				</a>
-				<a href="mailto:dominikmichal0124@gmail.com">
-					<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none">
+				<a href="mailto:dominikmichal0124@gmail.com" aria-label="Email">
+					<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true">
 						<path
 							stroke-linecap="round"
 							stroke-linejoin="round"
@@ -90,7 +92,13 @@
 					class="flex items-center gap-x-2 url-new-page"
 				>
 					{$currentTranslations.landingViewCV}
-					<svg class="w-5 h-5 transition-all" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+					<svg
+						class="w-5 h-5 transition-all"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke-width="1.5"
+						aria-hidden="true"
+					>
 						<path
 							stroke-linecap="round"
 							stroke-linejoin="round"
@@ -105,7 +113,7 @@
 				class="mt-4 w-fit px-4 py-2 bg-sky-300 rounded-md flex items-center justify-center gap-x-2 font-medium text-slate-800"
 			>
 				{$currentTranslations.landingExplore}
-				<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+				<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true">
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
