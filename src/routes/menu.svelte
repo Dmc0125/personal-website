@@ -26,9 +26,11 @@
 	let showMenu = false;
 </script>
 
+<header />
+
 <button
 	on:click={() => (showMenu = !showMenu)}
-	class="fixed top-4 right-4 rounded-full w-12 h-12 p-2 z-10 bg-slate-200 border border-slate-500"
+	class="fixed top-4 right-4 rounded-md w-12 h-12 p-2 z-20 bg-slate-300"
 >
 	<svg class="w-full aspect-square" viewBox="0 0 24 24" fill="none">
 		<path
@@ -41,7 +43,7 @@
 </button>
 
 <header
-	class="fixed right-4 top-4 flex align-middle justify-center h-12 p-1 pr-14 pl-2 gap-x-2 z-0 rounded-full bg-slate-200 border border-slate-500 transition-all delay-150 {showMenu
+	class="fixed right-4 top-4 flex align-middle justify-center h-12 p-1 pr-14 pl-2 gap-x-2 z-10 rounded-md bg-slate-300 transition-all delay-150 {showMenu
 		? 'opacity-100'
 		: 'opacity-0 pointer-events-none'}"
 >
@@ -70,6 +72,6 @@
 		class="h-full px-4 rounded-md bg-transparent"
 	>
 		<option value="en">English</option>
-		<option value="sk">Slovak</option>
+		<option value="sk">Slovensky</option>
 	</select>
 </header>

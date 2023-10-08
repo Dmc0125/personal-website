@@ -20,6 +20,10 @@ export type LocaleTranslations = {
 	contactMeTitle: string;
 	contactMeName: string;
 	contactMeMessage: string;
+	contactMeSend: string;
+
+	commit: string;
+	months: string[];
 };
 export type Translations = Map<Locale, LocaleTranslations>;
 
@@ -34,36 +38,51 @@ translations.set('en', {
 
 	fundingArbitrageTitle: 'Funding Arbitrage Bot',
 	fundingArbitrageBody: `
-		This is a project that I'm currently working on, an arbitrage bot that captures differences between funding rates
-		on two derivatives futures markets on on-chain exchanges on Solana blockchain - Mango Markets and Drift.
+		I'm currently working on this project, an arbitrage bot that captures differences between funding rates
+		on two derivatives futures markets - Mango Markets and Drift.
 	`,
 
 	anchorClientGenTitle: 'Anchor-client-gen',
-	anchorClientGenBody: `Anchor client gen is a rust based tool for generating
+	anchorClientGenBody: `
+		Rust tool for generating
 		SDK packages from Anchor IDL. This project
 		was largely inspired by existing anchor-gen tool,
 		but supports more recent versions and features of Anchor.
 	`,
 
-	meteoraTitle: 'Meteora autocompounder bot',
+	meteoraTitle: 'Meteora Autocompounder',
 	meteoraBody: `
-		Meteora autocompounder is a bot, that
-		connects to Solana blockchain, specifically Meteora
-		application and based on specified time interval
-		collects and reinvests rewards earned from providing
-		liquidity in said app.
+		A bot that automatically collects rewards earned from providing liquidity to
+		Meteora pools based on specified time interval. All the collected rewards are
+		then reinvested again to the pool.
 	`,
 
 	sveegyBody: `
 		Sveegy is a set of open-source svg icons set
 		with MIT license. Icons are usable immediately
-		without the need of installing anything. Just
-		copy the svg code and paste it into your project.
+		without the need of installing anything.
 	`,
 
 	contactMeTitle: 'Contact me',
 	contactMeName: 'Name',
 	contactMeMessage: 'Message',
+	contactMeSend: 'Send',
+
+	commit: 'Last commit on',
+	months: [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December',
+	],
 });
 
 translations.set('sk', {
@@ -77,17 +96,17 @@ translations.set('sk', {
 	fundingArbitrageTitle: 'Funding Arbitráž Bot',
 	fundingArbitrageBody: `
 		Na tomto projekte práve pracujem, arbitráž bot, ktorý zachytáva rozdiely medzi mierami na dvoch derivátových futures
-		trhoch na burzách Mango Markets a Drift na blockchaine Solana.
+		burzách - Mango Markets a Drift.
 	`,
 
 	anchorClientGenTitle: 'Anchor-client-gen',
 	anchorClientGenBody: `
-		Anchor client gen je nástroj na generovanie SDK balíkov pomocou Anchor IDL.
+		Nástroj na generovanie SDK balíkov pomocou Anchor IDL.
 		Tento projekt bol značne inšpirovaný existujúcim nástrojom anchor-gen,
 		ale podporuje novšie verzie Anchor.
 	`,
 
-	meteoraTitle: 'Meteora Autocompounder Bot',
+	meteoraTitle: 'Meteora Autocompounder',
 	meteoraBody: `
 		Meteora Autocompounder je bot, ktorý
 		sa pripája k blockchainu Solana, konkrétne Meteora
@@ -99,11 +118,27 @@ translations.set('sk', {
 	sveegyBody: `
 		Sveegy je sada open-source ikon svg
 		s licenciou MIT. Ikony sú okamžite použiteľné
-		bez nutnosti čokoľvek inštalovať. Len
-		skopírujete svg kód a vložíte ho do svojho projektu.
+		bez nutnosti čokoľvek inštalovať.
 	`,
 
 	contactMeTitle: 'Kotaktujte ma',
 	contactMeName: 'Meno',
 	contactMeMessage: 'Správa',
+	contactMeSend: 'Odoslať',
+
+	commit: 'Posledný commit -',
+	months: [
+		'január',
+		'február',
+		'marec',
+		'apríl',
+		'máj',
+		'jún',
+		'júl',
+		'august',
+		'september',
+		'október',
+		'november',
+		'december',
+	],
 });

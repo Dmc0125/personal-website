@@ -90,13 +90,20 @@
 	</div>
 {/if}
 
-<section id="contact" class="mt-8 px-4">
-	<h1 class="text-2xl font-semibold text-gray-950">{$currentTranslations.contactMeTitle}</h1>
+<section id="contact" class="mt-32 px-4 sm:px-0 sm:w-[600px] xl:w-1/2 sm:mx-auto">
+	<h1 class="text-2xl xl:text-3xl font-semibold text-gray-950">
+		{$currentTranslations.contactMeTitle}
+	</h1>
 
-	<form class="mt-8 flex flex-col gap-y-4" on:submit|preventDefault={() => sendEmail()}>
+	<form
+		class="mt-8 grid grid-rows-[repeat(4,min-content)] md:grid-rows-[repeat(3,min-content)] md:grid-cols-2 gap-4 md:gap-6"
+		on:submit|preventDefault={() => sendEmail()}
+	>
 		<label for="name" class="w-full h-fit relative group-empty:bg-red-600">
 			<span
-				class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-700 transition-all pointer-events-none"
+				class="
+					absolute left-4 top-1/2 -translate-y-1/2 text-slate-700 transition-all pointer-events-none
+				"
 				class:active={inputsValues.name.length}>{$currentTranslations.contactMeName}</span
 			>
 			<input
@@ -125,7 +132,7 @@
 			/>
 		</label>
 
-		<label for="message" class="w-full h-fit relative">
+		<label for="message" class="w-full h-fit relative md:col-[1/3]">
 			<span
 				class="absolute left-4 top-6 -translate-y-1/2 text-slate-700 transition-all pointer-events-none"
 				class:active={inputsValues.message.length > 0}>{$currentTranslations.contactMeMessage}</span
@@ -134,7 +141,7 @@
 				bind:value={inputsValues.message}
 				name="message"
 				id="message"
-				rows="10"
+				rows="5"
 				class="w-full min-h-[10rem] p-4 rounded-md"
 				required
 				minlength="2"
@@ -143,11 +150,14 @@
 		</label>
 
 		<button
-			class="w-full rounded-md h-10 flex items-center justify-center gap-x-2 bg-slate-600 text-slate-300"
+			class="
+				w-full rounded-md h-10 flex items-center justify-center gap-x-2 bg-slate-600 text-slate-300
+				sm:w-fit sm:px-8
+			"
 			type="submit"
 			disabled={sending}
 		>
-			Send
+			{$currentTranslations.contactMeSend}
 			{#if sending == false}
 				<svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke-width="0.9">
 					<path

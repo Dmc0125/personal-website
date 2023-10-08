@@ -16,3 +16,7 @@ html, body {
     font-family: 'RedHatDisplay';
 }
 
+*:focus {
+    outline: none;
+    @apply ring-2 ring-blue-400;
+}
