@@ -167,19 +167,7 @@
 <footer
 	class="w-full mt-16 sm:mt-32 py-4 text-center font-medium text-sm text-slate-600 dark:text-slate-500"
 >
-	&#169; 2023 Dominik Michal &bull; Built with <a
-		href="https://tailwindcss.com"
-		target="_blank"
-		rel="noreferrer noopener"
-		class="hover:text-sky-600 url">TailwindCSS</a
-	>
-	and
-	<a
-		href="https://kit.svelte.dev"
-		target="_blank"
-		rel="noreferrer noopener"
-		class="hover:text-red-600 url">SvelteKit</a
-	>
+	&#169; 2023 Dominik Michal &bull; {@html $currentTranslations.footer}
 </footer>
 
 <style lang="postcss">

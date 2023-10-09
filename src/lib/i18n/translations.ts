@@ -24,6 +24,8 @@ export type LocaleTranslations = {
 
 	commit: string;
 	months: string[];
+
+	footer: string;
 };
 export type Translations = Map<Locale, LocaleTranslations>;
 
@@ -120,6 +122,19 @@ translations.set('en', {
 		'November',
 		'December',
 	],
+
+	footer: `
+	Built with <a
+		href="https://tailwindcss.com"
+		target="_blank"
+		rel="noreferrer noopener"
+		class="hover:text-sky-600 url">TailwindCSS</a
+	> and <a
+		href="https://kit.svelte.dev"
+		target="_blank"
+		rel="noreferrer noopener"
+		class="hover:text-red-600 url">SvelteKit</a>
+	`,
 });
 
 translations.set('sk', {
@@ -201,4 +216,16 @@ translations.set('sk', {
 		'november',
 		'december',
 	],
+
+	footer: `Vytvorené pomocou <a
+		href="https://tailwindcss.com"
+		target="_blank"
+		rel="noreferrer noopener"
+		class="hover:text-sky-600 url">TailwindCSS</a
+	> a <a
+		href="https://kit.svelte.dev"
+		target="_blank"
+		rel="noreferrer noopener"
+		class="hover:text-red-600 url">SvelteKit</a>
+	`,
 });
