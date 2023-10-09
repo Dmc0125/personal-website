@@ -31,9 +31,9 @@
 	<meta name="og:title" content="Dominik Michal" />
 	<meta name="og:site_name" content="Dominik Michal" />
 	<meta name="og:type" content="website" />
-	<meta name="og:url" content="" />
-	<meta name="og:image" content="" />
-	<meta name="theme-color" content="" />
+	<meta name="og:url" content="https://dominikmichal.com" />
+	<meta name="og:image" content="/dominikmichal.png" />
+	<meta name="theme-color" content="#7dd3fc" />
 	<meta
 		name="og:description"
 		content="Dominik Michal is a hobbyist software engineer living in Slovakia with over four years of experience."
@@ -75,7 +75,7 @@
 						/></svg
 					>
 				</a>
-				<a href="mailto:dominikmichal0124@gmail.com" aria-label="Email">
+				<a href="mailto:contact@dominikmichal.com" aria-label="Email">
 					<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true">
 						<path
 							stroke-linecap="round"
@@ -86,7 +86,7 @@
 					</svg>
 				</a>
 				<a
-					href="/"
+					href="/cv.pdf"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="flex items-center gap-x-2 url-new-page"
@@ -164,7 +164,9 @@
 
 <ContactMe />
 
-<footer class="w-full mt-16 sm:mt-32 py-4 text-center font-medium text-sm text-slate-600">
+<footer
+	class="w-full mt-16 sm:mt-32 py-4 text-center font-medium text-sm text-slate-600 dark:text-slate-500"
+>
 	&#169; 2023 Dominik Michal &bull; Built with <a
 		href="https://tailwindcss.com"
 		target="_blank"
