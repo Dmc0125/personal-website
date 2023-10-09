@@ -9,7 +9,9 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
-    "format": "prettier --plugin-search-dir . --write ."
+    "format": "prettier --plugin-search-dir . --write .",
+    "db:migrate:latest": "bun db/migrator.ts -- latest",
+    "db:migrate:down": "bun db/migrator.ts -- down"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^2.0.0",
@@ -33,7 +35,9 @@
   "type": "module",
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
-    "@emailjs/nodejs": "^2.2.0"
+    "@planetscale/database": "^1.11.0",
+    "kysely": "^0.26.3",
+    "kysely-planetscale": "^1.4.0"
   },
   "license": "MIT"
 }

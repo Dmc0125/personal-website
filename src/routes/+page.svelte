@@ -6,11 +6,11 @@
 	import Menu from './menu.svelte';
 	import { projects } from '$lib/projects';
 	import ContactMe from './contact-me.svelte';
-	import type { CommitDates } from './last-commits/+server';
+	import type { CommitsTimestampsRes } from './last-commits/+server';
 	import CardWithImage from './projects/card-with-image.svelte';
 	import Card from './projects/card.svelte';
 
-	let commits: CommitDates = {};
+	let commits: CommitsTimestampsRes = {};
 
 	onMount(async () => {
 		try {
@@ -149,15 +149,15 @@
 		{$currentTranslations.projectsTitle}
 	</h1>
 
-	{#each $projects as { title, body, repository, tools, image, url }, i}
+	{#each $projects as { title, body, repository, tools, image, url, id }, i}
 		{#if image && url}
 			<CardWithImage
 				{...{ title, body, repository, tools, url }}
 				imageUrl={image}
-				lastCommit={commits[i]}
+				lastCommit={commits[id]}
 			/>
 		{:else}
-			<Card {...{ title, body, repository, tools }} lastCommit={commits[i]} />
+			<Card {...{ title, body, repository, tools }} lastCommit={commits[id]} />
 		{/if}
 	{/each}
 </section>

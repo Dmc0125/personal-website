@@ -1,5 +1,9 @@
+import { error } from '@sveltejs/kit';
+
 import type { RequestHandler } from './$types';
 import { projectsRepos } from '$lib/projects';
+import { DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USERNAME } from '$env/static/private';
+import { createDb, type CommitTimestamp, type NewCommitTimestamp } from '../../../db/utils';
 
 type CommitsRes = {
 	url: string;
@@ -25,43 +29,116 @@ type CommitsRes = {
 	} | null;
 }[];
 
-export type CommitDates = Record<number, string>;
+export type CommitsTimestampsRes = Record<string, number>;
+
+function insertCachedToRes(cached: CommitTimestamp[], res: CommitsTimestampsRes) {
+	cached.forEach(({ gh_repo, gh_username, updated_at }) => {
+		res[`${gh_username}-${gh_repo}`] = new Date(updated_at).getTime();
+	});
+}
 
 export const GET: RequestHandler = async () => {
-	const res = await Promise.all<Promise<CommitsRes | null>[]>(
-		projectsRepos.map((ownerWithRepo) => {
-			const [owner, repo] = ownerWithRepo.split('/');
-			return fetch(`https://api.github.com/repos/${owner}/${repo}/commits`, {
-				headers: {
-					Accept: 'application/vnd.github+json',
-					'X-GitHub-Api-Version': '2022-11-28',
-				},
-			}).then((r) => {
-				if (r.ok) {
-					return r.json();
-				} else {
-					return null;
-				}
+	const db = createDb(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD);
+
+	let cachedCommitsTimestamps: CommitTimestamp[];
+	try {
+		cachedCommitsTimestamps = await db.selectFrom('commit').selectAll().execute();
+	} catch (e) {
+		console.log(e);
+		throw error(500, JSON.stringify('Unknown server error'));
+	}
+
+	const shouldFetch: { owner: string; repo: string; isNew: boolean }[] = [];
+
+	projectsRepos.forEach(({ owner, repo }) => {
+		const c = cachedCommitsTimestamps.find(
+			({ gh_repo, gh_username }) => gh_repo === repo && gh_username == owner,
+		);
+
+		if (c && c.updated_at + 60000 * 60 * 24 < new Date().getTime()) {
+			shouldFetch.push({
+				owner,
+				repo,
+				isNew: false,
 			});
-		}),
-	);
-
-	const parsed: CommitDates = {};
-
-	res.forEach((r, i) => {
-		if (!r) {
-			return;
-		}
-
-		const latest = r[0];
-		// Last commit on Nov 12, 2023
-		if (latest.commit.committer) {
-			parsed[i] = latest.commit.committer.date;
+		} else {
+			shouldFetch.push({
+				owner,
+				repo,
+				isNew: true,
+			});
 		}
 	});
 
+	const res: CommitsTimestampsRes = {};
+
+	if (shouldFetch.length) {
+		try {
+			const fetchedRes = await Promise.all<Promise<CommitsRes | null>[]>(
+				shouldFetch.map(async ({ owner, repo }) => {
+					const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits`, {
+						headers: {
+							Accept: 'application/vnd.github+json',
+							'X-GitHub-Api-Version': '2022-11-28',
+						},
+					});
+					if (r.ok) {
+						return r.json();
+					} else {
+						return null;
+					}
+				}),
+			);
+
+			const insertValues: NewCommitTimestamp[] = [];
+
+			for (let i = 0; i < fetchedRes.length; i++) {
+				const r = fetchedRes[i];
+				if (!r) {
+					continue;
+				}
+
+				const latest = r[0];
+				if (!latest.commit.committer) {
+					continue;
+				}
+
+				const { isNew, owner, repo } = shouldFetch[i];
+				const d = new Date(latest.commit.committer.date);
+
+				res[`${owner}-${repo}`] = d.getTime();
+
+				if (isNew) {
+					insertValues.push({
+						updated_at: d.getTime(),
+						gh_repo: repo,
+						gh_username: owner,
+					});
+				} else {
+					await db
+						.updateTable('commit')
+						.set({
+							updated_at: d.getTime(),
+						})
+						.where('gh_username', '=', owner)
+						.where('gh_repo', '=', repo)
+						.execute();
+				}
+			}
+
+			if (insertValues.length) {
+				await db.insertInto('commit').values(insertValues).execute();
+			}
+		} catch (e) {
+			console.log(e);
+			throw error(500, JSON.stringify('Unknown server error'));
+		}
+	} else {
+		insertCachedToRes(cachedCommitsTimestamps, res);
+	}
+
 	const expiresDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-	return new Response(JSON.stringify(parsed), {
+	return new Response(JSON.stringify(res), {
 		headers: {
 			Expires: expiresDate.toUTCString(),
 			'Cache-Control': 'max-age=86400, public',

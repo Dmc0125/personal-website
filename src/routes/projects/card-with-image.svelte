@@ -2,7 +2,7 @@
 	import { currentTranslations } from '$lib/i18n/translator';
 
 	export let title: string;
-	export let lastCommit: string | undefined;
+	export let lastCommit: number | undefined;
 	export let repository: string;
 	export let body: string;
 	export let tools: string[];
