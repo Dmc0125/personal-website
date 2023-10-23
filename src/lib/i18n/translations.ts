@@ -1,4 +1,4 @@
-export type Locale = 'en' | 'sk';
+export type Locale = 'en_EN' | 'sk_SK';
 export type LocaleTranslations = {
 	landingTitle: string;
 	landingBody: string;
@@ -43,7 +43,7 @@ const anchorTag = createAnchorTag('Anchor', 'anchor-url', 'https://www.anchor-la
 const meteoraTag = createAnchorTag('Meteora', 'meteora', 'https://www.meteora.ag/');
 
 export const translations: Translations = new Map();
-translations.set('en', {
+translations.set('en_EN', {
 	landingTitle: 'Hello, my name is Dominik',
 	landingBody:
 		"I'm a hobbyist software engineer living in Slovakia with over four years of experience.",
@@ -137,7 +137,7 @@ translations.set('en', {
 	`,
 });
 
-translations.set('sk', {
+translations.set('sk_SK', {
 	landingTitle: 'Vitajte, volám sa Dominik',
 	landingBody:
 		'Som softfvérový programátor žijúci na Slovensku, programovanie je moje hobby posledné štyry roky.',
