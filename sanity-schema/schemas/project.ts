@@ -5,6 +5,11 @@ export default {
 	type: 'document',
 	fields: [
 		{
+			name: 'lang',
+			type: 'string',
+			validation: (Rule: Rule) => Rule.required(),
+		},
+		{
 			name: 'isWebsite',
 			type: 'boolean',
 			validation: (Rule: Rule) => Rule.required(),
