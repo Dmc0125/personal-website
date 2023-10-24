@@ -1,5 +1,13 @@
 export type Locale = 'en_EN' | 'sk_SK';
+
+type PageSection = {
+	hash: string;
+	name: string;
+};
+
 export type LocaleTranslations = {
+	sections: PageSection[];
+
 	landingTitle: string;
 	landingBody: string;
 	landingExplore: string;
@@ -44,6 +52,12 @@ const meteoraTag = createAnchorTag('Meteora', 'meteora', 'https://www.meteora.ag
 
 export const translations: Translations = new Map();
 translations.set('en_EN', {
+	sections: [
+		{ hash: '/en#home', name: 'Home' },
+		{ hash: '/en#about-me', name: 'About me' },
+		{ hash: '/en#projects', name: 'Projects' },
+		{ hash: '/en#contact', name: 'Contact' },
+	],
 	landingTitle: 'Hello, my name is Dominik',
 	landingBody:
 		"I'm a hobbyist software engineer living in Slovakia with over four years of experience.",
@@ -138,6 +152,13 @@ translations.set('en_EN', {
 });
 
 translations.set('sk_SK', {
+	sections: [
+		{ hash: '/sk#home', name: 'Domov' },
+		{ hash: '/sk#about-me', name: 'O mne' },
+		{ hash: '/sk#projects', name: 'Projekty' },
+		{ hash: '/sk#contact', name: 'Kontakt' },
+	],
+
 	landingTitle: 'Vitajte, volám sa Dominik',
 	landingBody:
 		'Som softvérový programátor žijúci na Slovensku, programovanie je moje hobby posledné štyry roky.',

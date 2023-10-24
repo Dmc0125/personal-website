@@ -24,4 +24,12 @@
 	:global(h1, h2, h3, h4, h5, h6) {
 		@apply font-[RobotoCondensed];
 	}
+
+	:global(.url) {
+		@apply underline decoration-dotted transition-all;
+	}
+
+	:global(*:focus) {
+		@apply outline-none ring-2 ring-theme/50;
+	}
 </style>

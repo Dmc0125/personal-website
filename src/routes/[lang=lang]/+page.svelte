@@ -1,42 +1,141 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
+	import type { Unsubscriber } from 'svelte/motion';
+	import { onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { browser } from '$app/environment';
+	import type { PageData } from './$types';
 
-	import { currentTranslations } from '$lib/i18n/translator';
 	import Mail from '$lib/icons/mail.svelte';
 	import Github from '$lib/icons/github.svelte';
 	import Arrow from '$lib/icons/arrow.svelte';
-
-	import type { PageData } from './$types';
-	import { projects } from '$lib/projects';
+	import Hamburger from '$lib/icons/hamburger.svelte';
+	import Close from '$lib/icons/close.svelte';
 	import Input from './input.svelte';
 	import Textarea from './textarea.svelte';
+	import { translations } from '$lib/i18n/translations';
+	import ColorModeSwitch from '../color-mode-switch.svelte';
 
 	export let data: PageData;
 
-	type Social = {
-		label: string;
-		href: string;
-		component: typeof Mail;
-	};
+	let t = translations.get(data.locale)!;
 
-	const socials: Social[] = [
-		{
-			label: 'mail',
-			href: 'mailto:contact@dominikmichal.com',
-			component: Mail,
+	let scroll: number;
+	let menuOpen = false;
+	let unsub: Unsubscriber | null = null;
+
+	if (browser) {
+		unsub = page.subscribe(() => {
+			menuOpen = false;
+			t = translations.get(data.locale)!;
+		});
+	}
+
+	onDestroy(() => {
+		if (unsub) {
+			unsub();
+		}
+	});
+
+	function routeOnLangChange(
+		e: Event & {
+			currentTarget: EventTarget & HTMLSelectElement;
 		},
-	];
+	) {
+		const t = e.target as HTMLSelectElement;
+		goto(`/${t.value}`, {
+			noScroll: true,
+			invalidateAll: true,
+		});
+	}
 </script>
 
-<section id="home" class="pt-[80px] px-5">
+<svelte:window bind:scrollY={scroll} />
+
+<header
+	class="fixed top-0 h-14 w-full flex items-center justify-between px-5 bg-bg-1-light dark:bg-bg-1-dark transition-all {scroll >
+	0
+		? 'backdrop-blur-sm bg-bg-1-light/10 dark:bg-bg-1-dark/10'
+		: ''}"
+>
+	<h1 class="text-xl font-semibold text-font-1-light dark:text-font-1-dark">Dominik Michal</h1>
+
+	<button
+		class="h-10 w-h10 text-font-1-light dark:text-font-1-dark sm:hidden"
+		on:click={() => (menuOpen = !menuOpen)}
+	>
+		{#if !menuOpen}
+			<Hamburger />
+		{:else}
+			<Close />
+		{/if}
+	</button>
+
+	{#if menuOpen}
+		<nav
+			class="w-[110px] absolute bg-bg-2-light dark:bg-bg-2-dark rounded-md border border-stroke-light dark:border-stroke-dark right-5 top-14 py-2 sm:hidden"
+		>
+			<ul class="w-full flex flex-col justify-between">
+				{#each t.sections as section}
+					<li class="w-full">
+						<a
+							class="text-font-1-light dark:text-font-1-dark hover:!text-theme hover:bg-bg-1-light/50 dark:hover:bg-bg-1-dark/50 block w-full px-4 py-1"
+							href={section.hash}>{section.name}</a
+						>
+					</li>
+				{/each}
+				<li class="px-4 w-full mt-1">
+					<ColorModeSwitch />
+				</li>
+				<li class="px-4 w-full h-8 mt-2">
+					<select
+						class="w-full h-full block bg-transparent text-font-1-light dark:text-font-1-dark"
+						name="lang"
+						id="lang"
+						on:change={routeOnLangChange}
+					>
+						<option value="en" selected={data.locale === 'en_EN'}> EN </option>
+						<option value="sk" selected={data.locale === 'sk_SK'}> SK </option>
+					</select>
+				</li>
+			</ul>
+		</nav>
+	{/if}
+
+	<nav class="w-fit hidden sm:block">
+		<ul class="w-full flex gap-x-4 items-center justify-between">
+			{#each t.sections as section}
+				<li>
+					<a class="text-font-1-light dark:text-font-1-dark hover:!text-theme" href={section.hash}
+						>{section.name}</a
+					>
+				</li>
+			{/each}
+			<li class="text-font-1-light dark:text-font-1-dark">
+				<ColorModeSwitch />
+			</li>
+			<li>
+				<select
+					class="w-full h-full block bg-transparent text-font-1-light dark:text-font-1-dark"
+					name="lang"
+					id="lang"
+					on:change={routeOnLangChange}
+				>
+					<option value="en" selected={data.locale === 'en_EN'}> EN </option>
+					<option value="sk" selected={data.locale === 'sk_SK'}> SK </option>
+				</select>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+<section id="home" class="pt-[130px] px-5 scroll-mt-16">
 	<div class="flex gap-y-5 flex-col w-full">
 		<h1 class="text-font-1-light dark:text-font-1-dark text-4xl font-bold">
-			{$currentTranslations.landingTitle}
+			{t.landingTitle}
 		</h1>
 		<p class="text-font-2-light dark:text-font-2-dark text-xl">
-			{$currentTranslations.landingBody}
+			{t.landingBody}
 		</p>
 
 		<dl class="flex gap-x-8 items-center text-font-1-light dark:text-font-1-dark">
@@ -74,26 +173,26 @@
 		</dl>
 
 		<a
-			href="#projects"
+			href="/en#projects"
 			class="px-4 w-fit h-10 bg-theme text-font-1-light rounded-md font-medium flex items-center"
-			>{$currentTranslations.landingExplore}</a
+			>{t.landingExplore}</a
 		>
 	</div>
 
-	<div id="about-me" class="w-full mt-[150px]">
+	<div id="about-me" class="w-full mt-[150px] scroll-mt-16">
 		<h1 class="text-xl font-bold dark:text-font-1-dark text-font-1-light">
-			{$currentTranslations.aboutMeTitle}
+			{t.aboutMeTitle}
 		</h1>
 
 		<div class="mt-5 flex flex-col gap-y-5 text-font-2-light dark:text-font-2-dark">
-			{@html $currentTranslations.aboutMeBody}
+			{@html t.aboutMeBody}
 		</div>
 	</div>
 </section>
 
-<section id="projects" class="w-full px-5 mt-[150px]">
+<section id="projects" class="w-full px-5 mt-[150px] scroll-mt-16">
 	<h1 class="text-xl font-bold dark:text-font-1-dark text-font-1-light">
-		{$currentTranslations.projectsTitle}
+		{t.projectsTitle}
 	</h1>
 
 	<div class="w-full mt-5 flex flex-col gap-y-10">
@@ -167,7 +266,7 @@
 				<div class="flex items-center flex-wrap gap-x-4 gap-y-4 mt-8">
 					{#each project.tags as tag}
 						<div class="bg-theme/30 px-3 py-1 rounded-full">
-							<span class="text-theme text-sm">{tag}</span>
+							<span class="text-theme text-sm font-medium">{tag}</span>
 						</div>
 					{/each}
 				</div>
@@ -178,29 +277,17 @@
 
 <section id="contact" class="px-5 mt-[100px]">
 	<h1 class="text-xl font-bold dark:text-font-1-dark text-font-1-light">
-		{$currentTranslations.contactMeTitle}
+		{t.contactMeTitle}
 	</h1>
 
 	<form class="mt-5 flex flex-col gap-y-7" on:submit|preventDefault>
 		<div class="w-full flex flex-col gap-x-10 gap-y-7">
-			<Input
-				minLen={2}
-				maxLen={30}
-				label={$currentTranslations.contactMeName}
-				id="name"
-				inputType="text"
-			/>
-			<Input
-				minLen={2}
-				maxLen={30}
-				label={$currentTranslations.contactMeName}
-				id="surname"
-				inputType="text"
-			/>
+			<Input minLen={2} maxLen={30} label={t.contactMeName} id="name" inputType="text" />
+			<Input minLen={2} maxLen={30} label={t.contactMeName} id="surname" inputType="text" />
 		</div>
 
 		<Input label="Email" id="email" inputType="email" />
-		<Textarea label={$currentTranslations.contactMeMessage} id="email" />
+		<Textarea label={t.contactMeMessage} id="email" />
 
 		<button type="submit" class="h-10 w-full text-font-1-light bg-theme rounded-md">Send</button>
 	</form>
@@ -210,5 +297,7 @@
 	class="w-full mt-[60px] flex items-center flex-col gap-y-2 text-sm text-font-2-light dark:text-font-2-dark/50 pb-5"
 >
 	<p>© 2023 Dominik Michal</p>
-	<p>Built with SvelteKit and TailwindCSS</p>
+	<p>
+		{@html t.footer}
+	</p>
 </footer>
