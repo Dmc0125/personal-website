@@ -34,6 +34,10 @@ export default {
 			type: 'string',
 		},
 		{
+			name: 'imgBgClrMiddle',
+			type: 'string',
+		},
+		{
 			name: 'img',
 			type: 'image',
 		},

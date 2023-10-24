@@ -23,12 +23,16 @@ const projectSchema = z.object({
 	githubOwner: z.string().min(1),
 	githubRepo: z.string().min(1),
 	imgBgClr: z.string().or(z.undefined()),
+	imgBgClrMiddle: z.string().or(z.undefined()),
 	lang: z.string().min(1),
 	websiteUrl: z.string().url().or(z.undefined()),
 	img: z
 		.object({
 			asset: z.object({
-				_ref: z.string().min(1),
+				_ref: z
+					.string()
+					.min(1)
+					.transform((url) => url.replace('image-', '').replace('-png', '.png')),
 			}),
 		})
 		.or(z.undefined()),
@@ -59,7 +63,7 @@ export const load: PageServerLoad = async (event) => {
 		for (let i = 0; i < projects.length; i++) {
 			const projectData = projects[i];
 
-			const commitId = `${projectData.githubOwner}-${projectData.githubRepo}`;
+			const commitId = `${projectData.githubOwner.toLowerCase()}-${projectData.githubRepo.toLowerCase()}`;
 			const commitTimestamp = commits[commitId];
 
 			if (commitTimestamp) {
@@ -77,6 +81,6 @@ export const load: PageServerLoad = async (event) => {
 
 	return {
 		locale,
-		projects: result.data,
+		projects,
 	};
 };

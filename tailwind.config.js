@@ -22,6 +22,10 @@ export default {
 					dark: '#A9B7CF',
 				},
 				theme: '#FC5130',
+				stroke: {
+					light: '#CBCBCB',
+					dark: '#404E65',
+				},
 			},
 		},
 	},

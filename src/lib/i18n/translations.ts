@@ -140,7 +140,7 @@ translations.set('en_EN', {
 translations.set('sk_SK', {
 	landingTitle: 'Vitajte, volám sa Dominik',
 	landingBody:
-		'Som softfvérový programátor žijúci na Slovensku, programovanie je moje hobby posledné štyry roky.',
+		'Som softvérový programátor žijúci na Slovensku, programovanie je moje hobby posledné štyry roky.',
 	landingExplore: 'Moje projekty',
 	landingViewCV: 'Pozrieť CV',
 

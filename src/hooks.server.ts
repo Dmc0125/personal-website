@@ -1,16 +1,9 @@
 import type { Handle } from '@sveltejs/kit';
 
-function getLocale(path: string) {
-	if (path.startsWith('/sk')) {
-		return 'sk_SK';
-	} else if (path.startsWith('/en')) {
-		return 'en_EN';
-	}
-	return null;
-}
+import { getLocaleFromUrl } from '$lib/i18n/translator';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const locale = getLocale(event.url.pathname);
+	const locale = getLocaleFromUrl(event.url.pathname);
 
 	if (locale) {
 		return resolve(event, {
