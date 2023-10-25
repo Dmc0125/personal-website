@@ -15,6 +15,8 @@
 	import Textarea from './textarea.svelte';
 	import { translations } from '$lib/i18n/translations';
 	import ColorModeSwitch from '../color-mode-switch.svelte';
+	import CardWithImage from '../projects/card-with-image.svelte';
+	import Card from '../projects/card.svelte';
 
 	export let data: PageData;
 
@@ -206,7 +208,7 @@
 
 <section
 	id="projects"
-	class="mx-auto w-full max-w-[420px] md:max-w-[1200px] px-5 mt-[150px] scroll-mt-16"
+	class="mx-auto w-full max-w-[420px] md:max-w-[700px] lg:max-w-[1200px] px-5 mt-[150px] scroll-mt-16"
 >
 	<h1 class="text-xl font-bold dark:text-font-1-dark text-font-1-light">
 		{t.projectsTitle}
@@ -214,81 +216,31 @@
 
 	<div class="w-fit mx-auto mt-5 gap-y-10 grid gap-x-10 xl:gap-x-14 projects-container">
 		{#each data.projects as project, i}
-			<div
-				style="grid-area: p{i + 1};"
-				class="p-4 bg-bg-2-light dark:bg-bg-2-dark rounded-md border border-stroke-light dark:border-stroke-dark"
-			>
-				<header class="flex items-center justify-between">
-					<div>
-						<h2 class="text-xl font-medium text-font-1-light dark:text-font-1-dark">
-							{project.title}
-						</h2>
-						{#if project.commitMsg}
-							<p class="text-xs font-medium text-font-2-light dark:text-font-2-dark">
-								{project.commitMsg}
-							</p>
-						{/if}
-					</div>
-					{#if !project.isWebsite}
-						<a
-							href="https://github.com/{project.githubOwner}/{project.githubRepo}"
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label="{project.title} github"
-							class="h-10 text-font-1-light dark:text-font-1-dark"
-						>
-							<Github />
-						</a>
-					{/if}
-				</header>
-
-				{#if project.isWebsite && project.img && project.imgBgClr}
-					<div
-						class="w-full h-[180px] mb-5 py-4 rounded-md mt-5 grid place-items-center"
-						style="background: radial-gradient({project.imgBgClrMiddle}, {project.imgBgClr});"
-					>
-						<img
-							class="mx-auto"
-							src="https://cdn.sanity.io/images/w6zzmq4u/production/{project.img.asset._ref}"
-							alt={project.title}
-						/>
-					</div>
-				{/if}
-
-				<p class="mt-3 text-font-2-light dark:text-font-2-dark">
-					{project.description}
-				</p>
-
-				{#if project.isWebsite && project.websiteUrl}
-					<div class="flex gap-x-6 mt-5">
-						<a
-							href={project.websiteUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="h-10 px-10 bg-theme text-font-1-light font-medium rounded-md flex items-center justify-center"
-						>
-							Visit
-						</a>
-						<a
-							href="https://github.com/{project.githubOwner}/{project.githubRepo}"
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label="{project.title} github"
-							class="h-10 text-font-1-light dark:text-font-1-dark"
-						>
-							<Github />
-						</a>
-					</div>
-				{/if}
-
-				<div class="flex items-center flex-wrap gap-x-4 gap-y-4 mt-8">
-					{#each project.tags as tag}
-						<div class="bg-theme/30 px-3 py-1 rounded-full">
-							<span class="text-theme text-sm font-medium">{tag}</span>
-						</div>
-					{/each}
-				</div>
-			</div>
+			{#if project.isWebsite && project.img && project.websiteUrl && project.imgBgClr && project.imgBgClrMiddle}
+				<CardWithImage
+					{i}
+					img={project.img}
+					imgBgClr={project.imgBgClr}
+					imgBgClrMiddle={project.imgBgClrMiddle}
+					commitMsg={project.commitMsg}
+					title={project.title}
+					description={project.description}
+					githubOwner={project.githubOwner}
+					githubRepo={project.githubRepo}
+					websiteUrl={project.websiteUrl}
+					tags={project.tags}
+				/>
+			{:else}
+				<Card
+					{i}
+					commitMsg={project.commitMsg}
+					title={project.title}
+					description={project.description}
+					githubOwner={project.githubOwner}
+					githubRepo={project.githubRepo}
+					tags={project.tags}
+				/>
+			{/if}
 		{/each}
 	</div>
 </section>

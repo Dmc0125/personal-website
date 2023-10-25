@@ -33,7 +33,7 @@ export type CommitsTimestampsRes = Record<string, number>;
 
 function insertCachedToRes(cached: CommitTimestamp[], res: CommitsTimestampsRes) {
 	cached.forEach(({ gh_repo, gh_username, updated_at }) => {
-		res[`${gh_username}-${gh_repo}`] = new Date(updated_at).getTime();
+		res[`${gh_username}-${gh_repo}`] = new Date(Number(updated_at)).getTime();
 	});
 }
 
@@ -49,23 +49,22 @@ export const GET: RequestHandler = async () => {
 	}
 
 	const shouldFetch: { owner: string; repo: string; isNew: boolean }[] = [];
-
 	projectsRepos.forEach(({ owner, repo }) => {
 		const c = cachedCommitsTimestamps.find(
 			({ gh_repo, gh_username }) => gh_repo === repo && gh_username == owner,
 		);
 
-		if (c && c.updated_at + 60000 * 60 * 24 < new Date().getTime()) {
-			shouldFetch.push({
-				owner,
-				repo,
-				isNew: false,
-			});
-		} else {
+		if (!c) {
 			shouldFetch.push({
 				owner,
 				repo,
 				isNew: true,
+			});
+		} else if (c.updated_at + 60000 * 60 * 24 < new Date().getTime()) {
+			shouldFetch.push({
+				owner,
+				repo,
+				isNew: false,
 			});
 		}
 	});
@@ -136,7 +135,7 @@ export const GET: RequestHandler = async () => {
 	} else {
 		insertCachedToRes(cachedCommitsTimestamps, res);
 	}
-
+	console.log(res);
 	const expiresDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
 	return new Response(JSON.stringify(res), {
 		headers: {
