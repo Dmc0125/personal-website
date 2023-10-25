@@ -12,6 +12,6 @@
 		required
 		minlength="10"
 		maxlength="5000"
-		class="min-h-[150px] bg-bg-2-light dark:bg-bg-2-dark border border-stroke-light dark:border-stroke-dark rounded-md w-full"
+		class="min-h-[150px] bg-bg-2-light dark:bg-bg-2-dark border border-stroke-light dark:border-stroke-dark rounded-md w-full px-4 py-2 text-font-1-light dark:text-font-1-dark"
 	/>
 </div>

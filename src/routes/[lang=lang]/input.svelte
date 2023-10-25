@@ -14,7 +14,7 @@
 		name={id}
 		type={inputType}
 		required
-		class="bg-bg-2-light dark:bg-bg-2-dark border border-stroke-light dark:border-stroke-dark rounded-md h-10 w-full"
+		class="bg-bg-2-light dark:bg-bg-2-dark border border-stroke-light dark:border-stroke-dark rounded-md h-10 w-full px-4 text-font-1-light dark:text-font-1-dark"
 		minlength={minLen}
 		maxlength={maxLen}
 	/>

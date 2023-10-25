@@ -27,6 +27,7 @@ export type LocaleTranslations = {
 
 	contactMeTitle: string;
 	contactMeName: string;
+	contactMeSurname: string;
 	contactMeMessage: string;
 	contactMeSend: string;
 
@@ -118,6 +119,7 @@ translations.set('en_EN', {
 
 	contactMeTitle: 'Contact me',
 	contactMeName: 'Name',
+	contactMeSurname: 'Surname',
 	contactMeMessage: 'Message',
 	contactMeSend: 'Send',
 
@@ -219,6 +221,7 @@ translations.set('sk_SK', {
 
 	contactMeTitle: 'Kotaktujte ma',
 	contactMeName: 'Meno',
+	contactMeSurname: 'Priezvisko',
 	contactMeMessage: 'Správa',
 	contactMeSend: 'Odoslať',
 

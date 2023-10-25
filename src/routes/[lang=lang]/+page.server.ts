@@ -15,6 +15,7 @@ const sanityClient = createClient({
 });
 
 const projectSchema = z.object({
+	order: z.number(),
 	isFinished: z.boolean(),
 	isWebsite: z.boolean(),
 	title: z.string().min(1),
@@ -56,6 +57,7 @@ export const load: PageServerLoad = async (event) => {
 	}
 
 	const projects = result.data as (z.infer<typeof projectSchema> & { commitMsg?: string })[];
+	projects.sort((a, b) => a.order - b.order);
 
 	try {
 		const commits = (await (await event.fetch('/last-commits')).json()) as CommitsTimestampsRes;

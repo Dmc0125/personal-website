@@ -39,7 +39,9 @@
 	aria-label="Color mode switch"
 >
 	<svg
-		class="h-full aspect-square {colorMode === 'dark' ? 'text-theme' : ''}"
+		class="h-full aspect-square {colorMode === 'dark'
+			? 'text-theme'
+			: 'text-font-1-light dark:text-font-1-dark'}"
 		viewBox="0 0 24 24"
 		fill="none"
 	>
@@ -51,7 +53,9 @@
 		/>
 	</svg>
 	<svg
-		class="h-full aspect-square {colorMode === 'light' ? 'text-theme' : ''}"
+		class="h-full aspect-square {colorMode === 'light'
+			? 'text-theme'
+			: 'text-font-1-light dark:text-font-1-dark'}"
 		viewBox="0 0 24 24"
 		fill="none"
 	>

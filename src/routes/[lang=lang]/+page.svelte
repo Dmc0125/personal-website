@@ -53,7 +53,7 @@
 <svelte:window bind:scrollY={scroll} />
 
 <header
-	class="fixed top-0 h-14 w-full flex items-center justify-between px-5 bg-bg-1-light dark:bg-bg-1-dark transition-all {scroll >
+	class="z-10 fixed top-0 h-14 w-full flex items-center justify-between px-5 bg-bg-1-light dark:bg-bg-1-dark transition-all {scroll >
 	0
 		? 'backdrop-blur-sm bg-bg-1-light/10 dark:bg-bg-1-dark/10'
 		: ''}"
@@ -79,7 +79,11 @@
 				{#each t.sections as section}
 					<li class="w-full">
 						<a
-							class="text-font-1-light dark:text-font-1-dark hover:!text-theme hover:bg-bg-1-light/50 dark:hover:bg-bg-1-dark/50 block w-full px-4 py-1"
+							class="text-font-1-light dark:text-font-1-dark hover:!text-theme hover:bg-bg-1-light/50 dark:hover:bg-bg-1-dark/50 block w-full px-4 py-1 {$page.url.href.endsWith(
+								section.hash,
+							)
+								? '!text-theme'
+								: ''}"
 							href={section.hash}>{section.name}</a
 						>
 					</li>
@@ -103,11 +107,16 @@
 	{/if}
 
 	<nav class="w-fit hidden sm:block">
-		<ul class="w-full flex gap-x-4 items-center justify-between">
+		<ul class="w-full flex gap-x-4 lg:gap-x-10 items-center justify-between">
 			{#each t.sections as section}
 				<li>
-					<a class="text-font-1-light dark:text-font-1-dark hover:!text-theme" href={section.hash}
-						>{section.name}</a
+					<a
+						class="text-font-1-light dark:text-font-1-dark hover:!text-theme {$page.url.href.endsWith(
+							section.hash,
+						)
+							? '!text-theme'
+							: ''}"
+						href={section.hash}>{section.name}</a
 					>
 				</li>
 			{/each}
@@ -129,57 +138,62 @@
 	</nav>
 </header>
 
-<section id="home" class="pt-[130px] px-5 scroll-mt-16">
-	<div class="flex gap-y-5 flex-col w-full">
-		<h1 class="text-font-1-light dark:text-font-1-dark text-4xl font-bold">
-			{t.landingTitle}
-		</h1>
-		<p class="text-font-2-light dark:text-font-2-dark text-xl">
-			{t.landingBody}
-		</p>
+<section
+	id="home"
+	class="max-w-[1200px] mx-auto pt-[130px] px-5 scroll-mt-16 flex flex-col md:flex-row gap-y-[150px] gap-x-16"
+>
+	<div class="w-full max-w-[500px] mx-auto relative">
+		<div class="flex gap-y-5 flex-col sticky top-32 h-fit">
+			<h1 class="text-font-1-light dark:text-font-1-dark text-4xl font-bold">
+				{t.landingTitle}
+			</h1>
+			<p class="text-font-2-light dark:text-font-2-dark text-xl">
+				{t.landingBody}
+			</p>
 
-		<dl class="flex gap-x-8 items-center text-font-1-light dark:text-font-1-dark">
-			<a
-				href="https://github.com/dmc0125"
-				target="_blank"
-				rel="noopener noreferrer"
-				aria-label="github"
-			>
-				<div class="w-10 h-10">
-					<Github />
-				</div>
-			</a>
-			<a
-				href="mailto:contact@dominikmichal.com"
-				target="_blank"
-				rel="noopener noreferrer"
-				aria-label="mail"
-			>
-				<div class="w-10 h-10">
-					<Mail />
-				</div>
-			</a>
-			<a
-				href="https://cdn.sanity.io/files/w6zzmq4u/production/17888b01d4676d73195bf58095c70ec5c380dc71.pdf"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="flex gap-x-2 items-center"
-			>
-				View cv
-				<div class="w-5 h-5">
-					<Arrow />
-				</div>
-			</a>
-		</dl>
+			<dl class="flex gap-x-8 items-center text-font-1-light dark:text-font-1-dark">
+				<a
+					href="https://github.com/dmc0125"
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="github"
+				>
+					<div class="w-10 h-10">
+						<Github />
+					</div>
+				</a>
+				<a
+					href="mailto:contact@dominikmichal.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="mail"
+				>
+					<div class="w-10 h-10">
+						<Mail />
+					</div>
+				</a>
+				<a
+					href="https://cdn.sanity.io/files/w6zzmq4u/production/17888b01d4676d73195bf58095c70ec5c380dc71.pdf"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex gap-x-2 items-center"
+				>
+					{t.landingViewCV}
+					<div class="w-5 h-5">
+						<Arrow />
+					</div>
+				</a>
+			</dl>
 
-		<a
-			href="/en#projects"
-			class="px-4 w-fit h-10 bg-theme text-font-1-light rounded-md font-medium flex items-center"
-			>{t.landingExplore}</a
-		>
+			<a
+				href="#projects"
+				class="px-4 w-fit h-10 bg-theme text-font-1-light rounded-md font-medium flex items-center"
+				>{t.landingExplore}</a
+			>
+		</div>
 	</div>
 
-	<div id="about-me" class="w-full mt-[150px] scroll-mt-16">
+	<div id="about-me" class="w-full max-w-[500px] scroll-mt-16 mx-auto">
 		<h1 class="text-xl font-bold dark:text-font-1-dark text-font-1-light">
 			{t.aboutMeTitle}
 		</h1>
@@ -190,14 +204,18 @@
 	</div>
 </section>
 
-<section id="projects" class="w-full px-5 mt-[150px] scroll-mt-16">
+<section
+	id="projects"
+	class="mx-auto w-full max-w-[420px] md:max-w-[1200px] px-5 mt-[150px] scroll-mt-16"
+>
 	<h1 class="text-xl font-bold dark:text-font-1-dark text-font-1-light">
 		{t.projectsTitle}
 	</h1>
 
-	<div class="w-full mt-5 flex flex-col gap-y-10">
-		{#each data.projects as project}
+	<div class="w-fit mx-auto mt-5 gap-y-10 grid gap-x-10 xl:gap-x-14 projects-container">
+		{#each data.projects as project, i}
 			<div
+				style="grid-area: p{i + 1};"
 				class="p-4 bg-bg-2-light dark:bg-bg-2-dark rounded-md border border-stroke-light dark:border-stroke-dark"
 			>
 				<header class="flex items-center justify-between">
@@ -275,29 +293,45 @@
 	</div>
 </section>
 
-<section id="contact" class="px-5 mt-[100px]">
+<section id="contact" class="px-5 mt-[100px] max-w-[700px] mx-auto">
 	<h1 class="text-xl font-bold dark:text-font-1-dark text-font-1-light">
 		{t.contactMeTitle}
 	</h1>
 
 	<form class="mt-5 flex flex-col gap-y-7" on:submit|preventDefault>
-		<div class="w-full flex flex-col gap-x-10 gap-y-7">
+		<div class="w-full flex flex-col sm:flex-row gap-x-10 gap-y-7">
 			<Input minLen={2} maxLen={30} label={t.contactMeName} id="name" inputType="text" />
-			<Input minLen={2} maxLen={30} label={t.contactMeName} id="surname" inputType="text" />
+			<Input minLen={2} maxLen={30} label={t.contactMeSurname} id="surname" inputType="text" />
 		</div>
 
 		<Input label="Email" id="email" inputType="email" />
 		<Textarea label={t.contactMeMessage} id="email" />
 
-		<button type="submit" class="h-10 w-full text-font-1-light bg-theme rounded-md">Send</button>
+		<button type="submit" class="h-10 w-full sm:w-fit px-8 text-font-1-light bg-theme rounded-md"
+			>{t.contactMeSend}</button
+		>
 	</form>
 </section>
 
 <footer
-	class="w-full mt-[60px] flex items-center flex-col gap-y-2 text-sm text-font-2-light dark:text-font-2-dark/50 pb-5"
+	class="w-full mt-[60px] flex items-center flex-col sm:flex-row sm:justify-between gap-y-2 text-sm text-font-2-light dark:text-font-2-dark/50 px-5 pb-5"
 >
 	<p>© 2023 Dominik Michal</p>
 	<p>
 		{@html t.footer}
 	</p>
 </footer>
+
+<style>
+	.projects-container {
+		grid-template-areas: 'p1' 'p2' 'p3' 'p4' 'p5';
+	}
+
+	@media (min-width: 1024px) {
+		.projects-container {
+			grid-template-columns: repeat(6, 1fr);
+			grid-template-rows: auto auto;
+			grid-template-areas: 'p1 p1 p1 p2 p2 p2' 'p3 p3 p4 p4 p5 p5';
+		}
+	}
+</style>

@@ -5,6 +5,11 @@ export default {
 	type: 'document',
 	fields: [
 		{
+			name: 'order',
+			type: 'number',
+			validation: (Rule: Rule) => Rule.required(),
+		},
+		{
 			name: 'lang',
 			type: 'string',
 			validation: (Rule: Rule) => Rule.required(),
