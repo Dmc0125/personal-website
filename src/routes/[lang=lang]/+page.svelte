@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Unsubscriber } from 'svelte/motion';
-	import { onDestroy } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
@@ -11,12 +11,11 @@
 	import Arrow from '$lib/icons/arrow.svelte';
 	import Hamburger from '$lib/icons/hamburger.svelte';
 	import Close from '$lib/icons/close.svelte';
-	import Input from './input.svelte';
-	import Textarea from './textarea.svelte';
 	import { translations } from '$lib/i18n/translations';
 	import ColorModeSwitch from '../color-mode-switch.svelte';
 	import CardWithImage from '../projects/card-with-image.svelte';
 	import Card from '../projects/card.svelte';
+	import ContactMe from './contact-me.svelte';
 
 	export let data: PageData;
 
@@ -39,6 +38,34 @@
 		}
 	});
 
+	let sectionsRefs: HTMLElement[] = [];
+	let activeSection: string = '';
+
+	$: {
+		if (browser && $page) {
+			const [_, id] = $page.url.hash.split('#');
+			activeSection = id;
+		}
+	}
+
+	onMount(() => {
+		sectionsRefs.forEach((el) => {
+			const observer = new IntersectionObserver((entries) => {
+				const t = entries[0];
+				const id = t.target.id;
+				console.log('id', id);
+				if (t.isIntersecting) {
+					activeSection = id;
+				}
+			});
+			observer.observe(el);
+		});
+	});
+
+	function isActiveSection(currentSection: string, aSection: string) {
+		return currentSection.endsWith(aSection);
+	}
+
 	function routeOnLangChange(
 		e: Event & {
 			currentTarget: EventTarget & HTMLSelectElement;
@@ -55,7 +82,7 @@
 <svelte:window bind:scrollY={scroll} />
 
 <header
-	class="z-10 fixed top-0 h-14 w-full flex items-center justify-between px-5 bg-bg-1-light dark:bg-bg-1-dark transition-all {scroll >
+	class="z-10 fixed top-0 h-14 w-full flex items-center justify-between px-5 xl:px-[5%] 2xl:px-[10%] bg-bg-1-light dark:bg-bg-1-dark transition-all {scroll >
 	0
 		? 'backdrop-blur-sm bg-bg-1-light/10 dark:bg-bg-1-dark/10'
 		: ''}"
@@ -81,12 +108,13 @@
 				{#each t.sections as section}
 					<li class="w-full">
 						<a
-							class="text-font-1-light dark:text-font-1-dark hover:!text-theme hover:bg-bg-1-light/50 dark:hover:bg-bg-1-dark/50 block w-full px-4 py-1 {$page.url.href.endsWith(
-								section.hash,
+							class="text-font-1-light dark:text-font-1-dark hover:!text-theme hover:bg-bg-1-light/50 dark:hover:bg-bg-1-dark/50 block w-full px-4 py-1 {isActiveSection(
+								section.urlWithHash,
+								activeSection,
 							)
 								? '!text-theme'
 								: ''}"
-							href={section.hash}>{section.name}</a
+							href={section.urlWithHash}>{section.name}</a
 						>
 					</li>
 				{/each}
@@ -113,12 +141,13 @@
 			{#each t.sections as section}
 				<li>
 					<a
-						class="text-font-1-light dark:text-font-1-dark hover:!text-theme {$page.url.href.endsWith(
-							section.hash,
+						class="text-font-1-light dark:text-font-1-dark hover:!text-theme {isActiveSection(
+							section.urlWithHash,
+							activeSection,
 						)
 							? '!text-theme'
 							: ''}"
-						href={section.hash}>{section.name}</a
+						href={section.urlWithHash}>{section.name}</a
 					>
 				</li>
 			{/each}
@@ -141,10 +170,9 @@
 </header>
 
 <section
-	id="home"
 	class="max-w-[1200px] mx-auto pt-[130px] px-5 scroll-mt-16 flex flex-col md:flex-row gap-y-[150px] gap-x-16"
 >
-	<div class="w-full max-w-[500px] mx-auto relative">
+	<div bind:this={sectionsRefs[0]} id="home" class="w-full max-w-[500px] mx-auto relative">
 		<div class="flex gap-y-5 flex-col sticky top-32 h-fit">
 			<h1 class="text-font-1-light dark:text-font-1-dark text-4xl font-bold">
 				{t.landingTitle}
@@ -195,8 +223,8 @@
 		</div>
 	</div>
 
-	<div id="about-me" class="w-full max-w-[500px] scroll-mt-16 mx-auto">
-		<h1 class="text-xl font-bold dark:text-font-1-dark text-font-1-light">
+	<div bind:this={sectionsRefs[1]} id="about-me" class="w-full max-w-[500px] scroll-mt-16 mx-auto">
+		<h1 class="text-xl md:text-2xl font-bold dark:text-font-1-dark text-font-1-light">
 			{t.aboutMeTitle}
 		</h1>
 
@@ -207,14 +235,15 @@
 </section>
 
 <section
+	bind:this={sectionsRefs[2]}
 	id="projects"
-	class="mx-auto w-full max-w-[420px] md:max-w-[700px] lg:max-w-[1200px] px-5 mt-[150px] scroll-mt-16"
+	class="mx-auto w-full max-w-[420px] md:max-w-[700px] lg:max-w-[1200px] px-5 mt-[150px] md:mt-[200px] scroll-mt-16"
 >
-	<h1 class="text-xl font-bold dark:text-font-1-dark text-font-1-light">
+	<h1 class="text-xl md:text-2xl font-bold dark:text-font-1-dark text-font-1-light">
 		{t.projectsTitle}
 	</h1>
 
-	<div class="w-fit mx-auto mt-5 gap-y-10 grid gap-x-10 xl:gap-x-14 projects-container">
+	<div class="w-fit mx-auto mt-5 gap-y-14 grid gap-x-10 xl:gap-x-14 projects-container">
 		{#each data.projects as project, i}
 			{#if project.isWebsite && project.img && project.websiteUrl && project.imgBgClr && project.imgBgClrMiddle}
 				<CardWithImage
@@ -245,28 +274,23 @@
 	</div>
 </section>
 
-<section id="contact" class="px-5 mt-[100px] max-w-[700px] mx-auto">
-	<h1 class="text-xl font-bold dark:text-font-1-dark text-font-1-light">
+<section
+	bind:this={sectionsRefs[3]}
+	id="contact"
+	class="px-5 mt-[100px] md:mt-[200px] max-w-[700px] mx-auto"
+>
+	<h1 class="text-xl md:text-2xl font-bold dark:text-font-1-dark text-font-1-light">
 		{t.contactMeTitle}
 	</h1>
 
-	<form class="mt-5 flex flex-col gap-y-7" on:submit|preventDefault>
-		<div class="w-full flex flex-col sm:flex-row gap-x-10 gap-y-7">
-			<Input minLen={2} maxLen={30} label={t.contactMeName} id="name" inputType="text" />
-			<Input minLen={2} maxLen={30} label={t.contactMeSurname} id="surname" inputType="text" />
-		</div>
-
-		<Input label="Email" id="email" inputType="email" />
-		<Textarea label={t.contactMeMessage} id="email" />
-
-		<button type="submit" class="h-10 w-full sm:w-fit px-8 text-font-1-light bg-theme rounded-md"
-			>{t.contactMeSend}</button
-		>
-	</form>
+	<ContactMe {t} />
 </section>
 
 <footer
-	class="w-full mt-[60px] flex items-center flex-col sm:flex-row sm:justify-between gap-y-2 text-sm text-font-2-light dark:text-font-2-dark/50 px-5 pb-5"
+	class="
+		w-full mt-[60px] md:mt-[120px] flex items-center flex-col sm:flex-row sm:justify-between gap-y-2
+		text-sm text-font-2-light dark:text-font-2-dark/50 px-5 xl:px-[5%] 2xl:px-[10%] pb-5
+	"
 >
 	<p>© 2023 Dominik Michal</p>
 	<p>

@@ -1,9 +1,15 @@
 import { error } from '@sveltejs/kit';
 
 import type { RequestHandler } from './$types';
-import { projectsRepos } from '$lib/projects';
 import { DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USERNAME } from '$env/static/private';
 import { createDb, type CommitTimestamp, type NewCommitTimestamp } from '../../../db/utils';
+
+const projectsRepos: { owner: string; repo: string }[] = [
+	{ owner: 'dmc0125', repo: 'funding-arbitrage' },
+	{ owner: 'dmc0125', repo: 'anchor-client-gen-rs' },
+	{ owner: 'AlgoTrdng', repo: 'meteora-autocompounder' },
+	{ owner: 'dmc0125', repo: 'sveegy' },
+];
 
 type CommitsRes = {
 	url: string;
@@ -135,7 +141,7 @@ export const GET: RequestHandler = async () => {
 	} else {
 		insertCachedToRes(cachedCommitsTimestamps, res);
 	}
-	console.log(res);
+
 	const expiresDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
 	return new Response(JSON.stringify(res), {
 		headers: {

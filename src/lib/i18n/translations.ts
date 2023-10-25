@@ -1,7 +1,8 @@
 export type Locale = 'en_EN' | 'sk_SK';
 
 type PageSection = {
-	hash: string;
+	url?: string;
+	urlWithHash: string;
 	name: string;
 };
 
@@ -18,18 +19,19 @@ export type LocaleTranslations = {
 
 	projectsTitle: string;
 
-	fundingArbitrageTitle: string;
-	fundingArbitrageBody: string;
-
-	anchorClientGenBody: string;
-	meteoraBody: string;
-	sveegyBody: string;
-
 	contactMeTitle: string;
 	contactMeName: string;
 	contactMeSurname: string;
 	contactMeMessage: string;
 	contactMeSend: string;
+
+	tooLongErrorIt: string;
+	tooShortErrorIt: string;
+	tooLongErrorMessage: string;
+	tooShortErrorMessage: string;
+	invalidEmailError: string;
+	sendEmailSuccess: string;
+	sendEmailError: string;
 
 	commit: string;
 	months: string[];
@@ -38,26 +40,13 @@ export type LocaleTranslations = {
 };
 export type Translations = Map<Locale, LocaleTranslations>;
 
-const createAnchorTag = (body: string, className: string, url: string) => {
-	return `
-		<a href="${url}" class="${className} url" target="_blank" rel="noopener noreferrer">
-			${body}
-		</a>
-	`;
-};
-
-const mangoMarketsTag = createAnchorTag('Mango Markets', 'mango-markets', 'https://mango.markets/');
-const driftTag = createAnchorTag('Drift', 'drift', 'https://www.drift.trade/#');
-const anchorTag = createAnchorTag('Anchor', 'anchor-url', 'https://www.anchor-lang.com/');
-const meteoraTag = createAnchorTag('Meteora', 'meteora', 'https://www.meteora.ag/');
-
 export const translations: Translations = new Map();
 translations.set('en_EN', {
 	sections: [
-		{ hash: '/en#home', name: 'Home' },
-		{ hash: '/en#about-me', name: 'About me' },
-		{ hash: '/en#projects', name: 'Projects' },
-		{ hash: '/en#contact', name: 'Contact' },
+		{ urlWithHash: '/en#home', name: 'Home', url: '/en' },
+		{ urlWithHash: '/en#about-me', name: 'About me' },
+		{ urlWithHash: '/en#projects', name: 'Projects' },
+		{ urlWithHash: '/en#contact', name: 'Contact' },
 	],
 	landingTitle: 'Hello, my name is Dominik',
 	landingBody:
@@ -92,36 +81,19 @@ translations.set('en_EN', {
 
 	projectsTitle: 'My projects',
 
-	fundingArbitrageTitle: 'Funding Arbitrage Bot',
-	fundingArbitrageBody: `
-		I'm currently working on this project, an arbitrage bot that captures differences between funding rates
-		on two derivatives futures markets - ${mangoMarketsTag} and ${driftTag}.
-	`,
-
-	anchorClientGenBody: `
-		Rust tool for generating
-		SDK packages from ${anchorTag} IDL. This project
-		was largely inspired by existing anchor-gen tool,
-		but supports more recent versions and features of Anchor.
-	`,
-
-	meteoraBody: `
-		A bot that automatically collects rewards earned from providing liquidity to
-		${meteoraTag} pools based on specified time interval. All the collected rewards are
-		then reinvested again to the pool.
-	`,
-
-	sveegyBody: `
-		Sveegy is a set of open-source svg icons
-		with MIT license. Icons are usable immediately
-		without the need of installing anything.
-	`,
-
 	contactMeTitle: 'Contact me',
 	contactMeName: 'Name',
 	contactMeSurname: 'Surname',
 	contactMeMessage: 'Message',
 	contactMeSend: 'Send',
+
+	tooLongErrorIt: 'is too long.',
+	tooShortErrorIt: 'is too short.',
+	tooLongErrorMessage: 'Message is too long.',
+	tooShortErrorMessage: 'Message is too short.',
+	invalidEmailError: 'Email is invalid.',
+	sendEmailError: 'Unable to send email.',
+	sendEmailSuccess: 'Email sent successfully.',
 
 	commit: 'Last commit on',
 	months: [
@@ -155,10 +127,10 @@ translations.set('en_EN', {
 
 translations.set('sk_SK', {
 	sections: [
-		{ hash: '/sk#home', name: 'Domov' },
-		{ hash: '/sk#about-me', name: 'O mne' },
-		{ hash: '/sk#projects', name: 'Projekty' },
-		{ hash: '/sk#contact', name: 'Kontakt' },
+		{ urlWithHash: '/sk#home', name: 'Domov', url: '/sk' },
+		{ urlWithHash: '/sk#about-me', name: 'O mne' },
+		{ urlWithHash: '/sk#projects', name: 'Projekty' },
+		{ urlWithHash: '/sk#contact', name: 'Kontakt' },
 	],
 
 	landingTitle: 'Vitajte, volám sa Dominik',
@@ -193,37 +165,19 @@ translations.set('sk_SK', {
 
 	projectsTitle: 'Moje projekty',
 
-	fundingArbitrageTitle: 'Funding Arbitráž Bot',
-	fundingArbitrageBody: `
-		Na tomto projekte práve pracujem, arbitráž bot, ktorý zachytáva rozdiely medzi mierami na dvoch derivátových futures
-		burzách - ${mangoMarketsTag} a ${driftTag}.
-	`,
-
-	anchorClientGenBody: `
-		Nástroj na generovanie SDK balíkov pomocou ${anchorTag} IDL.
-		Tento projekt bol značne inšpirovaný existujúcim nástrojom anchor-gen,
-		ale podporuje novšie verzie Anchor.
-	`,
-
-	meteoraBody: `
-		Meteora Autocompounder je bot, ktorý
-		sa pripája k blockchainu Solana, konkrétne ${meteoraTag}
-		aplikácii a na základe špecifikovaného časového intervalu
-		zbiera a reinvestuje odmeny získané z poskytovania
-		likvidity v uvedenej aplikácii.
-	`,
-
-	sveegyBody: `
-		Sveegy je sada open-source ikon svg
-		s licenciou MIT. Ikony sú okamžite použiteľné
-		bez nutnosti čokoľvek inštalovať.
-	`,
-
 	contactMeTitle: 'Kotaktujte ma',
 	contactMeName: 'Meno',
 	contactMeSurname: 'Priezvisko',
 	contactMeMessage: 'Správa',
 	contactMeSend: 'Odoslať',
+
+	tooLongErrorIt: 'príliš dlhé.',
+	tooShortErrorIt: 'príliš krátke.',
+	tooLongErrorMessage: 'Správa je príliš dlhá.',
+	tooShortErrorMessage: 'Správa je príliš krátká.',
+	invalidEmailError: 'Email je neplatný',
+	sendEmailError: 'Email sa nepodarilo odoslať.',
+	sendEmailSuccess: 'Email bol úspešne odoslaný.',
 
 	commit: 'Posledný commit -',
 	months: [
