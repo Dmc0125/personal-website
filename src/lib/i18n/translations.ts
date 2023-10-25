@@ -9,6 +9,8 @@ type PageSection = {
 export type LocaleTranslations = {
 	sections: PageSection[];
 
+	seoDescription: string;
+
 	landingTitle: string;
 	landingBody: string;
 	landingExplore: string;
@@ -48,6 +50,10 @@ translations.set('en_EN', {
 		{ urlWithHash: '/en#projects', name: 'Projects' },
 		{ urlWithHash: '/en#contact', name: 'Contact' },
 	],
+
+	seoDescription:
+		'Dominik Michal is a hobbyist software engineer living in Slovakia with over four years of experience.',
+
 	landingTitle: 'Hello, my name is Dominik',
 	landingBody:
 		"I'm a hobbyist software engineer living in Slovakia with over four years of experience.",
@@ -132,6 +138,9 @@ translations.set('sk_SK', {
 		{ urlWithHash: '/sk#projects', name: 'Projekty' },
 		{ urlWithHash: '/sk#contact', name: 'Kontakt' },
 	],
+
+	seoDescription:
+		'Dominik Michal je softvérový programátor žijúci na Slovensku, so štyrmi rokmi skúsentí',
 
 	landingTitle: 'Vitajte, volám sa Dominik',
 	landingBody:

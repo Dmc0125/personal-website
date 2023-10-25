@@ -37,6 +37,7 @@
     "@emailjs/browser": "^3.11.0",
     "@planetscale/database": "^1.11.0",
     "@sanity/client": "^6.7.0",
+    "@vercel/analytics": "^1.1.1",
     "kysely": "^0.26.3",
     "kysely-planetscale": "^1.4.0",
     "zod": "^3.22.4"

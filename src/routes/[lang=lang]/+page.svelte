@@ -79,6 +79,29 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Dominik Michal</title>
+	<meta name="description" content={t.seoDescription} />
+	<meta name="og:description" content={t.seoDescription} />
+	<meta name="twitter:description" content={t.seoDescription} />
+
+	<meta name="image" content="https://dominikmichal.com/dominikmichal.png" />
+	<meta name="og:image" content="https://dominikmichal.com/dominikmichal.png" />
+	<meta name="twitter:image" content="https://dominikmichal.com/dominikmichal.png" />
+
+	<meta name="og:title" content="Dominik Michal" />
+	<meta name="twitter:title" content="Dominik Michal" />
+
+	<meta name="og:site_name" content="Dominik Michal" />
+	<meta name="og:type" content="website" />
+
+	<meta name="og:url" content="https://dominikmichal.com" />
+	<meta name="twitter:url" content="https://dominikmichal.com" />
+
+	<meta name="theme-color" content="#FC5130" />
+	<meta name="twitter:card" content="summary_large_image" />
+</svelte:head>
+
 <svelte:window bind:scrollY={scroll} />
 
 <header
