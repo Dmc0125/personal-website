@@ -8,12 +8,21 @@
 	export let githubOwner: string;
 	export let githubRepo: string;
 	export let tags: string[];
+	export let isFinished: boolean;
 </script>
 
 <div
 	style="grid-area: p{i + 1};"
-	class="p-4 bg-bg-2-light dark:bg-bg-2-dark rounded-md border border-stroke-light dark:border-stroke-dark"
+	class="p-4 bg-bg-2-light dark:bg-bg-2-dark rounded-md border border-stroke-light dark:border-stroke-dark relative [&>.wip-flag]:hover:opacity-100"
 >
+	{#if !isFinished}
+		<div
+			class="absolute top-0 left-0 w-full py-1 text-center bg-yellow-500 dark:bg-yellow-600 rounded-tl-md rounded-tr-md opacity-0 transition-all wip-flag dark:shadow-md"
+		>
+			<p class="text-font-1-light font-medium text-sm">Work in progress</p>
+		</div>
+	{/if}
+
 	<header class="flex items-center justify-between">
 		<div>
 			<h2 class="text-xl font-medium text-font-1-light dark:text-font-1-dark">
@@ -42,7 +51,7 @@
 
 	<div class="flex items-center flex-wrap gap-x-4 gap-y-4 mt-8">
 		{#each tags as tag}
-			<div class="bg-theme/30 px-3 py-1 rounded-full">
+			<div class="bg-theme/[15%] dark:bg-theme/30 px-3 py-1 rounded-full">
 				<span class="text-theme text-sm font-medium">{tag}</span>
 			</div>
 		{/each}

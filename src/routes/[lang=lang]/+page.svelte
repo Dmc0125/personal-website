@@ -105,16 +105,18 @@
 <svelte:window bind:scrollY={scroll} />
 
 <header
-	class="z-10 fixed top-0 h-14 w-full flex items-center justify-between px-5 xl:px-[5%] 2xl:px-[10%] bg-bg-1-light dark:bg-bg-1-dark transition-all {scroll >
-	0
-		? 'backdrop-blur-sm bg-bg-1-light/10 dark:bg-bg-1-dark/10'
-		: ''}"
+	class="
+		z-10 fixed top-0 h-14 w-full flex items-center justify-between px-5 xl:px-[5%] 2xl:px-[10%]
+		border-b-bg-2-light/50 dark:border-b-bg-2-dark bg-bg-1-light dark:bg-bg-1-dark transition-all
+		{scroll > 0 ? 'border-b backdrop-blur-sm bg-bg-1-light/10 dark:bg-bg-1-dark/10' : ''}
+	"
 >
 	<h1 class="text-xl font-semibold text-font-1-light dark:text-font-1-dark">Dominik Michal</h1>
 
 	<button
 		class="h-10 w-h10 text-font-1-light dark:text-font-1-dark sm:hidden"
 		on:click={() => (menuOpen = !menuOpen)}
+		aria-label="menu toggle"
 	>
 		{#if !menuOpen}
 			<Hamburger />
@@ -285,6 +287,7 @@
 					githubRepo={project.githubRepo}
 					websiteUrl={project.websiteUrl}
 					tags={project.tags}
+					isFinished={project.isFinished}
 				/>
 			{:else}
 				<Card
@@ -295,6 +298,7 @@
 					githubOwner={project.githubOwner}
 					githubRepo={project.githubRepo}
 					tags={project.tags}
+					isFinished={project.isFinished}
 				/>
 			{/if}
 		{/each}

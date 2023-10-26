@@ -16,15 +16,24 @@
 	export let githubRepo: string;
 	export let websiteUrl: string;
 	export let tags: string[];
+	export let isFinished: boolean;
 </script>
 
 <div
 	style="grid-area: p{i + 1};"
 	class="
 		p-4 bg-bg-2-light dark:bg-bg-2-dark rounded-md border border-stroke-light dark:border-stroke-dark
-		md:grid md:grid-cols-[35%_1fr] md:grid-rows-[auto_1fr_auto] gap-x-10
+		md:grid md:grid-cols-[35%_1fr] md:grid-rows-[auto_1fr_auto] gap-x-10 relative [&>.wip-flag]:hover:opacity-100
 	"
 >
+	{#if !isFinished}
+		<div
+			class="absolute top-0 left-0 w-full py-1 text-center bg-yellow-500 dark:bg-yellow-600 rounded-tl-md rounded-tr-md opacity-0 transition-all wip-flag dark:shadow-md"
+		>
+			<p class="text-font-1-light font-medium text-sm">Work in progress</p>
+		</div>
+	{/if}
+
 	<header class="mb-5 md:mb-3 md:col-[2/3]">
 		<h2 class="text-xl font-medium text-font-1-light dark:text-font-1-dark">
 			{title}
@@ -44,6 +53,7 @@
 			class="mx-auto"
 			src="https://cdn.sanity.io/images/w6zzmq4u/production/{img.asset._ref}"
 			alt={title}
+			loading="lazy"
 		/>
 	</div>
 
@@ -75,7 +85,7 @@
 
 	<div class="flex items-center flex-wrap gap-x-4 gap-y-4 col-[1/3] mt-8">
 		{#each tags as tag}
-			<div class="bg-theme/30 px-3 py-1 rounded-full">
+			<div class="bg-theme/[15%] dark:bg-theme/30 px-3 py-1 rounded-full">
 				<span class="text-theme text-sm font-medium">{tag}</span>
 			</div>
 		{/each}

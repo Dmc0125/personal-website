@@ -1,22 +1,20 @@
 import type { Handle } from '@sveltejs/kit';
 
-import type { Locale } from '$lib/i18n/translations';
-
-export function getLocaleFromUrl(path: string): Locale | null {
+export function getLangFromUrl(path: string): string | null {
 	if (path.startsWith('/sk')) {
-		return 'sk_SK';
+		return 'sk';
 	} else if (path.startsWith('/en')) {
-		return 'en_EN';
+		return 'en';
 	}
 	return null;
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const locale = getLocaleFromUrl(event.url.pathname);
+	const lang = getLangFromUrl(event.url.pathname);
 
-	if (locale) {
+	if (lang) {
 		return resolve(event, {
-			transformPageChunk: ({ html }) => html.replace('%lang%', `lang=${locale}`),
+			transformPageChunk: ({ html }) => html.replace('%lang%', `lang=${lang}`),
 		});
 	}
 

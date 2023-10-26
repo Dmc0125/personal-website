@@ -74,6 +74,13 @@
 	async function sendEmail() {
 		if (validate()) {
 			return;
+		} else {
+			errors = {
+				name: null,
+				surname: null,
+				email: null,
+				message: null,
+			};
 		}
 
 		sending = true;
@@ -96,6 +103,7 @@
 				email: '',
 				message: '',
 			};
+
 			sendStatus = { msg: t.sendEmailSuccess, isErr: false };
 		} catch (e) {
 			console.log(e);

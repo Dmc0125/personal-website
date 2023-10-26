@@ -6,7 +6,7 @@ export default {
 		extend: {
 			colors: {
 				'bg-1': {
-					light: '#FFFFFF',
+					light: '#F2F2F2',
 					dark: '#11151C',
 				},
 				'bg-2': {
