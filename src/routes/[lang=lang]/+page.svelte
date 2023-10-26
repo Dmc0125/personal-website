@@ -193,9 +193,13 @@
 </header>
 
 <section
-	class="max-w-[1200px] mx-auto pt-[130px] px-5 scroll-mt-16 flex flex-col md:flex-row gap-y-[150px] gap-x-16"
+	class="max-w-[1200px] mx-auto pt-[130px] px-5 flex flex-col md:flex-row gap-y-[150px] gap-x-16"
 >
-	<div bind:this={sectionsRefs[0]} id="home" class="w-full max-w-[500px] mx-auto relative">
+	<div
+		bind:this={sectionsRefs[0]}
+		id="home"
+		class="w-full max-w-[500px] mx-auto relative scroll-mt-32"
+	>
 		<div class="flex gap-y-5 flex-col sticky top-32 h-fit">
 			<h1 class="text-font-1-light dark:text-font-1-dark text-4xl font-bold">
 				{t.landingTitle}

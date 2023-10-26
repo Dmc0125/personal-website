@@ -44,13 +44,13 @@
 
 		const nameErr = validateLen(inputsValues.name, 2, 30);
 		if (nameErr) {
-			errors.name = `${t.contactMeName} ${nameErr} (> 2 char < 30)`;
+			errors.name = `${t.contactMeName} ${nameErr} (2 < char < 30)`;
 			err = true;
 		}
 
 		const surnameErr = validateLen(inputsValues.surname, 2, 30);
 		if (surnameErr) {
-			errors.surname = `${t.contactMeSurname} ${surnameErr} (> 2 char < 30)`;
+			errors.surname = `${t.contactMeSurname} ${surnameErr} (2 < char < 30)`;
 			err = true;
 		}
 
@@ -83,6 +83,7 @@
 				PUBLIC_EMAILJS_TEMPLATE_ID,
 				{
 					from_name: inputsValues.name,
+					from_surname: inputsValues.surname,
 					from_email: inputsValues.email,
 					message: inputsValues.message,
 				},
