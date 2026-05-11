@@ -1,0 +1,260 @@
+---
+import Project from "../components/Project.astro";
+
+import { content, type ContentLang } from "../content/content";
+import { links } from "../content/links";
+
+interface Props {
+    lang: ContentLang;
+}
+const { lang } = Astro.props;
+
+const c = content[lang];
+---
+
+<header
+    id="header"
+    class="w-full h-16 border-black border-b bg-black sticky top-0 trasition-all"
+>
+    <nav class="w-full h-16 flex items-center justify-center">
+        <ul class="w-fit h-16 flex gap-4 items-center text-gray-400">
+            <li>
+                <a href="#home" class="hover:text-white hover:underline"
+                    >{c.header.home}</a
+                >
+            </li>
+            <li>
+                <a href="#about-me" class="hover:text-white hover:underline"
+                    >{c.header.aboutMe}</a
+                >
+            </li>
+            <li>
+                <a href="#projects" class="hover:text-white hover:underline"
+                    >{c.header.projects}</a
+                >
+            </li>
+            <li>
+                <a href="#contact" class="hover:text-white hover:underline"
+                    >{c.header.contact}</a
+                >
+            </li>
+            <li>
+                <a
+                    href="/"
+                    class={lang == "sk"
+                        ? "text-white"
+                        : "hover:text-white hover:underline"}
+                >
+                    SK
+                </a>
+                /
+                <a
+                    href="/en"
+                    class={lang == "en"
+                        ? "text-white"
+                        : "hover:text-white hover:underline"}
+                >
+                    EN
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<script>
+    const header = document.getElementById("header");
+    let scrolled = false;
+
+    function handleScroll() {
+        if (header === null) return;
+
+        if (window.scrollY > 0 && !scrolled) {
+            header.classList.remove("bg-black", "border-black");
+            header.classList.add("bg-black/20", "border-gray-800");
+            header.style.backdropFilter = "blur(10px)";
+            scrolled = true;
+        } else if (window.scrollY === 0 && scrolled) {
+            header.classList.remove("bg-black/20", "border-gray-800");
+            header.classList.add("bg-black", "border-black");
+            header.style.backdropFilter = "blur(0px)";
+            scrolled = false;
+        }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("DOMContentLoaded", handleScroll);
+</script>
+
+<section
+    id="home"
+    class="w-full max-w-[450px] pt-20 pb-32 sm:pt-48 sm:pb-48 px-4"
+>
+    <h1 class="text-white text-2xl font-bold">{c.home.title}</h1>
+    <h2 class="text-teal-600 text-lg font-bold pt-2">
+        {c.home.subtitle}
+    </h2>
+    <p class="text-gray-400 pt-4">
+        {c.home.headline}
+    </p>
+    <div class="flex gap-8 items-center mt-6">
+        {
+            links.map((link) => (
+                <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-400 hover:text-teal-600 transition-all"
+                >
+                    <link.icon class="size-8" />
+                </a>
+            ))
+        }
+    </div>
+</section>
+
+<section id="about-me" class="w-full px-4">
+    <div class="flex gap-4 items-center">
+        <div class="h-[2px] w-full bg-gray-700"></div>
+        <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
+            {c.aboutMe.title}
+        </h3>
+        <span class="text-lg font-medium text-gray-700">01</span>
+    </div>
+
+    <div class="text-gray-400 pt-8 flex flex-col gap-4">
+        <p>
+            {c.aboutMe.p1}
+        </p>
+        <p>
+            {c.aboutMe.p2}
+        </p>
+        <p>
+            {c.aboutMe.p3}
+        </p>
+    </div>
+</section>
+
+<section id="projects" class="w-full px-4 mt-16 sm:mt-32">
+    <div class="flex gap-4 items-center">
+        <div class="h-[2px] w-full bg-gray-700"></div>
+        <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
+            {c.projects.title}
+        </h3>
+        <span class="text-lg font-medium text-gray-700">02</span>
+    </div>
+
+    <div class="pt-10 sm:pt-20 w-full flex flex-col gap-12 sm:gap-20">
+        <Project
+            name={c.projects.chip8.name}
+            description={c.projects.chip8.description}
+            url="https://chip-8.dmnk.app/"
+            githubUrl="https://github.com/dmc0125/chip8-emulator"
+            imageUrl="/chip8-emulator.png"
+            technologies={["Odin", "SDL2", "React", "Typescript"]}
+        />
+        <Project
+            name={c.projects.cubeGame.name}
+            description={c.projects.cubeGame.description}
+            url="https://cube-game.dmnk.app/"
+            githubUrl="https://github.com/dmc0125/tetris"
+            imageUrl="/cube-game.gif"
+            technologies={["Odin", "Astro", "Web assembly"]}
+        />
+        <Project
+            name={c.projects.blogger.name}
+            description={c.projects.blogger.description}
+            githubUrl="https://github.com/dmc0125/blogger"
+            imageUrl="/blogger.gif"
+            technologies={["Odin", "OpenAI", "Anthropic", "CLI"]}
+        />
+    </div>
+</section>
+
+<section id="contact" class="w-full px-4 mt-16 sm:mt-32">
+    <div class="flex gap-4 items-center">
+        <div class="h-[2px] w-full bg-gray-700"></div>
+        <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
+            {c.contact.title}
+        </h3>
+        <span class="text-lg font-medium text-gray-700">03</span>
+    </div>
+
+    <p class="mt-10 text-gray-400">
+        {c.contact.p1}
+    </p>
+
+    <form id="contact-form" class="w-full mt-6 flex flex-col gap-4">
+        <input
+            type="email"
+            placeholder={c.contact.form.email}
+            name="from"
+            class="input"
+            required
+        />
+        <input
+            type="text"
+            placeholder={c.contact.form.subject}
+            name="subject"
+            class="input"
+        />
+        <textarea
+            placeholder={c.contact.form.message}
+            class="input"
+            name="message"
+            required></textarea>
+        <button
+            class="w-fit bg-teal-600 text-white px-4 py-2 rounded opacity-50"
+            type="submit"
+            disabled>{c.contact.button}</button
+        >
+    </form>
+
+    <script>
+        import { actions } from "astro:actions";
+
+        const contactForm = document.getElementById("contact-form");
+        if (contactForm === null) {
+            throw new Error("Contact form not found");
+        }
+        contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target! as HTMLFormElement);
+            const { error } = await actions.sendMail(formData);
+            if (error) {
+                throw error;
+            }
+        });
+    </script>
+
+    <style>
+        @reference "tailwindcss";
+
+        .input {
+            @apply w-full rounded-lg border border-gray-800 px-4 py-2 text-gray-400;
+        }
+    </style>
+</section>
+
+<footer
+    class="w-full px-4 pb-10 pt-6 mt-16 border-t border-gray-800 flex gap-4 flex-col sm:flex-row justify-between items-center"
+>
+    <div class="flex gap-4 items-center">
+        {
+            links.map((link) => (
+                <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-400 hover:text-teal-600 transition-all"
+                >
+                    <link.icon class="size-6" />
+                </a>
+            ))
+        }
+    </div>
+
+    <span class="text-gray-400 text-sm">
+        © {new Date().getFullYear()}
+        {c.footer.copyright}
+    </span>
+</footer>
