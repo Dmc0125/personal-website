@@ -1,0 +1,68 @@
+---
+import NewPage from "../assets/new_page.svg";
+import Github from "../assets/github.svg";
+
+interface Props {
+    name: string;
+    description: string;
+    url?: string;
+    githubUrl?: string;
+    imageUrl: string;
+    technologies: string[];
+}
+
+const { name, description, url, githubUrl, technologies, imageUrl } =
+    Astro.props;
+---
+
+<div class="w-full flex flex-col sm:grid grid-cols-2 gap-4">
+    <div>
+        <div class="w-full flex items-center gap-4">
+            {
+                url ? (
+                    <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-gray-200 hover:text-teal-600 transition-all cursor-pointer flex items-center gap-2 group"
+                    >
+                        <h4 class="text-lg font-semibold">{name}</h4>
+                        <NewPage class="size-4 text-gray-400 group-hover:text-teal-600" />
+                    </a>
+                ) : (
+                    <h4 class="text-gray-200 text-lg font-semibold">{name}</h4>
+                )
+            }
+            {
+                githubUrl && (
+                    <a
+                        class="text-gray-400 hover:text-teal-600 transition-all"
+                        href={githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <Github class="size-4" />
+                    </a>
+                )
+            }
+        </div>
+        <p class="text-gray-400 pt-2">
+            {description}
+        </p>
+        <ul class="w-full mt-2 flex items-center gap-4 text-sm">
+            {
+                technologies.map((t) => (
+                    <li class="px-2 py-1 bg-zinc-800 text-gray-200 rounded">
+                        {t}
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+    <img
+        src={imageUrl}
+        alt={`${name} preview image`}
+        class="w-full mt-4 border border-gray-800 rounded-lg"
+        loading="lazy"
+    />
+</div>

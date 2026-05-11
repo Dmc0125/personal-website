@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "Inter";
+    src: url("/Inter.ttf");
+    font-weight: 100 900;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("/Inter-Italic.ttf");
+    font-style: italic;
+    font-weight: 100 900;
+}
+
+* {
+    font-family: "Inter", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
