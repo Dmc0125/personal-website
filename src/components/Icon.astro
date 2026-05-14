@@ -1,0 +1,11 @@
+---
+type Props = {
+    name: string;
+    className: string;
+};
+const { name, className } = Astro.props;
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" class={className}>
+    <use href={`/icons.svg#${name}`}></use>
+</svg>

@@ -1,5 +1,6 @@
 ---
 import Project from "../components/Project.astro";
+import Icon from "../components/Icon.astro";
 
 import { content, type ContentLang } from "../content/content";
 import { links } from "../content/links";
@@ -17,7 +18,9 @@ const c = content[lang];
     class="w-full h-16 border-black border-b bg-black sticky top-0 trasition-all"
 >
     <nav class="w-full h-16 flex items-center justify-center">
-        <ul class="w-fit h-16 flex gap-4 items-center text-gray-400">
+        <ul
+            class="w-fit h-16 flex gap-4 items-center text-gray-400 text-sm sm:text-base"
+        >
             <li>
                 <a href="#home" class="hover:text-white hover:underline"
                     >{c.header.home}</a
@@ -105,7 +108,7 @@ const c = content[lang];
                     rel="noopener noreferrer"
                     class="text-gray-400 hover:text-teal-600 transition-all"
                 >
-                    <link.icon class="size-8" />
+                    <Icon name={link.icon} className="size-8" />
                 </a>
             ))
         }
@@ -184,45 +187,180 @@ const c = content[lang];
     </p>
 
     <form id="contact-form" class="w-full mt-6 flex flex-col gap-4">
-        <input
-            type="email"
-            placeholder={c.contact.form.email}
-            name="from"
-            class="input"
-            required
-        />
-        <input
-            type="text"
-            placeholder={c.contact.form.subject}
-            name="subject"
-            class="input"
-        />
-        <textarea
-            placeholder={c.contact.form.message}
-            class="input"
-            name="message"
-            required></textarea>
-        <button
-            class="w-fit bg-teal-600 text-white px-4 py-2 rounded opacity-50"
-            type="submit"
-            disabled>{c.contact.button}</button
-        >
+        <div id="contact-form-email">
+            <input
+                type="email"
+                placeholder={c.contact.form.email}
+                name="from"
+                class="input"
+                required
+            />
+            <div class="text-red-700 text-sm pt-2 hidden"></div>
+        </div>
+
+        <div id="contact-form-subject">
+            <input
+                type="text"
+                placeholder={c.contact.form.subject}
+                name="subject"
+                class="input"
+            />
+            <div class="text-red-700 text-sm pt-2 hidden"></div>
+        </div>
+
+        <div id="contact-form-message">
+            <textarea
+                placeholder={c.contact.form.message}
+                class="input"
+                name="message"
+                required></textarea>
+            <div class="text-red-700 text-sm pt-2 hidden"></div>
+        </div>
+
+        <div class="sm:flex gap-4 items-center">
+            <button
+                class="w-32 flex shrink-0 items-center justify-center bg-teal-600 text-white py-2 rounded transition-all relative cursor-pointer"
+                type="submit"
+            >
+                <span class="flex gap-2 items-center">
+                    {c.contact.button}
+                    <Icon name="plane" className="size-5" />
+                </span>
+                <div
+                    class="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                w-4 h-4 rounded-full border-2 border-white border-b-white/50 animate-spin hidden opacity-0 transition-all"
+                >
+                </div>
+            </button>
+            <div
+                id="contact-form-error-general"
+                class="w-fit mt-4 sm:mt-0 py-2 text-red-700/80 bg-red-700/20 flex items-center gap-2 rounded px-4 rounded border border-red-900/30 hidden"
+            >
+                {c.contact.errorGeneral}
+            </div>
+        </div>
     </form>
 
     <script>
+        import { isInputError } from "astro:actions";
         import { actions } from "astro:actions";
 
-        const contactForm = document.getElementById("contact-form");
-        if (contactForm === null) {
-            throw new Error("Contact form not found");
+        const contactForm = document.getElementById("contact-form")!;
+        const formEmail = document.getElementById("contact-form-email")!;
+        const formSubject = document.getElementById("contact-form-subject")!;
+        const formMessage = document.getElementById("contact-form-message")!;
+
+        type InputError = {
+            from?: string[] | undefined;
+            subject?: string[] | undefined;
+            message?: string[] | undefined;
+        };
+
+        // TODO: Zod errors translations
+        function handleInputError(e: InputError) {
+            function applyErrorState(element: HTMLElement, message: string) {
+                const inputElement =
+                    element.querySelector("input") ||
+                    element.querySelector("textarea");
+                if (inputElement === null) {
+                    throw new Error(`Input element not found in ${element.id}`);
+                }
+
+                inputElement.classList.remove("input");
+                inputElement.classList.add("input-error");
+
+                const messageElement = element.querySelector("div");
+                if (messageElement === null) {
+                    throw new Error(
+                        `Message element not found in ${element.id}`,
+                    );
+                }
+                messageElement.innerText = message;
+                messageElement.classList.remove("hidden");
+            }
+
+            if (e.from !== undefined) {
+                applyErrorState(formEmail, e.from[0]);
+            }
+            if (e.subject !== undefined) {
+                applyErrorState(formSubject, e.subject[0]);
+            }
+            if (e.message !== undefined) {
+                applyErrorState(formMessage, e.message[0]);
+            }
         }
+
+        function resetErrorState(element: HTMLElement) {
+            const inputElement =
+                element.querySelector("input") ||
+                element.querySelector("textarea");
+            if (inputElement === null) {
+                throw new Error(`Input element not found in ${element.id}`);
+            }
+
+            inputElement.classList.remove("input-error");
+            inputElement.classList.add("input");
+
+            const messageElement = element.querySelector("div");
+            if (messageElement === null) {
+                throw new Error(`Message element not found in ${element.id}`);
+            }
+            messageElement.classList.add("hidden");
+        }
+
+        formEmail.addEventListener("input", () => {
+            resetErrorState(formEmail);
+        });
+        formSubject.addEventListener("input", () => {
+            resetErrorState(formSubject);
+        });
+        formMessage.addEventListener("input", () => {
+            resetErrorState(formMessage);
+        });
+
         contactForm.addEventListener("submit", async (e) => {
             e.preventDefault();
+
+            const errorMessage = document.querySelector(
+                "#contact-form-error-general",
+            )!;
+            errorMessage.classList.add("hidden");
+
+            const submitButton = document.querySelector(
+                "#contact-form button[type=submit]",
+            )! as HTMLButtonElement;
+            const loadingSpinner = submitButton.querySelector(
+                "div",
+            )! as HTMLDivElement;
+
+            submitButton.classList.remove("bg-teal-600", "text-white");
+            submitButton.classList.add(
+                "cursor-wait",
+                "bg-teal-600/50",
+                "text-white/50",
+            );
+            submitButton.disabled = true;
+            loadingSpinner.classList.remove("hidden", "opacity-0");
+            loadingSpinner.classList.add("opacity-100");
+
             const formData = new FormData(e.target! as HTMLFormElement);
             const { error } = await actions.sendMail(formData);
-            if (error) {
-                throw error;
+
+            if (isInputError(error)) {
+                handleInputError(error.fields);
+            } else if (error?.code === "INTERNAL_SERVER_ERROR") {
+                errorMessage.classList.remove("hidden");
             }
+
+            submitButton.classList.remove(
+                "cursor-wait",
+                "bg-teal-600/50",
+                "text-white/50",
+            );
+            submitButton.classList.add("bg-teal-600", "text-white");
+            submitButton.disabled = false;
+            loadingSpinner.classList.remove("opacity-100");
+            loadingSpinner.classList.add("hidden", "opacity-0");
         });
     </script>
 
@@ -231,6 +369,9 @@ const c = content[lang];
 
         .input {
             @apply w-full rounded-lg border border-gray-800 px-4 py-2 text-gray-400;
+        }
+        .input-error {
+            @apply w-full rounded-lg border border-red-700 px-4 py-2 text-gray-400;
         }
     </style>
 </section>
@@ -247,7 +388,7 @@ const c = content[lang];
                     rel="noopener noreferrer"
                     class="text-gray-400 hover:text-teal-600 transition-all"
                 >
-                    <link.icon class="size-6" />
+                    <Icon name={link.icon} className="size-6" />
                 </a>
             ))
         }

@@ -36,6 +36,7 @@ type Content = {
             message: string;
         };
         button: string;
+        errorGeneral: string;
     };
     footer: {
         copyright: string;
@@ -90,7 +91,8 @@ export const content: Record<ContentLang, Content> = {
                 subject: "Subject",
                 message: "Message",
             },
-            button: "Coming soon",
+            button: "Send",
+            errorGeneral: "Unable to send email. Please try again later.",
         },
         footer: {
             copyright: "Dominik Michal. All rights reserved.",
@@ -141,7 +143,8 @@ export const content: Record<ContentLang, Content> = {
                 subject: "Predmet",
                 message: "Správa",
             },
-            button: "Čoskoro",
+            button: "Odoslať",
+            errorGeneral: "Nepodarilo sa odoslať email. Skúste to prosím neskôr.",
         },
         footer: {
             copyright: "Dominik Michal. Všetky práva vyhradené.",

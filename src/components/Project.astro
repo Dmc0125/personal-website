@@ -1,6 +1,5 @@
 ---
-import NewPage from "../assets/new_page.svg";
-import Github from "../assets/github.svg";
+import Icon from "./Icon.astro";
 
 interface Props {
     name: string;
@@ -27,7 +26,10 @@ const { name, description, url, githubUrl, technologies, imageUrl } =
                         class="text-gray-200 hover:text-teal-600 transition-all cursor-pointer flex items-center gap-2 group"
                     >
                         <h4 class="text-lg font-semibold">{name}</h4>
-                        <NewPage class="size-4 text-gray-400 group-hover:text-teal-600" />
+                        <Icon
+                            name="new_page"
+                            className="size-4 text-gray-400 group-hover:text-teal-600"
+                        />
                     </a>
                 ) : (
                     <h4 class="text-gray-200 text-lg font-semibold">{name}</h4>
@@ -41,7 +43,7 @@ const { name, description, url, githubUrl, technologies, imageUrl } =
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <Github class="size-4" />
+                        <Icon name="github" className="size-4" />
                     </a>
                 )
             }

@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 import vercel from '@astrojs/vercel';
@@ -15,6 +15,12 @@ export default defineConfig({
         defaultLocale: "sk",
         routing: {
             prefixDefaultLocale: true,
+        },
+    },
+    env: {
+        schema: {
+            GMAIL_PASSWORD: envField.string({ context: "server", access: "secret" }),
+            EMAIL_USER: envField.string({ context: "server", access: "secret" }),
         },
     },
 });
