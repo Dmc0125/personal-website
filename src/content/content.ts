@@ -37,6 +37,7 @@ type Content = {
         };
         button: string;
         errorGeneral: string;
+        errorTooManyRequests: string;
     };
     footer: {
         copyright: string;
@@ -93,6 +94,7 @@ export const content: Record<ContentLang, Content> = {
             },
             button: "Send",
             errorGeneral: "Unable to send email. Please try again later.",
+            errorTooManyRequests: "You have exceeded the rate limit. Please try again later.",
         },
         footer: {
             copyright: "Dominik Michal. All rights reserved.",
@@ -145,6 +147,7 @@ export const content: Record<ContentLang, Content> = {
             },
             button: "Odoslať",
             errorGeneral: "Nepodarilo sa odoslať email. Skúste to prosím neskôr.",
+            errorTooManyRequests: "Prekročili ste limit. Skúste to prosím neskôr.",
         },
         footer: {
             copyright: "Dominik Michal. Všetky práva vyhradené.",

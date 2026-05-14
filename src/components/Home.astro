@@ -238,6 +238,12 @@ const c = content[lang];
             >
                 {c.contact.errorGeneral}
             </div>
+            <div
+                id="contact-form-error-too-many-requests"
+                class="w-fit mt-4 sm:mt-0 py-2 text-red-700/80 bg-red-700/20 flex items-center gap-2 rounded px-4 rounded border border-red-900/30 hidden"
+            >
+                {c.contact.errorTooManyRequests}
+            </div>
         </div>
     </form>
 
@@ -321,10 +327,14 @@ const c = content[lang];
         contactForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            const errorMessage = document.querySelector(
+            const errorMessageGeneral = document.querySelector(
                 "#contact-form-error-general",
-            )!;
-            errorMessage.classList.add("hidden");
+            )! as HTMLDivElement;
+            const errorMessageTooManyRequests = document.querySelector(
+                "#contact-form-error-too-many-requests",
+            )! as HTMLDivElement;
+            errorMessageGeneral.classList.add("hidden");
+            errorMessageTooManyRequests.classList.add("hidden");
 
             const submitButton = document.querySelector(
                 "#contact-form button[type=submit]",
@@ -349,7 +359,9 @@ const c = content[lang];
             if (isInputError(error)) {
                 handleInputError(error.fields);
             } else if (error?.code === "INTERNAL_SERVER_ERROR") {
-                errorMessage.classList.remove("hidden");
+                errorMessageGeneral.classList.remove("hidden");
+            } else if (error?.code === "TOO_MANY_REQUESTS") {
+                errorMessageTooManyRequests.classList.remove("hidden");
             }
 
             submitButton.classList.remove(
