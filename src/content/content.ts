@@ -4,6 +4,11 @@ type Project = {
 }
 
 type Content = {
+    meta: {
+        title: string;
+        description: string;
+        keywords: string;
+    },
     header: {
         home: string;
         aboutMe: string;
@@ -14,6 +19,9 @@ type Content = {
         title: string;
         subtitle: string;
         headline: string;
+        ariaLabelGithub: string;
+        ariaLabelMail: string;
+        ariaLabelLinkedin: string;
     };
     aboutMe: {
         title: string;
@@ -48,6 +56,11 @@ export type ContentLang = "en" | "sk";
 
 export const content: Record<ContentLang, Content> = {
     en: {
+        meta: {
+            title: "Portfolio • Dominik Michal",
+            description: "Portfolio of Dominik Michal, self-taught software developer based in Slovakia, specializing in Typescript, React, Odin ang Golang. View projects and get it touch.",
+            keywords: "dominik michal, software developer, odin, golang, react, typescript, slovakia",
+        },
         header: {
             home: "Home",
             aboutMe: "About me",
@@ -59,6 +72,9 @@ export const content: Record<ContentLang, Content> = {
             subtitle: "Hopefully soon to be a software developer",
             headline:
                 "I'm self taught programmer living in Slovakia, passionate about building things and learning new stuff.",
+            ariaLabelGithub: "GitHub profile",
+            ariaLabelMail: "Mail dominikmichal0124@gmail.com",
+            ariaLabelLinkedin: "LinkedIn profile",
         },
         aboutMe: {
             title: "About me",
@@ -101,6 +117,11 @@ export const content: Record<ContentLang, Content> = {
         },
     },
     sk: {
+        meta: {
+            title: "Portfólio • Dominik Michal",
+            description: "Portfólio Dominik Michal, samouk softvérový vývojár na Slovensku, špecializujem sa na TypeScript, React, Odin a Golang. Pozrite si projekty a neváhajte ma kontaktovať.",
+            keywords: "dominik michal, softvérový vývojár, odin, golang, react, typescript, slovensko",
+        },
         header: {
             home: "Domov",
             aboutMe: "O mne",
@@ -112,6 +133,9 @@ export const content: Record<ContentLang, Content> = {
             subtitle: "Čoskoro snáď softvérový vývojár",
             headline:
                 "Som programátor-samouk žijúci na Slovensku, nadšený pre tvorenie a učenie sa nových vecí.",
+            ariaLabelGithub: "GitHub profil",
+            ariaLabelMail: "Mail dominikmichal0124@gmail.com",
+            ariaLabelLinkedin: "LinkedIn profil",
         },
         aboutMe: {
             title: "O mne",

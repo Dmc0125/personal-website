@@ -26,6 +26,7 @@ const { name, description, url, githubUrl, technologies, imageUrl, videoUrl } =
                         target="_blank"
                         rel="noopener noreferrer"
                         class="text-gray-200 hover:text-teal-600 transition-all cursor-pointer flex items-center gap-2 group"
+                        aria-label={`${name} website`}
                     >
                         <h4 class="text-lg font-semibold">{name}</h4>
                         <Icon
@@ -44,6 +45,7 @@ const { name, description, url, githubUrl, technologies, imageUrl, videoUrl } =
                         href={githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`${name} GitHub`}
                     >
                         <Icon name="github" className="size-4" />
                     </a>

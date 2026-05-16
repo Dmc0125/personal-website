@@ -3,7 +3,7 @@ import Project from "../components/Project.astro";
 import Icon from "../components/Icon.astro";
 
 import { content, type ContentLang } from "../content/content";
-import { links } from "../content/links";
+import { links as getLinks } from "../content/links";
 
 interface Props {
     lang: ContentLang;
@@ -11,6 +11,7 @@ interface Props {
 const { lang } = Astro.props;
 
 const c = content[lang];
+const links = getLinks(lang);
 ---
 
 <header
@@ -107,6 +108,7 @@ const c = content[lang];
                     target="_blank"
                     rel="noopener noreferrer"
                     class="text-gray-400 hover:text-teal-600 transition-all"
+                    aria-label={link.ariaLabel}
                 >
                     <Icon name={link.icon} className="size-8" />
                 </a>
