@@ -16,7 +16,7 @@ const links = getLinks(lang);
 
 <header
     id="header"
-    class="w-full h-16 border-black border-b bg-black sticky top-0 trasition-all"
+    class="w-full z-1000 h-16 border-black border-b bg-black sticky top-0 trasition-all"
 >
     <nav class="w-full h-16 flex items-center justify-center">
         <ul
@@ -89,184 +89,392 @@ const links = getLinks(lang);
     window.addEventListener("DOMContentLoaded", handleScroll);
 </script>
 
-<section
-    id="home"
-    class="w-full max-w-[450px] pt-20 pb-32 sm:pt-48 sm:pb-48 px-4"
->
-    <h1 class="text-white text-2xl font-bold">{c.home.title}</h1>
-    <h2 class="text-teal-600 text-lg font-bold pt-2">
-        {c.home.subtitle}
-    </h2>
-    <p class="text-gray-400 pt-4">
-        {c.home.headline}
-    </p>
-    <div class="flex gap-8 items-center mt-6">
-        {
-            links.map((link) => (
-                <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-gray-400 hover:text-teal-600 transition-all"
-                    aria-label={link.ariaLabel}
-                >
-                    <Icon name={link.icon} className="size-8" />
-                </a>
-            ))
-        }
-    </div>
-</section>
-
-<section id="about-me" class="w-full px-4">
-    <div class="flex gap-4 items-center">
-        <div class="h-[2px] w-full bg-gray-700"></div>
-        <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
-            {c.aboutMe.title}
-        </h3>
-        <span class="text-lg font-medium text-gray-700">01</span>
-    </div>
-
-    <div class="text-gray-400 pt-8 flex flex-col gap-4">
-        <p>
-            {c.aboutMe.p1}
-        </p>
-        <p>
-            {c.aboutMe.p2}
-        </p>
-        <p>
-            {c.aboutMe.p3}
-        </p>
-    </div>
-</section>
-
-<section id="projects" class="w-full px-4 mt-16 sm:mt-32">
-    <div class="flex gap-4 items-center">
-        <div class="h-[2px] w-full bg-gray-700"></div>
-        <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
-            {c.projects.title}
-        </h3>
-        <span class="text-lg font-medium text-gray-700">02</span>
-    </div>
-
-    <div class="pt-10 sm:pt-20 w-full flex flex-col gap-12 sm:gap-20">
-        <Project
-            name={c.projects.chip8.name}
-            description={c.projects.chip8.description}
-            url="https://chip-8.dmnk.app/"
-            githubUrl="https://github.com/dmc0125/chip8-emulator"
-            imageUrl="/chip8-emulator.png"
-            technologies={["Odin", "SDL2", "React", "Typescript"]}
-        />
-        <Project
-            name={c.projects.cubeGame.name}
-            description={c.projects.cubeGame.description}
-            url="https://cube-game.dmnk.app/"
-            githubUrl="https://github.com/dmc0125/tetris"
-            imageUrl="/cube-game.gif"
-            technologies={["Odin", "Astro", "Web assembly"]}
-        />
-        <Project
-            name={c.projects.blogger.name}
-            description={c.projects.blogger.description}
-            githubUrl="https://github.com/dmc0125/blogger"
-            videoUrl="/blogger.mp4"
-            technologies={["Odin", "OpenAI", "Anthropic", "CLI"]}
-        />
-    </div>
-</section>
-
-<section id="contact" class="w-full px-4 mt-16 sm:mt-32">
-    <div class="flex gap-4 items-center">
-        <div class="h-[2px] w-full bg-gray-700"></div>
-        <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
-            {c.contact.title}
-        </h3>
-        <span class="text-lg font-medium text-gray-700">03</span>
-    </div>
-
-    <p class="mt-10 text-gray-400">
-        {c.contact.p1}
-    </p>
-
-    <form id="contact-form" class="w-full mt-6 flex flex-col gap-4">
-        <div id="contact-form-email">
-            <input
-                type="email"
-                placeholder={c.contact.form.email}
-                name="from"
-                class="input"
-                required
-            />
-            <div class="text-red-700 text-sm pt-2 hidden"></div>
-        </div>
-
-        <div id="contact-form-subject">
-            <input
-                type="text"
-                placeholder={c.contact.form.subject}
-                name="subject"
-                class="input"
-            />
-            <div class="text-red-700 text-sm pt-2 hidden"></div>
-        </div>
-
-        <div id="contact-form-message">
-            <textarea
-                placeholder={c.contact.form.message}
-                class="input"
-                name="message"
-                required></textarea>
-            <div class="text-red-700 text-sm pt-2 hidden"></div>
-        </div>
-
-        <div class="sm:flex gap-4 items-center">
-            <button
-                class="w-32 flex shrink-0 items-center justify-center bg-teal-600 text-white py-2 rounded transition-all relative cursor-pointer"
-                type="submit"
+<main>
+    <section id="home" class="w-full relative">
+        <canvas class="absolute w-full h-full pointer-events-none" id="canvas"
+        ></canvas>
+        <div class="relative w-ful max-w-[800px] mx-auto">
+            <div
+                class="w-full max-w-[450px] pt-20 pb-32 sm:pt-48 sm:pb-48 px-4"
             >
-                <span class="flex gap-2 items-center">
-                    {c.contact.button}
-                    <Icon name="plane" className="size-5" />
-                </span>
-                <div
-                    class="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                w-4 h-4 rounded-full border-2 border-white border-b-white/50 animate-spin hidden opacity-0 transition-all"
-                >
+                <h1 class="text-white text-2xl font-bold">{c.home.title}</h1>
+                <h2 class="text-teal-600 text-lg font-bold pt-2">
+                    {c.home.subtitle}
+                </h2>
+                <p class="text-gray-400 pt-4">
+                    {c.home.headline}
+                </p>
+                <div class="flex gap-8 items-center mt-6">
+                    {
+                        links.map((link) => (
+                            <a
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-gray-400 hover:text-teal-600 transition-all"
+                                aria-label={link.ariaLabel}
+                            >
+                                <Icon name={link.icon} className="size-8" />
+                            </a>
+                        ))
+                    }
                 </div>
-            </button>
-            <div
-                id="contact-form-error-general"
-                class="w-fit mt-4 sm:mt-0 py-2 text-red-700/80 bg-red-700/20 flex items-center gap-2 rounded px-4 rounded border border-red-900/30 hidden"
-            >
-                {c.contact.errorGeneral}
-            </div>
-            <div
-                id="contact-form-error-too-many-requests"
-                class="w-fit mt-4 sm:mt-0 py-2 text-red-700/80 bg-red-700/20 flex items-center gap-2 rounded px-4 rounded border border-red-900/30 hidden"
-            >
-                {c.contact.errorTooManyRequests}
             </div>
         </div>
-    </form>
+    </section>
 
     <script>
-        import { isInputError } from "astro:actions";
-        import { actions } from "astro:actions";
+        const canvas = document.getElementById("canvas")! as HTMLCanvasElement;
+        const ctx = canvas.getContext("2d");
+        if (ctx === null) {
+            throw new Error("Canvas context is null");
+        }
 
-        const contactForm = document.getElementById("contact-form")!;
-        const formEmail = document.getElementById("contact-form-email")!;
-        const formSubject = document.getElementById("contact-form-subject")!;
-        const formMessage = document.getElementById("contact-form-message")!;
+        type MousePos = {
+            x: number;
+            y: number;
+        };
+        let mousePositions: MousePos[] = [];
 
-        type InputError = {
-            from?: string[] | undefined;
-            subject?: string[] | undefined;
-            message?: string[] | undefined;
+        window.addEventListener("mousemove", (e) => {
+            const canvasRect = canvas.getBoundingClientRect();
+
+            const x = e.clientX;
+            const y = e.clientY - canvasRect.top;
+
+            if (
+                x < 0 ||
+                x > canvasRect.width ||
+                y < 0 ||
+                y > canvasRect.height
+            ) {
+                return;
+            }
+
+            const mousePos = {
+                x: x,
+                y: y,
+            };
+            mousePositions.push(mousePos);
+        });
+
+        function setCanvasSize() {
+            const canvasRect = canvas.getBoundingClientRect();
+            canvas.width = canvasRect.width;
+            canvas.height = canvasRect.height;
+        }
+
+        setCanvasSize();
+        window.addEventListener("resize", setCanvasSize);
+
+        const PARTICLE_LIFETIME = 5000;
+        let prevElapsedTime = 0;
+
+        const ANIMATION_DURATION = 5000;
+        type Particle = {
+            x: number;
+            y: number;
+            vx: number;
+            vy: number;
+            currentVx: number;
+            currentVy: number;
+            gravity: number;
+            spawnedAt: number;
+            clrAlpha: number;
+            clrHue: number;
+            clrSaturation: number;
+            clrLightness: number;
         };
 
-        // TODO: Zod errors translations
-        function handleInputError(e: InputError) {
-            function applyErrorState(element: HTMLElement, message: string) {
+        function particleProgressAnimation(particle: Particle, time: number) {
+            if (time > particle.spawnedAt + ANIMATION_DURATION) {
+                particle.clrAlpha = 0;
+                return;
+            }
+
+            const dt = time - particle.spawnedAt;
+            const dtf = dt / ANIMATION_DURATION;
+
+            const alphaDelta = 1;
+            particle.clrAlpha = 1 - alphaDelta * dtf;
+
+            particle.currentVx = particle.vx - particle.vx * dtf;
+            particle.currentVy = particle.vy - particle.vy * dtf;
+        }
+
+        const particles: Particle[] = [];
+
+        function loop(elapsedTime: number) {
+            if (ctx === null) {
+                throw new Error("Canvas context is null");
+            }
+
+            prevElapsedTime = elapsedTime;
+
+            // clear canvas
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (const mousePos of mousePositions) {
+                const shouldSpawnParticle = Math.random() < 0.5;
+                if (shouldSpawnParticle) {
+                    const count = Math.floor(Math.random() * 5);
+
+                    for (let i = 0; i < count; i++) {
+                        function offset() {
+                            return (Math.random() - 0.5) * 10;
+                        }
+                        const x = mousePos.x + offset();
+                        const y = mousePos.y + offset();
+
+                        const angle = Math.random() * Math.PI * 2;
+                        const speed = Math.random() * 1.5;
+
+                        const particle = {
+                            x,
+                            y,
+                            vx: Math.cos(angle) * speed,
+                            vy: Math.sin(angle) * speed,
+                            currentVx: 0,
+                            currentVy: 0,
+                            gravity: 0,
+                            spawnedAt: elapsedTime,
+                            clrAlpha: 1,
+                            clrHue: 175 + (Math.random() - 0.5) * 20, // slight hue variation around 184
+                            clrSaturation: 40 + Math.random() * 20, // 40–60%
+                            clrLightness: 55 + Math.random() * 20,
+                        };
+                        particles.push(particle);
+                    }
+                }
+            }
+            mousePositions = [];
+
+            let i = 0;
+            while (i < particles.length) {
+                const particle = particles[i];
+                if (particle.spawnedAt + PARTICLE_LIFETIME < elapsedTime) {
+                    particles.splice(i, 1);
+                    continue;
+                }
+
+                particle.gravity += 0.01;
+                particle.x += particle.currentVx;
+                particle.y += particle.currentVy + particle.gravity;
+                particleProgressAnimation(particle, elapsedTime);
+
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, 1, 0, 2 * Math.PI);
+
+                ctx.fillStyle = `hsla(${particle.clrHue}, ${particle.clrSaturation}%, ${particle.clrLightness}%, ${particle.clrAlpha})`;
+                ctx.fill();
+
+                i += 1;
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+        requestAnimationFrame(loop);
+    </script>
+
+    <section id="about-me" class="w-full px-4 max-w-[800px] mx-auto">
+        <div class="flex gap-4 items-center">
+            <div class="h-[2px] w-full bg-gray-700"></div>
+            <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
+                {c.aboutMe.title}
+            </h3>
+            <span class="text-lg font-medium text-gray-700">01</span>
+        </div>
+
+        <div class="text-gray-400 pt-8 flex flex-col gap-4">
+            <p>
+                {c.aboutMe.p1}
+            </p>
+            <p>
+                {c.aboutMe.p2}
+            </p>
+            <p>
+                {c.aboutMe.p3}
+            </p>
+        </div>
+    </section>
+
+    <section
+        id="projects"
+        class="w-full px-4 mt-16 sm:mt-32 max-w-[800px] mx-auto"
+    >
+        <div class="flex gap-4 items-center">
+            <div class="h-[2px] w-full bg-gray-700"></div>
+            <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
+                {c.projects.title}
+            </h3>
+            <span class="text-lg font-medium text-gray-700">02</span>
+        </div>
+
+        <div class="pt-10 sm:pt-20 w-full flex flex-col gap-12 sm:gap-20">
+            <Project
+                name={c.projects.chip8.name}
+                description={c.projects.chip8.description}
+                url="https://chip-8.dmnk.app/"
+                githubUrl="https://github.com/dmc0125/chip8-emulator"
+                imageUrl="/chip8-emulator.png"
+                technologies={["Odin", "SDL2", "React", "Typescript"]}
+            />
+            <Project
+                name={c.projects.cubeGame.name}
+                description={c.projects.cubeGame.description}
+                url="https://cube-game.dmnk.app/"
+                githubUrl="https://github.com/dmc0125/tetris"
+                imageUrl="/cube-game.gif"
+                technologies={["Odin", "Astro", "Web assembly"]}
+            />
+            <Project
+                name={c.projects.blogger.name}
+                description={c.projects.blogger.description}
+                githubUrl="https://github.com/dmc0125/blogger"
+                videoUrl="/blogger.mp4"
+                technologies={["Odin", "OpenAI", "Anthropic", "CLI"]}
+            />
+        </div>
+    </section>
+
+    <section
+        id="contact"
+        class="w-full px-4 mt-16 sm:mt-32 max-w-[800px] mx-auto"
+    >
+        <div class="flex gap-4 items-center">
+            <div class="h-[2px] w-full bg-gray-700"></div>
+            <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
+                {c.contact.title}
+            </h3>
+            <span class="text-lg font-medium text-gray-700">03</span>
+        </div>
+
+        <p class="mt-10 text-gray-400">
+            {c.contact.p1}
+        </p>
+
+        <form id="contact-form" class="w-full mt-6 flex flex-col gap-4">
+            <div id="contact-form-email">
+                <input
+                    type="email"
+                    placeholder={c.contact.form.email}
+                    name="from"
+                    class="input"
+                    required
+                />
+                <div class="text-red-700 text-sm pt-2 hidden"></div>
+            </div>
+
+            <div id="contact-form-subject">
+                <input
+                    type="text"
+                    placeholder={c.contact.form.subject}
+                    name="subject"
+                    class="input"
+                />
+                <div class="text-red-700 text-sm pt-2 hidden"></div>
+            </div>
+
+            <div id="contact-form-message">
+                <textarea
+                    placeholder={c.contact.form.message}
+                    class="input"
+                    name="message"
+                    required></textarea>
+                <div class="text-red-700 text-sm pt-2 hidden"></div>
+            </div>
+
+            <div class="sm:flex gap-4 items-center">
+                <button
+                    class="w-32 flex shrink-0 items-center justify-center bg-teal-600 text-white py-2 rounded transition-all relative cursor-pointer"
+                    type="submit"
+                >
+                    <span class="flex gap-2 items-center">
+                        {c.contact.button}
+                        <Icon name="plane" className="size-5" />
+                    </span>
+                    <div
+                        class="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                w-4 h-4 rounded-full border-2 border-white border-b-white/50 animate-spin hidden opacity-0 transition-all"
+                    >
+                    </div>
+                </button>
+                <div
+                    id="contact-form-error-general"
+                    class="w-fit mt-4 sm:mt-0 py-2 text-red-700/80 bg-red-700/20 flex items-center gap-2 rounded px-4 rounded border border-red-900/30 hidden"
+                >
+                    {c.contact.errorGeneral}
+                </div>
+                <div
+                    id="contact-form-error-too-many-requests"
+                    class="w-fit mt-4 sm:mt-0 py-2 text-red-700/80 bg-red-700/20 flex items-center gap-2 rounded px-4 rounded border border-red-900/30 hidden"
+                >
+                    {c.contact.errorTooManyRequests}
+                </div>
+            </div>
+        </form>
+
+        <script>
+            import { isInputError } from "astro:actions";
+            import { actions } from "astro:actions";
+
+            const contactForm = document.getElementById("contact-form")!;
+            const formEmail = document.getElementById("contact-form-email")!;
+            const formSubject = document.getElementById(
+                "contact-form-subject",
+            )!;
+            const formMessage = document.getElementById(
+                "contact-form-message",
+            )!;
+
+            type InputError = {
+                from?: string[] | undefined;
+                subject?: string[] | undefined;
+                message?: string[] | undefined;
+            };
+
+            // TODO: Zod errors translations
+            function handleInputError(e: InputError) {
+                function applyErrorState(
+                    element: HTMLElement,
+                    message: string,
+                ) {
+                    const inputElement =
+                        element.querySelector("input") ||
+                        element.querySelector("textarea");
+                    if (inputElement === null) {
+                        throw new Error(
+                            `Input element not found in ${element.id}`,
+                        );
+                    }
+
+                    inputElement.classList.remove("input");
+                    inputElement.classList.add("input-error");
+
+                    const messageElement = element.querySelector("div");
+                    if (messageElement === null) {
+                        throw new Error(
+                            `Message element not found in ${element.id}`,
+                        );
+                    }
+                    messageElement.innerText = message;
+                    messageElement.classList.remove("hidden");
+                }
+
+                if (e.from !== undefined) {
+                    applyErrorState(formEmail, e.from[0]);
+                }
+                if (e.subject !== undefined) {
+                    applyErrorState(formSubject, e.subject[0]);
+                }
+                if (e.message !== undefined) {
+                    applyErrorState(formMessage, e.message[0]);
+                }
+            }
+
+            function resetErrorState(element: HTMLElement) {
                 const inputElement =
                     element.querySelector("input") ||
                     element.querySelector("textarea");
@@ -274,8 +482,8 @@ const links = getLinks(lang);
                     throw new Error(`Input element not found in ${element.id}`);
                 }
 
-                inputElement.classList.remove("input");
-                inputElement.classList.add("input-error");
+                inputElement.classList.remove("input-error");
+                inputElement.classList.add("input");
 
                 const messageElement = element.querySelector("div");
                 if (messageElement === null) {
@@ -283,133 +491,112 @@ const links = getLinks(lang);
                         `Message element not found in ${element.id}`,
                     );
                 }
-                messageElement.innerText = message;
-                messageElement.classList.remove("hidden");
+                messageElement.classList.add("hidden");
             }
 
-            if (e.from !== undefined) {
-                applyErrorState(formEmail, e.from[0]);
+            formEmail.addEventListener("input", () => {
+                resetErrorState(formEmail);
+            });
+            formSubject.addEventListener("input", () => {
+                resetErrorState(formSubject);
+            });
+            formMessage.addEventListener("input", () => {
+                resetErrorState(formMessage);
+            });
+
+            contactForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const errorMessageGeneral = document.querySelector(
+                    "#contact-form-error-general",
+                )! as HTMLDivElement;
+                const errorMessageTooManyRequests = document.querySelector(
+                    "#contact-form-error-too-many-requests",
+                )! as HTMLDivElement;
+                errorMessageGeneral.classList.add("hidden");
+                errorMessageTooManyRequests.classList.add("hidden");
+
+                const submitButton = document.querySelector(
+                    "#contact-form button[type=submit]",
+                )! as HTMLButtonElement;
+                const loadingSpinner = submitButton.querySelector(
+                    "div",
+                )! as HTMLDivElement;
+
+                submitButton.classList.remove("bg-teal-600", "text-white");
+                submitButton.classList.add(
+                    "cursor-wait",
+                    "bg-teal-600/50",
+                    "text-white/50",
+                );
+                submitButton.disabled = true;
+                loadingSpinner.classList.remove("hidden", "opacity-0");
+                loadingSpinner.classList.add("opacity-100");
+
+                const formData = new FormData(e.target! as HTMLFormElement);
+                const { error } = await actions.sendMail(formData);
+
+                if (isInputError(error)) {
+                    handleInputError(error.fields);
+                } else if (error?.code === "INTERNAL_SERVER_ERROR") {
+                    errorMessageGeneral.classList.remove("hidden");
+                } else if (error?.code === "TOO_MANY_REQUESTS") {
+                    errorMessageTooManyRequests.classList.remove("hidden");
+                }
+
+                submitButton.classList.remove(
+                    "cursor-wait",
+                    "bg-teal-600/50",
+                    "text-white/50",
+                );
+                submitButton.classList.add("bg-teal-600", "text-white");
+                submitButton.disabled = false;
+                loadingSpinner.classList.remove("opacity-100");
+                loadingSpinner.classList.add("hidden", "opacity-0");
+            });
+        </script>
+
+        <style>
+            @reference "tailwindcss";
+
+            .input {
+                @apply w-full rounded-lg border border-gray-800 px-4 py-2 text-gray-400;
             }
-            if (e.subject !== undefined) {
-                applyErrorState(formSubject, e.subject[0]);
+            .input-error {
+                @apply w-full rounded-lg border border-red-700 px-4 py-2 text-gray-400;
             }
-            if (e.message !== undefined) {
-                applyErrorState(formMessage, e.message[0]);
+        </style>
+    </section>
+</main>
+
+<footer class="w-full px-4 pb-10 pt-6 mt-16 border-t border-gray-800">
+    <div
+        class="w-full max-w-[800px] mx-auto flex gap-4 flex-col sm:flex-row justify-between items-center"
+    >
+        <div class="flex gap-4 items-center">
+            {
+                links.map((link) => (
+                    <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-gray-400 hover:text-teal-600 transition-all"
+                        aria-label={link.ariaLabel}
+                    >
+                        <Icon name={link.icon} className="size-6" />
+                    </a>
+                ))
             }
-        }
+        </div>
 
-        function resetErrorState(element: HTMLElement) {
-            const inputElement =
-                element.querySelector("input") ||
-                element.querySelector("textarea");
-            if (inputElement === null) {
-                throw new Error(`Input element not found in ${element.id}`);
-            }
-
-            inputElement.classList.remove("input-error");
-            inputElement.classList.add("input");
-
-            const messageElement = element.querySelector("div");
-            if (messageElement === null) {
-                throw new Error(`Message element not found in ${element.id}`);
-            }
-            messageElement.classList.add("hidden");
-        }
-
-        formEmail.addEventListener("input", () => {
-            resetErrorState(formEmail);
-        });
-        formSubject.addEventListener("input", () => {
-            resetErrorState(formSubject);
-        });
-        formMessage.addEventListener("input", () => {
-            resetErrorState(formMessage);
-        });
-
-        contactForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const errorMessageGeneral = document.querySelector(
-                "#contact-form-error-general",
-            )! as HTMLDivElement;
-            const errorMessageTooManyRequests = document.querySelector(
-                "#contact-form-error-too-many-requests",
-            )! as HTMLDivElement;
-            errorMessageGeneral.classList.add("hidden");
-            errorMessageTooManyRequests.classList.add("hidden");
-
-            const submitButton = document.querySelector(
-                "#contact-form button[type=submit]",
-            )! as HTMLButtonElement;
-            const loadingSpinner = submitButton.querySelector(
-                "div",
-            )! as HTMLDivElement;
-
-            submitButton.classList.remove("bg-teal-600", "text-white");
-            submitButton.classList.add(
-                "cursor-wait",
-                "bg-teal-600/50",
-                "text-white/50",
-            );
-            submitButton.disabled = true;
-            loadingSpinner.classList.remove("hidden", "opacity-0");
-            loadingSpinner.classList.add("opacity-100");
-
-            const formData = new FormData(e.target! as HTMLFormElement);
-            const { error } = await actions.sendMail(formData);
-
-            if (isInputError(error)) {
-                handleInputError(error.fields);
-            } else if (error?.code === "INTERNAL_SERVER_ERROR") {
-                errorMessageGeneral.classList.remove("hidden");
-            } else if (error?.code === "TOO_MANY_REQUESTS") {
-                errorMessageTooManyRequests.classList.remove("hidden");
-            }
-
-            submitButton.classList.remove(
-                "cursor-wait",
-                "bg-teal-600/50",
-                "text-white/50",
-            );
-            submitButton.classList.add("bg-teal-600", "text-white");
-            submitButton.disabled = false;
-            loadingSpinner.classList.remove("opacity-100");
-            loadingSpinner.classList.add("hidden", "opacity-0");
-        });
-    </script>
-
-    <style>
-        @reference "tailwindcss";
-
-        .input {
-            @apply w-full rounded-lg border border-gray-800 px-4 py-2 text-gray-400;
-        }
-        .input-error {
-            @apply w-full rounded-lg border border-red-700 px-4 py-2 text-gray-400;
-        }
-    </style>
-</section>
-
-<footer
-    class="w-full px-4 pb-10 pt-6 mt-16 border-t border-gray-800 flex gap-4 flex-col sm:flex-row justify-between items-center"
->
-    <div class="flex gap-4 items-center">
-        {
-            links.map((link) => (
-                <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-gray-400 hover:text-teal-600 transition-all"
-                >
-                    <Icon name={link.icon} className="size-6" />
-                </a>
-            ))
-        }
+        <span class="text-gray-400 text-sm">
+            © {new Date().getFullYear()}
+            {c.footer.copyright}
+        </span>
     </div>
-
-    <span class="text-gray-400 text-sm">
-        © {new Date().getFullYear()}
-        {c.footer.copyright}
-    </span>
 </footer>
+
+<span class="text-gray-400 text-sm">
+    © {new Date().getFullYear()}
+    {c.footer.copyright}
+</span>

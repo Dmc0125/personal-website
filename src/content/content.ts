@@ -146,7 +146,7 @@ export const content: Record<ContentLang, Content> = {
         projects: {
             title: "Projekty",
             chip8: {
-                name: "Chip-8 emulator",
+                name: "Chip-8 emulátor",
                 description:
                     "Emulátor Chip-8 napísaný v jazyku Odin (s SDL2 alebo skompilovaný do wasm) a Reacte. Ponúka plnú podporu všetkých pôvodných operačných kódov Chip-8, takže je možné načítať a spustiť akúkoľvek ROM Chip-8.",
             },
