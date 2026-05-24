@@ -10,6 +10,7 @@ export default defineConfig({
         plugins: [tailwindcss()],
     },
     adapter: cloudflare(),
+    output: "server",
     i18n: {
         locales: ["en", "sk"],
         defaultLocale: "sk",
