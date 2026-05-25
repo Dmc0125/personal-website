@@ -24,6 +24,7 @@ export default defineConfig({
             EMAIL_USER: envField.string({ context: "server", access: "secret" }),
             UPSTASH_REDIS_REST_URL: envField.string({ context: "server", access: "secret" }),
             UPSTASH_REDIS_REST_TOKEN: envField.string({ context: "server", access: "secret" }),
+            GITHUB_ACCESS_TOKEN: envField.string({ context: "server", access: "secret" }),
         },
     },
 });

@@ -1,6 +1,7 @@
 ---
 import Project from "../components/Project.astro";
 import Icon from "../components/Icon.astro";
+import Contributions from "./Contributions.astro";
 
 import { content, type ContentLang } from "../content/content";
 import { links as getLinks } from "../content/links";
@@ -98,8 +99,8 @@ const links = getLinks(lang);
             <button
                 id="toggle-motion"
                 class="absolute top-4 right-4 px-1 py-1
-                text-gray-600 hover:text-teal-600 transition-all cursor-pointer
-                motion-reduce:hidden pointer-coarse:hidden border border-gray-600/0 hover:border-gray-600 rounded
+                hover:text-teal-600 transition-all cursor-pointer
+                motion-reduce:hidden pointer-coarse:hidden border border-gray-600/0 rounded
                 group"
             >
                 <Icon name="sparkles" className="size-5" />
@@ -147,6 +148,31 @@ const links = getLinks(lang);
         const toggleMotionButton = document.getElementById(
             "toggle-motion",
         )! as HTMLButtonElement;
+
+        function setMotionButtonColor() {
+            if (animationOff) {
+                toggleMotionButton.classList.remove(
+                    "border-teal-600",
+                    "text-teal-600",
+                );
+                toggleMotionButton.classList.add(
+                    "text-gray-600",
+                    "hover:border-gray-600",
+                );
+            } else {
+                toggleMotionButton.classList.remove(
+                    "text-gray-600",
+                    "hover:border-gray-600",
+                );
+                toggleMotionButton.classList.add(
+                    "border-teal-600",
+                    "text-teal-600",
+                );
+            }
+        }
+
+        setMotionButtonColor();
+
         toggleMotionButton.addEventListener("click", () => {
             // NOTE: ignore the button if the animation should be off
             const disabled =
@@ -154,6 +180,7 @@ const links = getLinks(lang);
                 window.matchMedia("(pointer: coarse)").matches;
             if (!disabled) {
                 animationOff = !animationOff;
+                setMotionButtonColor();
             }
         });
 
@@ -388,6 +415,8 @@ const links = getLinks(lang);
             />
         </div>
     </section>
+
+    <Contributions />
 
     <section
         id="contact"

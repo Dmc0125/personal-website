@@ -1,0 +1,155 @@
+---
+import { GITHUB_ACCESS_TOKEN } from "astro:env/server";
+
+import Icon from "./Icon.astro";
+
+const GITHUB_API_URL = "https://api.github.com";
+const issuesResponse = await fetch(
+    `${GITHUB_API_URL}/search/issues?q=is:pr+author:dmc0125+state:open`,
+    {
+        headers: {
+            Accept: "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2026-03-10",
+            Authorization: `Bearer ${GITHUB_ACCESS_TOKEN}`,
+            "user-agent": "dmc0125",
+        },
+    },
+);
+
+type IssueState = "open" | "closed";
+
+type IssueItem = {
+    id: number;
+    html_url: string;
+    repository_url: string;
+    title: string;
+    created_at: string;
+    updated_at: string;
+    state: IssueState;
+    number: number;
+    pull_request?: {
+        url: string;
+        html_url: string;
+        diff_url: string;
+        patch_url: string;
+        merged_at: Date | null;
+    };
+};
+
+type IssuesData = {
+    total_count: number;
+    incomplete_results: boolean;
+    items: IssueItem[];
+};
+
+type ContributionState = "Open" | "Closed" | "Merged";
+
+type Contribution = {
+    title: string;
+    description: string;
+    prUrl: string;
+    repoUrl: string;
+    repoName: string;
+    number: number;
+    state: ContributionState;
+    createdAt: Date;
+    icon: string;
+};
+
+const contributions: Contribution[] = [];
+
+if (issuesResponse.ok) {
+    const issuesResponseData = (await issuesResponse.json()) as IssuesData;
+    console.log(issuesResponseData.items[0].pull_request);
+
+    for (const issue of issuesResponseData.items) {
+        const [_, repoName] = issue.repository_url.split("repos/");
+
+        let state: ContributionState = "Open";
+        let icon = "branch-out";
+        if (issue.state === "closed") {
+            if (issue.pull_request?.merged_at !== null) {
+                state = "Merged";
+                icon = "branch-in";
+            } else {
+                state = "Closed";
+                icon = "branch-out";
+            }
+        }
+
+        const contribution = {
+            title: issue.title,
+            description: "",
+            prUrl: issue.html_url,
+            repoUrl: issue.repository_url,
+            createdAt: new Date(issue.created_at),
+            number: issue.number,
+            repoName,
+            state,
+            icon,
+        } as Contribution;
+        contributions.push(contribution);
+    }
+}
+---
+
+{
+    contributions.length > 0 && (
+        <section
+            id="projects"
+            class="w-full px-4 mt-16 sm:mt-32 max-w-[800px] mx-auto"
+        >
+            <div class="flex gap-4 items-center">
+                <div class="h-[2px] w-full bg-gray-700" />
+                <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
+                    Contributions
+                </h3>
+                <span class="text-lg font-medium text-gray-700">02</span>
+            </div>
+
+            <ul class="mt-10 flex flex-col gap-8">
+                {contributions.map((contribution) => (
+                    <li class="flex flex-col gap-2">
+                        <div class="flex gap-4">
+                            <span
+                                class={
+                                    contribution.state === "Merged"
+                                        ? "text-teal-600"
+                                        : "text-gray-400"
+                                }
+                            >
+                                <Icon
+                                    name={contribution.icon}
+                                    className="size-5"
+                                />
+                            </span>
+                            <p class="text-gray-200">{contribution.title}</p>
+                        </div>
+
+                        <div class="flex items-center gap-4 text-gray-400 text-sm">
+                            <a
+                                href={contribution.prUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="hover:text-gray-200 transition-all"
+                            >
+                                {contribution.repoName} #{contribution.number}
+                            </a>
+
+                            <div
+                                class={
+                                    "w-fit py-0.5 px-2 rounded " +
+                                    (contribution.state === "Open"
+                                        ? "bg-zinc-800 text-gray-400"
+                                        : "bg-teal-600/30 text-teal-600")
+                                }
+                            >
+                                {contribution.state}
+                            </div>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </section>
+    )
+}

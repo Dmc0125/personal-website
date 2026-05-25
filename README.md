@@ -29,3 +29,9 @@ src/
 └── styles/        # Global CSS + font imports
 public/            # Static assets (fonts, images, favicon)
 ```
+
+## Credits
+
+- Icons:
+    - Heroicons: https://heroicons.com
+    - untitledui: https://www.untitledui.com
