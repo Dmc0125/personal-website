@@ -1,18 +1,9 @@
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 import { z } from "astro/zod";
 import { ActionError, defineAction } from "astro:actions";
-import { EMAIL_USER, GMAIL_PASSWORD, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } from "astro:env/server"
+import { EMAIL_USER, GMAIL_PASSWORD, } from "astro:env/server"
 import nodemailer from "nodemailer"
 
-const rateLimit = new Ratelimit({
-    redis: new Redis({
-        url: UPSTASH_REDIS_REST_URL,
-        token: UPSTASH_REDIS_REST_TOKEN,
-    }),
-    limiter: Ratelimit.slidingWindow(3, "1 h"),
-    prefix: "email:hourly",
-})
+import { rateLimit } from "./redis";
 
 export const server = {
     sendMail: defineAction({

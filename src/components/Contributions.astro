@@ -5,7 +5,7 @@ import Icon from "./Icon.astro";
 
 const GITHUB_API_URL = "https://api.github.com";
 const issuesResponse = await fetch(
-    `${GITHUB_API_URL}/search/issues?q=is:pr+author:dmc0125+state:open`,
+    `${GITHUB_API_URL}/search/issues?q=is:pr+author:dmc0125`,
     {
         headers: {
             Accept: "application/vnd.github+json",
@@ -27,12 +27,13 @@ type IssueItem = {
     updated_at: string;
     state: IssueState;
     number: number;
+    body: string;
     pull_request?: {
         url: string;
         html_url: string;
         diff_url: string;
         patch_url: string;
-        merged_at: Date | null;
+        merged_at: string | null;
     };
 };
 
@@ -46,13 +47,15 @@ type ContributionState = "Open" | "Closed" | "Merged";
 
 type Contribution = {
     title: string;
-    description: string;
+    // description?: string;
+    // body: string;
     prUrl: string;
     repoUrl: string;
     repoName: string;
     number: number;
     state: ContributionState;
-    createdAt: Date;
+    createdAt: string;
+    mergedAt?: string;
     icon: string;
 };
 
@@ -60,7 +63,6 @@ const contributions: Contribution[] = [];
 
 if (issuesResponse.ok) {
     const issuesResponseData = (await issuesResponse.json()) as IssuesData;
-    console.log(issuesResponseData.items[0].pull_request);
 
     for (const issue of issuesResponseData.items) {
         const [_, repoName] = issue.repository_url.split("repos/");
@@ -77,19 +79,109 @@ if (issuesResponse.ok) {
             }
         }
 
+        const createdAt = new Date(issue.created_at).toLocaleDateString(
+            undefined,
+            {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+            },
+        );
+        const mergedAt = issue.pull_request?.merged_at
+            ? new Date(issue.pull_request.merged_at).toLocaleDateString(
+                  undefined,
+                  {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                  },
+              )
+            : undefined;
+
         const contribution = {
             title: issue.title,
-            description: "",
             prUrl: issue.html_url,
             repoUrl: issue.repository_url,
-            createdAt: new Date(issue.created_at),
             number: issue.number,
+            // body: issue.body,
+            createdAt,
+            mergedAt,
             repoName,
             state,
             icon,
         } as Contribution;
         contributions.push(contribution);
     }
+
+    // const redis = new Redis({
+    //     url: UPSTASH_REDIS_REST_URL,
+    //     token: UPSTASH_REDIS_REST_TOKEN,
+    // });
+    //
+    // // ------
+    // // save contributions that are not yet saved
+    //
+    // const savedContributionsKeys = await redis.keys("contrib-data:*");
+    // const contributionsToSave: (ContributionSaved & { issueNumber: number })[] =
+    //     [];
+    //
+    // for (let i = 0; i < contributions.length; i++) {
+    //     const contribution = contributions[i];
+    //     const key = contributionDataKey(contribution.number.toString());
+    //     const savedContribution = savedContributionsKeys.find(
+    //         (savedContribution) => savedContribution === key,
+    //     );
+    //
+    //     if (!savedContribution) {
+    //         contributionsToSave.push({
+    //             issueNumber: contribution.number,
+    //             title: contribution.title,
+    //             body: contribution.body,
+    //         });
+    //     }
+    // }
+    //
+    // {
+    //     const tx = redis.multi();
+    //     for (const contribution of contributionsToSave) {
+    //         const { issueNumber, ...data } = contribution;
+    //         tx.hset(contributionDataKey(issueNumber.toString()), data);
+    //     }
+    //     if (tx.length() > 0) {
+    //         try {
+    //             await tx.exec();
+    //         } catch (e) {
+    //             console.error(e);
+    //         }
+    //     }
+    // }
+    //
+    // // ------
+    // // query descriptions
+    //
+    // {
+    //     const p = redis.pipeline();
+    //     for (const contribution of savedContributionsKeys) {
+    //         p.hgetall(contribution);
+    //     }
+    //     const contributionsSaved = await p.exec<ContributionSaved[]>();
+    //
+    //     for (let i = 0; i < contributionsSaved.length; i++) {
+    //         const key = savedContributionsKeys[i];
+    //         const issueNumber = Number(key.split(":")[1]);
+    //
+    //         const contribution = contributions.find(
+    //             (c) => c.number === issueNumber,
+    //         )!;
+    //
+    //         const saved = contributionsSaved[i];
+    //         if (saved.description) {
+    //             contribution.description = saved.description;
+    //         } else {
+    //             generateDesciptions = true;
+    //         }
+    //     }
+    // }
 }
 ---
 
@@ -146,6 +238,19 @@ if (issuesResponse.ok) {
                             >
                                 {contribution.state}
                             </div>
+                        </div>
+
+                        <div class="flex gap-x-4 gap-y-2 flex-wrap">
+                            <span class="text-sm text-gray-400 flex gap-2">
+                                <Icon name="calendar" className="size-4" />
+                                Created at {contribution.createdAt}
+                            </span>
+                            {contribution.mergedAt && (
+                                <span class="text-sm text-teal-600 flex gap-2">
+                                    <Icon name="clock" className="size-4" />
+                                    Merged at {contribution.mergedAt}
+                                </span>
+                            )}
                         </div>
                     </li>
                 ))}
