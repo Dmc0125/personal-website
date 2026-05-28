@@ -36,6 +36,9 @@ type Content = {
         cubeGame: Project;
         blogger: Project;
     };
+    contributions: {
+        title: string;
+    },
     contact: {
         title: string;
         p1: string;
@@ -66,7 +69,7 @@ export const content: Record<ContentLang, Content> = {
             home: "Home",
             aboutMe: "About me",
             projects: "Projects",
-            contributions: "Contributions",
+            contributions: "Open Source",
             contact: "Contact",
         },
         home: {
@@ -102,6 +105,9 @@ export const content: Record<ContentLang, Content> = {
                     "A terminal tool that generates README prompts or blog post prompts from a GitHub repository, then sends them to LLM (OpenAI or Anthropic) and saves the resulting Markdown.",
             },
         },
+        contributions: {
+            title: "Open Source",
+        },
         contact: {
             title: "Contact",
             p1: "I'm always open to discussing new projects, creative ideas, or opportunities to be part of something great. Feel free to reach out!",
@@ -128,7 +134,7 @@ export const content: Record<ContentLang, Content> = {
             home: "Domov",
             aboutMe: "O mne",
             projects: "Projekty",
-            contributions: "Príspevky",
+            contributions: "Open Source",
             contact: "Kontakt",
         },
         home: {
@@ -163,6 +169,9 @@ export const content: Record<ContentLang, Content> = {
                 description:
                     "Terminálový nástroj, ktorý generuje súbory README alebo blogové príspevky z repozitára GitHub, potom ich odosiela LLM (OpenAI alebo Anthropic) a ukladá výsledný Markdown.",
             },
+        },
+        contributions: {
+            title: "Open Source",
         },
         contact: {
             title: "Kontakt",

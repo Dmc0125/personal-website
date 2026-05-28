@@ -2,6 +2,13 @@
 import { GITHUB_ACCESS_TOKEN } from "astro:env/server";
 
 import Icon from "./Icon.astro";
+import { content, type ContentLang } from "../content/content";
+
+interface Props {
+    lang: ContentLang;
+}
+const { lang } = Astro.props;
+const c = content[lang];
 
 const GITHUB_API_URL = "https://api.github.com";
 const issuesResponse = await fetch(
@@ -183,22 +190,23 @@ if (issuesResponse.ok) {
     //     }
     // }
 }
+console.log(contributions, c.contributions);
 ---
 
-{
-    contributions.length > 0 ? (
-        <section
-            id="contributions"
-            class="w-full px-4 mt-16 sm:mt-32 max-w-[800px] mx-auto"
-        >
-            <div class="flex gap-4 items-center">
-                <div class="h-[2px] w-full bg-gray-700" />
-                <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
-                    Contributions
-                </h3>
-                <span class="text-lg font-medium text-gray-700">03</span>
-            </div>
+<section
+    id="contributions"
+    class="w-full px-4 mt-16 sm:mt-32 max-w-[800px] mx-auto"
+>
+    <div class="flex gap-4 items-center">
+        <div class="h-[2px] w-full bg-gray-700"></div>
+        <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
+            {c.contributions.title}
+        </h3>
+        <span class="text-lg font-medium text-gray-700">03</span>
+    </div>
 
+    {
+        contributions.length > 0 ? (
             <ul class="mt-10 flex flex-col gap-8">
                 {contributions.map((contribution) => (
                     <li class="flex flex-col gap-2">
@@ -255,23 +263,10 @@ if (issuesResponse.ok) {
                     </li>
                 ))}
             </ul>
-        </section>
-    ) : (
-        <section
-            id="contributions"
-            class="w-full px-4 mt-16 sm:mt-32 max-w-[800px] mx-auto"
-        >
-            <div class="flex gap-4 items-center">
-                <div class="h-[2px] w-full bg-gray-700" />
-                <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
-                    Contributions
-                </h3>
-                <span class="text-lg font-medium text-gray-700">02</span>
-            </div>
-
+        ) : (
             <p class="mt-10 text-gray-400">
                 Unable to display contributions at this time.
             </p>
-        </section>
-    )
-}
+        )
+    }
+</section>
