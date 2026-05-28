@@ -1,0 +1,214 @@
+---
+import { content, type ContentLang } from "../content/content";
+import Icon from "./Icon.astro";
+
+interface Props {
+    lang: ContentLang;
+}
+const { lang } = Astro.props;
+
+const c = content[lang];
+
+type Section = {
+    name: string;
+    id: string;
+};
+
+const sections: Section[] = [
+    {
+        name: c.header.home,
+        id: "home",
+    },
+    {
+        name: c.header.aboutMe,
+        id: "about-me",
+    },
+    {
+        name: c.header.projects,
+        id: "projects",
+    },
+    {
+        name: c.header.contributions,
+        id: "contributions",
+    },
+    {
+        name: c.header.contact,
+        id: "contact",
+    },
+];
+---
+
+<header
+    id="header"
+    class="hidden sm:block w-full z-10 h-16 border-black border-b bg-black sticky top-0 trasition-all"
+>
+    <nav class="w-full h-16 flex items-center justify-center">
+        <ul
+            class="w-fit h-16 flex gap-6 items-center text-gray-400"
+        >
+            {sections.map((section) => (
+                <li>
+                    <a
+                        href={`#${section.id}`}
+                        class="hover:text-teal-600 transition-all"
+                    >
+                        {section.name}
+                    </a>
+                </li>
+            ))}
+            <li>
+                <a
+                    href="/"
+                    class={lang == "sk"
+                        ? "text-white"
+                        : "hover:text-white hover:underline"}
+                >
+                    SK
+                </a>
+                /
+                <a
+                    href="/en"
+                    class={lang == "en"
+                        ? "text-white"
+                        : "hover:text-white hover:underline"}
+                >
+                    EN
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<script>
+    const header = document.getElementById("header")!;
+    let scrolled = false;
+
+    function handleScroll() {
+        if (header === null) return;
+
+        if (window.scrollY > 0 && !scrolled ) {
+            header.classList.remove("bg-black", "border-black");
+            header.classList.add("bg-black/20", "border-gray-800");
+            header.style.backdropFilter = "blur(10px)";
+            scrolled = true;
+        } else if (window.scrollY === 0 && scrolled) {
+            header.classList.remove("bg-black/20", "border-gray-800");
+            header.classList.add("bg-black", "border-black");
+            header.style.backdropFilter = "blur(0px)";
+            scrolled = false;
+        }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("DOMContentLoaded", handleScroll);
+</script>
+
+<!-- mobile nav -->
+
+<header id="header-mobile" class="sm:hidden sticky top-0 w-full h-16 bg-black z-100 border-b border-black">
+    <div class="w-full h-16 px-4 flex items-center justify-end gap-4">
+        <div class="text-gray-400 text-sm leading-none">
+            <a
+                href="/"
+                class={lang == "sk"
+                    ? "text-white"
+                    : "hover:text-white hover:underline"}
+            >
+                SK
+            </a>
+            /
+            <a
+                href="/en"
+                class={lang == "en"
+                    ? "text-white"
+                    : "hover:text-white hover:underline"}
+            >
+                EN
+            </a>
+        </div>
+
+        <button
+            id="nav-mobile-open"
+            class="w-8 h-8 flex items-center justify-center
+            text-gray-400 cursor-pointer border border-gray-600/0 hover:border-gray-600 rounded"
+        >
+            <Icon name="hamburger" className="size-5" />
+        </button>
+    </div>
+
+
+    <nav
+        class="hidden sm:hidden fixed top-16 w-full h-[100vh] bg-black z-100"
+        id="nav-mobile"
+    >
+        <ul class="flex flex-col gap-4 px-8 pt-8">
+            {sections.map((section) => (
+                <li>
+                    <a
+                        href=`#${section.id}`
+                        class="text-gray-400 hover:text-teal-600 transition-all text-lg"
+                    >
+                        {section.name}
+                    </a>
+                </li>
+            ))}
+        </ul>
+    </nav>
+</header>
+
+<script>
+    const mobileNav = document.getElementById("nav-mobile")! as HTMLElement;
+    const mobileNavToggle = document.getElementById(
+        "nav-mobile-open",
+    )! as HTMLButtonElement;
+    const headerMobile = document.getElementById("header-mobile")! as HTMLElement;
+
+    let scrolled = false;
+
+    // nav state | scroll
+    // ------------------
+    // closed    | false -> has: bg-black , border-black ; remove: bg-black/20 , border-gray-800
+    // opened    | false -> has: bg-black , border-black ; remove: bg-black/20 , border-gray-800
+    // closed    | true  -> has: bg-black/20 , border-gray-800 ; remove: bg-black , border-black
+    // opened    | true  -> has: bg-black , border-black ; remove: bg-black/20 , border-gray-800
+
+    function toggleBlur() {
+       const navClosed = mobileNav.classList.contains("hidden");
+        if (navClosed && scrolled) {
+            headerMobile.classList.add("bg-black/20", "border-gray-800");
+            headerMobile.classList.remove("bg-black", "border-black");
+            headerMobile.style.backdropFilter = "blur(10px)";
+        } else {
+            headerMobile.classList.remove("bg-black/20", "border-gray-800");
+            headerMobile.classList.add("bg-black", "border-black");
+            headerMobile.style.backdropFilter = "blur(0px)";
+        }
+    }
+
+    mobileNavToggle.addEventListener("click", function () {
+        mobileNav.classList.toggle("hidden");
+        toggleBlur();
+    });
+
+    const anchors = mobileNav.querySelectorAll("a");
+    anchors.forEach((anchor) => {
+        anchor.addEventListener("click", function () {
+            mobileNav.classList.toggle("hidden");
+            toggleBlur();
+        });
+    });
+
+
+    function handleScroll() {
+        if (window.scrollY > 0 && !scrolled) {
+            scrolled = true;
+            toggleBlur();
+        } else if (window.scrollY === 0 && scrolled) {
+            scrolled = false;
+            toggleBlur();
+        }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("DOMContentLoaded", handleScroll);
+</script>

@@ -1,5 +1,6 @@
 ---
 import Project from "../components/Project.astro";
+import Header from "../components/Header.astro";
 import Icon from "../components/Icon.astro";
 import Contributions from "./Contributions.astro";
 
@@ -15,80 +16,7 @@ const c = content[lang];
 const links = getLinks(lang);
 ---
 
-<header
-    id="header"
-    class="w-full z-1000 h-16 border-black border-b bg-black sticky top-0 trasition-all"
->
-    <nav class="w-full h-16 flex items-center justify-center">
-        <ul
-            class="w-fit h-16 flex gap-4 items-center text-gray-400 text-sm sm:text-base"
-        >
-            <li>
-                <a href="#home" class="hover:text-white hover:underline"
-                    >{c.header.home}</a
-                >
-            </li>
-            <li>
-                <a href="#about-me" class="hover:text-white hover:underline"
-                    >{c.header.aboutMe}</a
-                >
-            </li>
-            <li>
-                <a href="#projects" class="hover:text-white hover:underline"
-                    >{c.header.projects}</a
-                >
-            </li>
-            <li>
-                <a href="#contact" class="hover:text-white hover:underline"
-                    >{c.header.contact}</a
-                >
-            </li>
-            <li>
-                <a
-                    href="/"
-                    class={lang == "sk"
-                        ? "text-white"
-                        : "hover:text-white hover:underline"}
-                >
-                    SK
-                </a>
-                /
-                <a
-                    href="/en"
-                    class={lang == "en"
-                        ? "text-white"
-                        : "hover:text-white hover:underline"}
-                >
-                    EN
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-
-<script>
-    const header = document.getElementById("header");
-    let scrolled = false;
-
-    function handleScroll() {
-        if (header === null) return;
-
-        if (window.scrollY > 0 && !scrolled) {
-            header.classList.remove("bg-black", "border-black");
-            header.classList.add("bg-black/20", "border-gray-800");
-            header.style.backdropFilter = "blur(10px)";
-            scrolled = true;
-        } else if (window.scrollY === 0 && scrolled) {
-            header.classList.remove("bg-black/20", "border-gray-800");
-            header.classList.add("bg-black", "border-black");
-            header.style.backdropFilter = "blur(0px)";
-            scrolled = false;
-        }
-    }
-
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("DOMContentLoaded", handleScroll);
-</script>
+<Header lang={lang} />
 
 <main>
     <section id="home" class="w-full relative">
@@ -98,7 +26,7 @@ const links = getLinks(lang);
         <div class="relative w-ful max-w-[800px] mx-auto">
             <button
                 id="toggle-motion"
-                class="absolute top-4 right-4 px-1 py-1
+                class="absolute top-4 right-4 size-8 flex items-center justify-center
                 hover:text-teal-600 transition-all cursor-pointer
                 motion-reduce:hidden pointer-coarse:hidden border border-gray-600/0 rounded
                 group"
@@ -427,7 +355,7 @@ const links = getLinks(lang);
             <h3 class="text-gray-400 text-lg font-semibold shrink-0 uppercase">
                 {c.contact.title}
             </h3>
-            <span class="text-lg font-medium text-gray-700">03</span>
+            <span class="text-lg font-medium text-gray-700">04</span>
         </div>
 
         <p class="mt-10 text-gray-400">

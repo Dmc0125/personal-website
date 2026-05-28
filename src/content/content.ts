@@ -13,6 +13,7 @@ type Content = {
         home: string;
         aboutMe: string;
         projects: string;
+        contributions: string;
         contact: string;
     };
     home: {
@@ -65,6 +66,7 @@ export const content: Record<ContentLang, Content> = {
             home: "Home",
             aboutMe: "About me",
             projects: "Projects",
+            contributions: "Contributions",
             contact: "Contact",
         },
         home: {
@@ -126,6 +128,7 @@ export const content: Record<ContentLang, Content> = {
             home: "Domov",
             aboutMe: "O mne",
             projects: "Projekty",
+            contributions: "Príspevky",
             contact: "Kontakt",
         },
         home: {
