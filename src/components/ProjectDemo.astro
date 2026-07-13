@@ -1,0 +1,27 @@
+---
+type Props = {
+    name: string;
+    imageUrl?: string;
+    videoUrl?: string;
+};
+const { name, imageUrl, videoUrl } = Astro.props;
+---
+
+{
+    videoUrl !== undefined ? (
+        <video muted autoplay loop playsinline preload="none">
+            <source src={videoUrl} type="video/mp4" />
+        </video>
+    ) : imageUrl !== undefined ? (
+        <img
+            src={imageUrl}
+            alt={`${name} preview image`}
+            class="w-full mt-4 sm:mt-0 border border-gray-800 rounded-lg"
+            loading="lazy"
+        />
+    ) : (
+        <div class="w-full h-full flex items-center justify-center text-gray-400 rounded border border-gray-800">
+            Coming soon
+        </div>
+    )
+}

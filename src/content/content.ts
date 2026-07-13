@@ -32,6 +32,7 @@ type Content = {
     };
     projects: {
         title: string;
+        paddleGame: Project;
         chip8: Project;
         cubeGame: Project;
         blogger: Project;
@@ -74,7 +75,7 @@ export const content: Record<ContentLang, Content> = {
         },
         home: {
             title: "Hi, my name is Dominik",
-            subtitle: "Hopefully soon to be a software developer",
+            subtitle: "Software developer",
             headline:
                 "I'm self taught programmer living in Slovakia, passionate about building things and learning new stuff.",
             ariaLabelGithub: "GitHub profile",
@@ -89,6 +90,10 @@ export const content: Record<ContentLang, Content> = {
         },
         projects: {
             title: "Projects",
+            paddleGame: {
+                name: "Paddle game",
+                description: "Multiplayer game where the goal for a player is to bounce the ball behind the paddle of another player. The authoritative serve is implemented in Go and the client is using Astro and React. Players can create an account with google oauth and then their statistics will be saved in postgres db. The app is deployed on a VPS with nginx as a reverse proxy and services are managed by docker and systemd.",
+            },
             chip8: {
                 name: "Chip-8 emulator",
                 description:
@@ -139,7 +144,7 @@ export const content: Record<ContentLang, Content> = {
         },
         home: {
             title: "Zdravím, volám sa Dominik",
-            subtitle: "Čoskoro snáď softvérový vývojár",
+            subtitle: "Softvérový vývojár",
             headline:
                 "Som programátor-samouk žijúci na Slovensku, nadšený pre tvorenie a učenie sa nových vecí.",
             ariaLabelGithub: "GitHub profil",
@@ -154,6 +159,10 @@ export const content: Record<ContentLang, Content> = {
         },
         projects: {
             title: "Projekty",
+            paddleGame: {
+                name: "Paddle game",
+                description: "Hra pre viacerých hráčov, kde cieľom hráča je odraziť loptičku za pálku druhého hráča. Autoritatívny server je implementovaný v jazyku Go a klient v Astro a React. Hráči si môžu vytvoriť účet pomocou Google OAuth a ich štatistiky sa potom uložia do databázy Postgres. Aplikácia je na VPS s nginx ako reverse proxy a služby spravuje Docker a Systemd.",
+            },
             chip8: {
                 name: "Chip-8 emulátor",
                 description:

@@ -320,6 +320,23 @@ const links = getLinks(lang);
 
         <div class="pt-10 sm:pt-20 w-full flex flex-col gap-12 sm:gap-20">
             <Project
+                name={c.projects.paddleGame.name}
+                description={c.projects.paddleGame.description}
+                url="https://paddle.dmnk.app/"
+                githubUrl="https://github.com/dmc0125/multiplayer-game"
+                technologies={[
+                    "Go",
+                    "OAuth 2.0",
+                    "Websockets",
+                    "Typescript",
+                    "Astro",
+                    "React",
+                    "Docker",
+                    "Systemd",
+                    "Nginx",
+                ]}
+            />
+            <Project
                 name={c.projects.chip8.name}
                 description={c.projects.chip8.description}
                 url="https://chip-8.dmnk.app/"
@@ -578,4 +595,3 @@ const links = getLinks(lang);
 </main>
 
 <Footer copyright={c.footer.copyright} links={links} />
-
