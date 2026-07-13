@@ -4,8 +4,9 @@ import Icon from "./Icon.astro";
 
 interface Props {
     lang: ContentLang;
+    showLanguageSwitcher?: boolean;
 }
-const { lang } = Astro.props;
+const { lang, showLanguageSwitcher = true } = Astro.props;
 
 const c = content[lang];
 
@@ -51,32 +52,34 @@ const sections: Section[] = [
             {sections.map((section) => (
                 <li>
                     <a
-                        href={`#${section.id}`}
+                    href={`/#${section.id}`}
                         class="hover:text-teal-600 transition-all"
                     >
                         {section.name}
                     </a>
                 </li>
             ))}
-            <li>
-                <a
-                    href="/"
-                    class={lang == "sk"
-                        ? "text-white"
-                        : "hover:text-white hover:underline"}
-                >
-                    SK
-                </a>
-                /
-                <a
-                    href="/en"
-                    class={lang == "en"
-                        ? "text-white"
-                        : "hover:text-white hover:underline"}
-                >
-                    EN
-                </a>
-            </li>
+            {showLanguageSwitcher && (
+                <li>
+                    <a
+                        href="/"
+                        class={lang == "sk"
+                            ? "text-white"
+                            : "hover:text-white hover:underline"}
+                    >
+                        SK
+                    </a>
+                    /
+                    <a
+                        href="/en"
+                        class={lang == "en"
+                            ? "text-white"
+                            : "hover:text-white hover:underline"}
+                    >
+                        EN
+                    </a>
+                </li>
+            )}
         </ul>
     </nav>
 </header>
@@ -109,25 +112,27 @@ const sections: Section[] = [
 
 <header id="header-mobile" class="sm:hidden sticky top-0 w-full h-16 bg-black z-100 border-b border-black">
     <div class="w-full h-16 px-4 flex items-center justify-end gap-4">
-        <div class="text-gray-400 text-sm leading-none">
-            <a
-                href="/"
-                class={lang == "sk"
-                    ? "text-white"
-                    : "hover:text-white hover:underline"}
-            >
-                SK
-            </a>
-            /
-            <a
-                href="/en"
-                class={lang == "en"
-                    ? "text-white"
-                    : "hover:text-white hover:underline"}
-            >
-                EN
-            </a>
-        </div>
+        {showLanguageSwitcher && (
+            <div class="text-gray-400 text-sm leading-none">
+                <a
+                    href="/"
+                    class={lang == "sk"
+                        ? "text-white"
+                        : "hover:text-white hover:underline"}
+                >
+                    SK
+                </a>
+                /
+                <a
+                    href="/en"
+                    class={lang == "en"
+                        ? "text-white"
+                        : "hover:text-white hover:underline"}
+                >
+                    EN
+                </a>
+            </div>
+        )}
 
         <button
             id="nav-mobile-open"

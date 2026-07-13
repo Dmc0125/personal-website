@@ -3,6 +3,7 @@ import Project from "../components/Project.astro";
 import Header from "../components/Header.astro";
 import Icon from "../components/Icon.astro";
 import Contributions from "./Contributions.astro";
+import Footer from "../components/Footer.astro";
 
 import { content, type ContentLang } from "../content/content";
 import { links as getLinks } from "../content/links";
@@ -576,29 +577,5 @@ const links = getLinks(lang);
     </section>
 </main>
 
-<footer class="w-full px-4 pb-10 pt-6 mt-16 border-t border-gray-800">
-    <div
-        class="w-full max-w-[800px] mx-auto flex gap-4 flex-col sm:flex-row justify-between items-center"
-    >
-        <div class="flex gap-4 items-center">
-            {
-                links.map((link) => (
-                    <a
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-gray-400 hover:text-teal-600 transition-all"
-                        aria-label={link.ariaLabel}
-                    >
-                        <Icon name={link.icon} className="size-6" />
-                    </a>
-                ))
-            }
-        </div>
+<Footer copyright={c.footer.copyright} links={links} />
 
-        <span class="text-gray-400 text-sm">
-            © {new Date().getFullYear()}
-            {c.footer.copyright}
-        </span>
-    </div>
-</footer>

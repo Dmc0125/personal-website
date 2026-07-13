@@ -1,13 +1,14 @@
 ---
 import "../styles/global.css";
-import { content, type ContentLang } from "../content/content";
+import { type ContentLang } from "../content/content";
 
 type Props = {
     lang: ContentLang;
+    title: string;
+    description: string;
+    keywords: string;
 };
-const { lang } = Astro.props;
-
-const c = content[lang];
+const { lang, title, description, keywords } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,12 +17,12 @@ const c = content[lang];
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
-        <meta name="title" content={c.meta.title} />
-        <meta name="description" content={c.meta.description} />
-        <meta name="keywords" content={c.meta.keywords} />
+        <meta name="title" content={title} />
+        <meta name="description" content={description} />
+        <meta name="keywords" content={keywords} />
         <meta name="author" content="Dominik Michal" />
         <meta name="robots" content="index, follow" />
-        <title>{c.meta.title}</title>
+        <title>{title}</title>
 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
